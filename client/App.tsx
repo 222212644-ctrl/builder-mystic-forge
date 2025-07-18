@@ -9,6 +9,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Apply from "./pages/Apply";
 import Status from "./pages/Status";
+import Services from "./pages/Services";
+import Help from "./pages/Help";
+import About from "./pages/About";
+import Statistics from "./pages/Statistics";
 import Placeholder from "./pages/Placeholder";
 import NotFound from "./pages/NotFound";
 
@@ -24,13 +28,10 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/apply" element={<Apply />} />
           <Route path="/status" element={<Status />} />
-          <Route path="/services" element={<Placeholder page="Layanan" />} />
-          <Route path="/help" element={<Placeholder page="Bantuan & FAQ" />} />
-          <Route path="/about" element={<Placeholder page="Tentang Kami" />} />
-          <Route
-            path="/stats"
-            element={<Placeholder page="Statistik Layanan" />}
-          />
+          <Route path="/services" element={<Services />} />
+          <Route path="/help" element={<Help />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/stats" element={<Statistics />} />
           <Route
             path="/services/:type"
             element={<Placeholder page="Detail Layanan" />}
