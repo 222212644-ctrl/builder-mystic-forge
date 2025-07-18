@@ -1,22 +1,5 @@
 import { useState } from "react";
 import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-  LineChart,
-  Line,
-  Area,
-  AreaChart,
-} from "recharts";
-import {
   TrendingUp,
   Users,
   FileText,
@@ -26,9 +9,12 @@ import {
   Download,
   Filter,
   BarChart3,
-  PieChart as PieChartIcon,
   Activity,
   RefreshCw,
+  Award,
+  Building2,
+  ShoppingCart,
+  Factory,
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
@@ -47,53 +33,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Progress } from "@/components/ui/progress";
 
 export default function Statistics() {
   const [selectedPeriod, setSelectedPeriod] = useState("2024");
-  const [chartType, setChartType] = useState("monthly");
-
-  // Mock data for various statistics
-  const monthlyData = [
-    { month: "Jan", izinMasuk: 156, izinSelesai: 142, rata2Hari: 12.5 },
-    { month: "Feb", izinMasuk: 189, izinSelesai: 178, rata2Hari: 11.8 },
-    { month: "Mar", izinMasuk: 234, izinSelesai: 221, rata2Hari: 10.2 },
-    { month: "Apr", izinMasuk: 198, izinSelesai: 201, rata2Hari: 9.8 },
-    { month: "May", izinMasuk: 267, izinSelesai: 245, rata2Hari: 9.1 },
-    { month: "Jun", izinMasuk: 223, izinSelesai: 234, rata2Hari: 8.9 },
-    { month: "Jul", izinMasuk: 289, izinSelesai: 267, rata2Hari: 8.5 },
-    { month: "Aug", izinMasuk: 301, izinSelesai: 289, rata2Hari: 8.2 },
-    { month: "Sep", izinMasuk: 278, izinSelesai: 298, rata2Hari: 7.9 },
-    { month: "Oct", izinMasuk: 245, izinSelesai: 267, rata2Hari: 7.8 },
-    { month: "Nov", izinMasuk: 189, izinSelesai: 201, rata2Hari: 8.1 },
-    { month: "Dec", izinMasuk: 156, izinSelesai: 178, rata2Hari: 8.3 },
-  ];
-
-  const serviceTypeData = [
-    { name: "IMB", value: 1245, color: "#3b82f6" },
-    { name: "SIUP", value: 987, color: "#10b981" },
-    { name: "TDP", value: 654, color: "#f59e0b" },
-    { name: "HO", value: 432, color: "#ef4444" },
-    { name: "IUI", value: 234, color: "#8b5cf6" },
-    { name: "Lainnya", value: 189, color: "#6b7280" },
-  ];
-
-  const satisfactionData = [
-    { kategori: "Sangat Puas", jumlah: 1456, persentase: 67 },
-    { kategori: "Puas", jumlah: 478, persentase: 22 },
-    { kategori: "Cukup", jumlah: 156, persentase: 7 },
-    { kategori: "Kurang", jumlah: 67, persentase: 3 },
-    { kategori: "Sangat Kurang", jumlah: 23, persentase: 1 },
-  ];
-
-  const dailyTrafficData = [
-    { hari: "Sen", pengunjung: 245, permohonan: 34 },
-    { hari: "Sel", pengunjung: 189, permohonan: 28 },
-    { hari: "Rab", pengunjung: 267, permohonan: 42 },
-    { hari: "Kam", pengunjung: 234, permohonan: 38 },
-    { hari: "Jum", pengunjung: 198, permohonan: 31 },
-    { hari: "Sab", pengunjung: 123, permohonan: 15 },
-    { hari: "Min", pengunjung: 89, permohonan: 12 },
-  ];
 
   const keyMetrics = [
     {
@@ -103,6 +46,7 @@ export default function Statistics() {
       trend: "up",
       icon: FileText,
       color: "text-blue-600",
+      bgColor: "bg-blue-100",
     },
     {
       title: "Rata-rata Waktu Proses",
@@ -111,6 +55,7 @@ export default function Statistics() {
       trend: "down",
       icon: Clock,
       color: "text-green-600",
+      bgColor: "bg-green-100",
     },
     {
       title: "Tingkat Penyelesaian",
@@ -119,6 +64,7 @@ export default function Statistics() {
       trend: "up",
       icon: CheckCircle,
       color: "text-emerald-600",
+      bgColor: "bg-emerald-100",
     },
     {
       title: "Kepuasan Masyarakat",
@@ -127,10 +73,103 @@ export default function Statistics() {
       trend: "up",
       icon: Users,
       color: "text-purple-600",
+      bgColor: "bg-purple-100",
     },
   ];
 
-  const COLORS = ["#3b82f6", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6"];
+  const monthlyStats = [
+    { month: "Jan", applications: 156, completed: 142 },
+    { month: "Feb", applications: 189, completed: 178 },
+    { month: "Mar", applications: 234, completed: 221 },
+    { month: "Apr", applications: 198, completed: 201 },
+    { month: "May", applications: 267, completed: 245 },
+    { month: "Jun", applications: 223, completed: 234 },
+    { month: "Jul", applications: 289, completed: 267 },
+    { month: "Aug", applications: 301, completed: 289 },
+    { month: "Sep", applications: 278, completed: 298 },
+    { month: "Oct", applications: 245, completed: 267 },
+    { month: "Nov", applications: 189, completed: 201 },
+    { month: "Dec", applications: 156, completed: 178 },
+  ];
+
+  const serviceTypes = [
+    {
+      name: "Izin Mendirikan Bangunan",
+      count: 1245,
+      percentage: 34.7,
+      icon: Building2,
+      color: "bg-blue-500",
+    },
+    {
+      name: "Surat Izin Usaha Perdagangan",
+      count: 987,
+      percentage: 27.5,
+      icon: ShoppingCart,
+      color: "bg-green-500",
+    },
+    {
+      name: "Tanda Daftar Perusahaan",
+      count: 654,
+      percentage: 18.2,
+      icon: FileText,
+      color: "bg-yellow-500",
+    },
+    {
+      name: "Izin Gangguan",
+      count: 432,
+      percentage: 12.0,
+      icon: Award,
+      color: "bg-red-500",
+    },
+    {
+      name: "Izin Usaha Industri",
+      count: 234,
+      percentage: 6.5,
+      icon: Factory,
+      color: "bg-purple-500",
+    },
+    {
+      name: "Lainnya",
+      count: 37,
+      percentage: 1.1,
+      icon: FileText,
+      color: "bg-gray-500",
+    },
+  ];
+
+  const processingTimes = [
+    { service: "SIUP", target: 7, actual: 6.1, status: "excellent" },
+    { service: "TDP", target: 5, actual: 4.8, status: "excellent" },
+    { service: "HO", target: 10, actual: 9.2, status: "good" },
+    { service: "IMB", target: 14, actual: 12.3, status: "good" },
+    { service: "IUI", target: 15, actual: 16.7, status: "needs_improvement" },
+  ];
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "excellent":
+        return "text-green-600 bg-green-100";
+      case "good":
+        return "text-blue-600 bg-blue-100";
+      case "needs_improvement":
+        return "text-red-600 bg-red-100";
+      default:
+        return "text-gray-600 bg-gray-100";
+    }
+  };
+
+  const getStatusText = (status: string) => {
+    switch (status) {
+      case "excellent":
+        return "Sangat Baik";
+      case "good":
+        return "Baik";
+      case "needs_improvement":
+        return "Perlu Perbaikan";
+      default:
+        return "Normal";
+    }
+  };
 
   return (
     <Layout>
@@ -198,10 +237,7 @@ export default function Statistics() {
                     </div>
                   </div>
                   <div
-                    className={`w-12 h-12 rounded-full bg-opacity-10 flex items-center justify-center ${metric.color.replace(
-                      "text-",
-                      "bg-",
-                    )}`}
+                    className={`w-12 h-12 rounded-full flex items-center justify-center ${metric.bgColor}`}
                   >
                     <metric.icon className={`w-6 h-6 ${metric.color}`} />
                   </div>
@@ -211,167 +247,104 @@ export default function Statistics() {
           ))}
         </div>
 
-        {/* Main Charts */}
-        <div className="grid lg:grid-cols-2 gap-8 mb-8">
-          {/* Monthly Permit Trends */}
-          <Card className="gov-card-shadow">
-            <CardHeader>
-              <CardTitle className="flex items-center">
-                <BarChart3 className="w-5 h-5 mr-2 text-primary" />
-                Tren Bulanan Permohonan Izin
-              </CardTitle>
-              <CardDescription>
-                Perbandingan permohonan masuk vs selesai per bulan
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={monthlyData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="month" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="izinMasuk" fill="#3b82f6" name="Izin Masuk" />
-                  <Bar
-                    dataKey="izinSelesai"
-                    fill="#10b981"
-                    name="Izin Selesai"
-                  />
-                </BarChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
+        {/* Monthly Performance */}
+        <Card className="gov-card-shadow mb-8">
+          <CardHeader>
+            <CardTitle className="flex items-center">
+              <BarChart3 className="w-5 h-5 mr-2 text-primary" />
+              Kinerja Bulanan {selectedPeriod}
+            </CardTitle>
+            <CardDescription>
+              Perbandingan permohonan masuk vs selesai per bulan
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {monthlyStats.map((stat, index) => (
+                <div key={index} className="flex items-center space-x-4">
+                  <div className="w-12 text-sm font-medium">{stat.month}</div>
+                  <div className="flex-1">
+                    <div className="flex justify-between text-sm mb-1">
+                      <span>Masuk: {stat.applications}</span>
+                      <span>Selesai: {stat.completed}</span>
+                    </div>
+                    <div className="relative">
+                      <Progress
+                        value={(stat.completed / stat.applications) * 100}
+                        className="h-2"
+                      />
+                    </div>
+                  </div>
+                  <div className="w-16 text-sm text-muted-foreground">
+                    {((stat.completed / stat.applications) * 100).toFixed(1)}%
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
 
-          {/* Service Type Distribution */}
+        {/* Service Type Distribution and Processing Times */}
+        <div className="grid lg:grid-cols-2 gap-8 mb-8">
+          {/* Service Types */}
           <Card className="gov-card-shadow">
             <CardHeader>
-              <CardTitle className="flex items-center">
-                <PieChartIcon className="w-5 h-5 mr-2 text-primary" />
-                Distribusi Jenis Layanan
-              </CardTitle>
+              <CardTitle>Distribusi Jenis Layanan</CardTitle>
               <CardDescription>
                 Proporsi pengajuan berdasarkan jenis izin
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
-                <PieChart>
-                  <Pie
-                    data={serviceTypeData}
-                    cx="50%"
-                    cy="50%"
-                    labelLine={false}
-                    label={({ name, percent }) =>
-                      `${name} ${(percent * 100).toFixed(0)}%`
-                    }
-                    outerRadius={80}
-                    fill="#8884d8"
-                    dataKey="value"
-                  >
-                    {serviceTypeData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                </PieChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Processing Time Trend */}
-        <Card className="gov-card-shadow mb-8">
-          <CardHeader>
-            <CardTitle className="flex items-center">
-              <Activity className="w-5 h-5 mr-2 text-primary" />
-              Tren Waktu Pemrosesan
-            </CardTitle>
-            <CardDescription>
-              Rata-rata waktu pemrosesan izin dalam hari
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
-              <AreaChart data={monthlyData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="month" />
-                <YAxis />
-                <Tooltip />
-                <Area
-                  type="monotone"
-                  dataKey="rata2Hari"
-                  stroke="#f59e0b"
-                  fill="#f59e0b"
-                  fillOpacity={0.3}
-                  name="Rata-rata Hari"
-                />
-              </AreaChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-
-        {/* Daily Traffic and Satisfaction */}
-        <div className="grid lg:grid-cols-2 gap-8 mb-8">
-          {/* Daily Traffic */}
-          <Card className="gov-card-shadow">
-            <CardHeader>
-              <CardTitle>Aktivitas Harian</CardTitle>
-              <CardDescription>
-                Pengunjung website dan permohonan per hari
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={250}>
-                <LineChart data={dailyTrafficData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="hari" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Line
-                    type="monotone"
-                    dataKey="pengunjung"
-                    stroke="#3b82f6"
-                    name="Pengunjung"
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="permohonan"
-                    stroke="#ef4444"
-                    name="Permohonan"
-                  />
-                </LineChart>
-              </ResponsiveContainer>
+              <div className="space-y-4">
+                {serviceTypes.map((service, index) => (
+                  <div key={index} className="flex items-center space-x-3">
+                    <div
+                      className={`w-4 h-4 rounded-full ${service.color}`}
+                    ></div>
+                    <div className="flex-1">
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="text-sm font-medium">
+                          {service.name}
+                        </span>
+                        <span className="text-sm text-muted-foreground">
+                          {service.count} ({service.percentage}%)
+                        </span>
+                      </div>
+                      <Progress value={service.percentage} className="h-2" />
+                    </div>
+                  </div>
+                ))}
+              </div>
             </CardContent>
           </Card>
 
-          {/* Satisfaction Levels */}
+          {/* Processing Times */}
           <Card className="gov-card-shadow">
             <CardHeader>
-              <CardTitle>Tingkat Kepuasan</CardTitle>
+              <CardTitle>Waktu Pemrosesan</CardTitle>
               <CardDescription>
-                Hasil survei kepuasan masyarakat
+                Perbandingan target vs aktual waktu proses
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {satisfactionData.map((item, index) => (
-                  <div key={index}>
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-sm font-medium">
-                        {item.kategori}
-                      </span>
-                      <span className="text-sm text-muted-foreground">
-                        {item.jumlah} ({item.persentase}%)
-                      </span>
+                {processingTimes.map((item, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-between p-3 bg-muted/50 rounded"
+                  >
+                    <div>
+                      <p className="font-medium">{item.service}</p>
+                      <p className="text-sm text-muted-foreground">
+                        Target: {item.target} hari | Aktual: {item.actual} hari
+                      </p>
                     </div>
-                    <div className="w-full bg-muted rounded-full h-2">
-                      <div
-                        className="bg-primary h-2 rounded-full transition-all duration-300"
-                        style={{ width: `${item.persentase}%` }}
-                      />
-                    </div>
+                    <Badge
+                      className={getStatusColor(item.status)}
+                      variant="secondary"
+                    >
+                      {getStatusText(item.status)}
+                    </Badge>
                   </div>
                 ))}
               </div>
@@ -486,6 +459,38 @@ export default function Statistics() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Performance Insights */}
+        <div className="grid md:grid-cols-3 gap-6 mb-8">
+          <Card className="gov-card-shadow">
+            <CardContent className="p-6 text-center">
+              <TrendingUp className="w-12 h-12 text-green-500 mx-auto mb-3" />
+              <h3 className="font-semibold mb-2">Peningkatan Efisiensi</h3>
+              <p className="text-2xl font-bold text-green-600 mb-1">15%</p>
+              <p className="text-sm text-muted-foreground">
+                Dibanding tahun lalu
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="gov-card-shadow">
+            <CardContent className="p-6 text-center">
+              <Users className="w-12 h-12 text-blue-500 mx-auto mb-3" />
+              <h3 className="font-semibold mb-2">Pengguna Aktif</h3>
+              <p className="text-2xl font-bold text-blue-600 mb-1">1,247</p>
+              <p className="text-sm text-muted-foreground">Per bulan ini</p>
+            </CardContent>
+          </Card>
+
+          <Card className="gov-card-shadow">
+            <CardContent className="p-6 text-center">
+              <Award className="w-12 h-12 text-purple-500 mx-auto mb-3" />
+              <h3 className="font-semibold mb-2">Rating Layanan</h3>
+              <p className="text-2xl font-bold text-purple-600 mb-1">4.7/5</p>
+              <p className="text-sm text-muted-foreground">Dari 2,156 review</p>
+            </CardContent>
+          </Card>
+        </div>
 
         {/* Bottom CTA */}
         <Card className="bg-muted/30">
