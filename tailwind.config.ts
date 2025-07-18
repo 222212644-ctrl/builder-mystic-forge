@@ -57,6 +57,19 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        gov: {
+          red: "hsl(var(--gov-red))",
+          blue: "hsl(var(--gov-blue))",
+          green: "hsl(var(--gov-green))",
+          yellow: "hsl(var(--gov-yellow))",
+          gray: "hsl(var(--gov-gray))",
+        },
+        status: {
+          pending: "hsl(var(--status-pending))",
+          processing: "hsl(var(--status-processing))",
+          approved: "hsl(var(--status-approved))",
+          rejected: "hsl(var(--status-rejected))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
