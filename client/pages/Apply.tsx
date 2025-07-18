@@ -46,13 +46,13 @@ export default function Apply() {
     email: "",
     phone: "",
     address: "",
-    
+
     // Business Info
     businessName: "",
     businessType: "",
     businessAddress: "",
     businessDescription: "",
-    
+
     // Documents
     documents: [],
   });
@@ -88,7 +88,8 @@ export default function Apply() {
     {
       id: "imb",
       title: "Izin Mendirikan Bangunan (IMB)",
-      description: "Permohonan izin untuk mendirikan bangunan baru atau renovasi",
+      description:
+        "Permohonan izin untuk mendirikan bangunan baru atau renovasi",
       estimatedDays: "14 hari kerja",
       fee: "Berbayar",
       requirements: [
@@ -158,7 +159,7 @@ export default function Apply() {
   };
 
   const getSelectedServiceDetails = () => {
-    return services.find(s => s.id === selectedService);
+    return services.find((s) => s.id === selectedService);
   };
 
   return (
@@ -178,7 +179,11 @@ export default function Apply() {
             </Link>
 
             <div className="flex items-center space-x-4">
-              <Button asChild variant="ghost" className="text-white hover:text-white/80">
+              <Button
+                asChild
+                variant="ghost"
+                className="text-white hover:text-white/80"
+              >
                 <Link to="/" className="flex items-center">
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Kembali
@@ -202,8 +207,8 @@ export default function Apply() {
                         currentStep > step.number
                           ? "bg-status-approved text-white"
                           : currentStep === step.number
-                          ? "bg-primary text-white"
-                          : "bg-muted text-muted-foreground"
+                            ? "bg-primary text-white"
+                            : "bg-muted text-muted-foreground"
                       }`}
                     >
                       {currentStep > step.number ? (
@@ -222,7 +227,9 @@ export default function Apply() {
                   {index < steps.length - 1 && (
                     <div
                       className={`flex-1 h-1 mx-4 ${
-                        currentStep > step.number ? "bg-status-approved" : "bg-muted"
+                        currentStep > step.number
+                          ? "bg-status-approved"
+                          : "bg-muted"
                       }`}
                     />
                   )}
@@ -235,7 +242,12 @@ export default function Apply() {
           <Card className="gov-card-shadow">
             <CardHeader>
               <CardTitle className="flex items-center">
-                <steps[currentStep - 1].icon className="w-6 h-6 mr-2 text-primary" />
+                {(() => {
+                  const IconComponent = steps[currentStep - 1].icon;
+                  return (
+                    <IconComponent className="w-6 h-6 mr-2 text-primary" />
+                  );
+                })()}
                 {steps[currentStep - 1].title}
               </CardTitle>
               <CardDescription>
@@ -250,8 +262,8 @@ export default function Apply() {
                   <Alert>
                     <Info className="h-4 w-4" />
                     <AlertDescription>
-                      Pilih jenis layanan perizinan yang sesuai dengan kebutuhan Anda.
-                      Pastikan Anda memahami persyaratan yang diperlukan.
+                      Pilih jenis layanan perizinan yang sesuai dengan kebutuhan
+                      Anda. Pastikan Anda memahami persyaratan yang diperlukan.
                     </AlertDescription>
                   </Alert>
 
@@ -269,9 +281,13 @@ export default function Apply() {
                         <div className="flex items-center justify-between mb-2">
                           <h3 className="font-semibold">{service.title}</h3>
                           <div className="flex items-center space-x-2">
-                            <Badge variant="secondary">{service.estimatedDays}</Badge>
+                            <Badge variant="secondary">
+                              {service.estimatedDays}
+                            </Badge>
                             <Badge
-                              variant={service.fee === "Gratis" ? "default" : "outline"}
+                              variant={
+                                service.fee === "Gratis" ? "default" : "outline"
+                              }
                             >
                               {service.fee}
                             </Badge>
@@ -281,13 +297,21 @@ export default function Apply() {
                           {service.description}
                         </p>
                         <div>
-                          <p className="text-sm font-medium mb-2">Persyaratan:</p>
+                          <p className="text-sm font-medium mb-2">
+                            Persyaratan:
+                          </p>
                           <div className="flex flex-wrap gap-1">
-                            {service.requirements.slice(0, 3).map((req, index) => (
-                              <Badge key={index} variant="outline" className="text-xs">
-                                {req}
-                              </Badge>
-                            ))}
+                            {service.requirements
+                              .slice(0, 3)
+                              .map((req, index) => (
+                                <Badge
+                                  key={index}
+                                  variant="outline"
+                                  className="text-xs"
+                                >
+                                  {req}
+                                </Badge>
+                              ))}
                             {service.requirements.length > 3 && (
                               <Badge variant="outline" className="text-xs">
                                 +{service.requirements.length - 3} lainnya
@@ -307,7 +331,8 @@ export default function Apply() {
                   <Alert>
                     <Info className="h-4 w-4" />
                     <AlertDescription>
-                      Isi data diri Anda dengan lengkap dan benar sesuai dengan dokumen resmi.
+                      Isi data diri Anda dengan lengkap dan benar sesuai dengan
+                      dokumen resmi.
                     </AlertDescription>
                   </Alert>
 
@@ -382,7 +407,8 @@ export default function Apply() {
                   <Alert>
                     <Info className="h-4 w-4" />
                     <AlertDescription>
-                      Lengkapi informasi tentang usaha atau proyek yang akan diajukan perizinannya.
+                      Lengkapi informasi tentang usaha atau proyek yang akan
+                      diajukan perizinannya.
                     </AlertDescription>
                   </Alert>
 
@@ -394,7 +420,10 @@ export default function Apply() {
                         placeholder="Nama lengkap usaha"
                         value={formData.businessName}
                         onChange={(e) =>
-                          setFormData({ ...formData, businessName: e.target.value })
+                          setFormData({
+                            ...formData,
+                            businessName: e.target.value,
+                          })
                         }
                       />
                     </div>
@@ -411,7 +440,9 @@ export default function Apply() {
                           <SelectValue placeholder="Pilih jenis usaha" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="perdagangan">Perdagangan</SelectItem>
+                          <SelectItem value="perdagangan">
+                            Perdagangan
+                          </SelectItem>
                           <SelectItem value="jasa">Jasa</SelectItem>
                           <SelectItem value="industri">Industri</SelectItem>
                           <SelectItem value="konstruksi">Konstruksi</SelectItem>
@@ -423,25 +454,35 @@ export default function Apply() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="businessAddress">Alamat Usaha/Lokasi Proyek *</Label>
+                    <Label htmlFor="businessAddress">
+                      Alamat Usaha/Lokasi Proyek *
+                    </Label>
                     <Textarea
                       id="businessAddress"
                       placeholder="Alamat lengkap lokasi usaha/proyek"
                       value={formData.businessAddress}
                       onChange={(e) =>
-                        setFormData({ ...formData, businessAddress: e.target.value })
+                        setFormData({
+                          ...formData,
+                          businessAddress: e.target.value,
+                        })
                       }
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="businessDescription">Deskripsi Usaha/Proyek *</Label>
+                    <Label htmlFor="businessDescription">
+                      Deskripsi Usaha/Proyek *
+                    </Label>
                     <Textarea
                       id="businessDescription"
                       placeholder="Jelaskan secara detail tentang usaha/proyek yang akan dilakukan"
                       value={formData.businessDescription}
                       onChange={(e) =>
-                        setFormData({ ...formData, businessDescription: e.target.value })
+                        setFormData({
+                          ...formData,
+                          businessDescription: e.target.value,
+                        })
                       }
                     />
                   </div>
@@ -454,41 +495,49 @@ export default function Apply() {
                   <Alert>
                     <AlertCircle className="h-4 w-4" />
                     <AlertDescription>
-                      Unggah semua dokumen yang diperlukan. Pastikan file dalam format PDF atau gambar dengan ukuran maksimal 5MB per file.
+                      Unggah semua dokumen yang diperlukan. Pastikan file dalam
+                      format PDF atau gambar dengan ukuran maksimal 5MB per
+                      file.
                     </AlertDescription>
                   </Alert>
 
                   {selectedService && (
                     <div className="bg-muted/50 p-4 rounded-lg">
                       <h3 className="font-semibold mb-3">
-                        Dokumen yang diperlukan untuk {getSelectedServiceDetails()?.title}:
+                        Dokumen yang diperlukan untuk{" "}
+                        {getSelectedServiceDetails()?.title}:
                       </h3>
                       <div className="grid gap-3">
-                        {getSelectedServiceDetails()?.requirements.map((req, index) => (
-                          <div key={index} className="flex items-center justify-between p-3 bg-background rounded border">
-                            <div className="flex items-center space-x-3">
-                              <FileText className="w-5 h-5 text-primary" />
-                              <span>{req}</span>
+                        {getSelectedServiceDetails()?.requirements.map(
+                          (req, index) => (
+                            <div
+                              key={index}
+                              className="flex items-center justify-between p-3 bg-background rounded border"
+                            >
+                              <div className="flex items-center space-x-3">
+                                <FileText className="w-5 h-5 text-primary" />
+                                <span>{req}</span>
+                              </div>
+                              <Button size="sm" variant="outline">
+                                <Upload className="w-4 h-4 mr-2" />
+                                Upload
+                              </Button>
                             </div>
-                            <Button size="sm" variant="outline">
-                              <Upload className="w-4 h-4 mr-2" />
-                              Upload
-                            </Button>
-                          </div>
-                        ))}
+                          ),
+                        )}
                       </div>
                     </div>
                   )}
 
                   <div className="border-2 border-dashed border-border rounded-lg p-8 text-center">
                     <Upload className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                    <h3 className="font-semibold mb-2">Drag & Drop File Anda</h3>
+                    <h3 className="font-semibold mb-2">
+                      Drag & Drop File Anda
+                    </h3>
                     <p className="text-muted-foreground mb-4">
                       atau klik untuk memilih file
                     </p>
-                    <Button variant="outline">
-                      Pilih File
-                    </Button>
+                    <Button variant="outline">Pilih File</Button>
                     <p className="text-xs text-muted-foreground mt-2">
                       Format: PDF, JPG, PNG. Maksimal 5MB per file.
                     </p>
@@ -497,10 +546,10 @@ export default function Apply() {
                   <div className="flex items-start space-x-2">
                     <Checkbox id="terms" />
                     <Label htmlFor="terms" className="text-sm leading-relaxed">
-                      Saya menyatakan bahwa data dan dokumen yang saya berikan adalah
-                      benar dan dapat dipertanggungjawabkan. Saya bersedia dikenakan
-                      sanksi sesuai peraturan yang berlaku jika terbukti memberikan
-                      keterangan palsu.
+                      Saya menyatakan bahwa data dan dokumen yang saya berikan
+                      adalah benar dan dapat dipertanggungjawabkan. Saya
+                      bersedia dikenakan sanksi sesuai peraturan yang berlaku
+                      jika terbukti memberikan keterangan palsu.
                     </Label>
                   </div>
                 </div>
@@ -528,8 +577,13 @@ export default function Apply() {
                       onClick={nextStep}
                       disabled={
                         (currentStep === 1 && !selectedService) ||
-                        (currentStep === 2 && (!formData.fullName || !formData.nik || !formData.email || !formData.phone)) ||
-                        (currentStep === 3 && (!formData.businessName || !formData.businessType))
+                        (currentStep === 2 &&
+                          (!formData.fullName ||
+                            !formData.nik ||
+                            !formData.email ||
+                            !formData.phone)) ||
+                        (currentStep === 3 &&
+                          (!formData.businessName || !formData.businessType))
                       }
                     >
                       Selanjutnya
