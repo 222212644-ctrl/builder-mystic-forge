@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  Building2,
   ArrowLeft,
   Check,
   FileText,
@@ -14,6 +13,7 @@ import {
   Save,
   Send,
 } from "lucide-react";
+import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -163,37 +163,7 @@ export default function Apply() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="gov-gradient shadow-lg">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
-            <Link to="/" className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
-                <Building2 className="w-6 h-6 text-primary" />
-              </div>
-              <div className="text-white">
-                <h1 className="font-bold text-lg">DPMPTSP</h1>
-                <p className="text-xs opacity-90">Kota Samarinda</p>
-              </div>
-            </Link>
-
-            <div className="flex items-center space-x-4">
-              <Button
-                asChild
-                variant="ghost"
-                className="text-white hover:text-white/80"
-              >
-                <Link to="/" className="flex items-center">
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  Kembali
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
-
+    <Layout>
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           {/* Progress Steps */}
@@ -601,6 +571,6 @@ export default function Apply() {
           </Card>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 }
