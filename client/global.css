@@ -108,6 +108,58 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+  }
+
+  .gov-gradient {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--gov-blue)) 0%,
+      hsl(var(--primary)) 100%
+    );
+  }
+
+  .gov-card-shadow {
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .status-pending {
+    background-color: hsl(var(--status-pending));
+    color: hsl(var(--foreground));
+  }
+
+  .status-processing {
+    background-color: hsl(var(--status-processing));
+    color: hsl(var(--primary-foreground));
+  }
+
+  .status-approved {
+    background-color: hsl(var(--status-approved));
+    color: hsl(var(--primary-foreground));
+  }
+
+  .status-rejected {
+    background-color: hsl(var(--status-rejected));
+    color: hsl(var(--primary-foreground));
+  }
+}
+
+@layer components {
+  .gov-button-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-3 rounded-md font-medium transition-colors;
+  }
+
+  .gov-button-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80 px-6 py-3 rounded-md font-medium transition-colors;
+  }
+
+  .gov-input {
+    @apply w-full px-3 py-2 border border-input bg-background text-foreground rounded-md focus:outline-none focus:ring-2 focus:ring-ring;
+  }
+
+  .gov-card {
+    @apply bg-card text-card-foreground rounded-lg gov-card-shadow p-6;
   }
 }
