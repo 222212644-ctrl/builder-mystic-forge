@@ -18,6 +18,7 @@ export default function Layout({ children, showHero = false }: LayoutProps) {
     { path: "/", label: "Beranda" },
     { path: "/services", label: "Layanan" },
     { path: "/status", label: "Cek Status" },
+    { path: "/complaints", label: "Pengaduan" },
     { path: "/help", label: "Bantuan" },
     { path: "/about", label: "Tentang" },
   ];
