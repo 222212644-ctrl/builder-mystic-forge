@@ -317,6 +317,7 @@ export default function Index() {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onKeyPress={handleKeyPress}
                   className="w-full pl-12 pr-4 py-4 text-lg bg-white text-foreground border-0 rounded-full shadow-lg"
+                  aria-label="Pencarian layanan, NIK, atau nomor permohonan"
                 />
                 <Button
                   onClick={handleSearch}
