@@ -4,6 +4,7 @@ import { Building2, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { AccessibilityWidget } from "@/components/AccessibilityWidget";
+import { SamarindaLogo } from "@/components/SamarindaLogo";
 
 interface LayoutProps {
   children: React.ReactNode;
