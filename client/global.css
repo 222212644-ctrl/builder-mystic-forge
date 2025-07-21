@@ -211,6 +211,23 @@
   .gov-card {
     @apply bg-card text-card-foreground rounded-lg gov-card-shadow p-6;
   }
+
+  /* Dark mode specific overrides */
+  .dark .gov-button-primary {
+    @apply text-white;
+  }
+
+  .dark .gov-button-secondary {
+    @apply bg-secondary text-secondary-foreground;
+  }
+
+  .dark .gov-input {
+    @apply bg-input text-foreground border-border;
+  }
+
+  .dark .gov-card {
+    @apply bg-card text-card-foreground;
+  }
 }
 
 @layer utilities {
