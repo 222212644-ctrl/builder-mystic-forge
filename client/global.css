@@ -155,22 +155,43 @@
 
   .status-pending {
     background-color: hsl(var(--status-pending));
-    color: hsl(var(--foreground));
+    color: white;
   }
 
   .status-processing {
     background-color: hsl(var(--status-processing));
-    color: hsl(var(--primary-foreground));
+    color: white;
   }
 
   .status-approved {
     background-color: hsl(var(--status-approved));
-    color: hsl(var(--primary-foreground));
+    color: white;
   }
 
   .status-rejected {
     background-color: hsl(var(--status-rejected));
-    color: hsl(var(--primary-foreground));
+    color: white;
+  }
+
+  /* Dark mode specific status colors */
+  .dark .status-pending {
+    background-color: hsl(var(--status-pending));
+    color: white;
+  }
+
+  .dark .status-processing {
+    background-color: hsl(var(--status-processing));
+    color: white;
+  }
+
+  .dark .status-approved {
+    background-color: hsl(var(--status-approved));
+    color: white;
+  }
+
+  .dark .status-rejected {
+    background-color: hsl(var(--status-rejected));
+    color: white;
   }
 }
 
