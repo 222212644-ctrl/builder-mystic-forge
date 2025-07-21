@@ -138,8 +138,8 @@ export default function Index() {
     // Check if it's a NIK (16 digits)
     if (/^\d{16}$/.test(query)) {
       // Navigate to status page with NIK
-      localStorage.setItem('dpmptsp_user_nik', query);
-      navigate('/status');
+      localStorage.setItem("dpmptsp_user_nik", query);
+      navigate("/status");
       toast.success("Mengarahkan ke halaman cek status dengan NIK Anda");
       return;
     }
@@ -147,35 +147,42 @@ export default function Index() {
     // Check if it's an application number (format: XXX2024XXXXXX)
     if (/^[A-Z]{2,4}\d{4}\d{6}$/.test(query.toUpperCase())) {
       // Navigate to status page with application number
-      navigate('/status');
-      toast.success("Mengarahkan ke halaman cek status dengan nomor permohonan");
+      navigate("/status");
+      toast.success(
+        "Mengarahkan ke halaman cek status dengan nomor permohonan",
+      );
       return;
     }
 
     // Search for services
-    const matchingServices = services.filter(service =>
-      service.title.toLowerCase().includes(query.toLowerCase()) ||
-      service.description.toLowerCase().includes(query.toLowerCase())
+    const matchingServices = services.filter(
+      (service) =>
+        service.title.toLowerCase().includes(query.toLowerCase()) ||
+        service.description.toLowerCase().includes(query.toLowerCase()),
     );
 
     if (matchingServices.length > 0) {
       // Navigate to services page
-      navigate('/services');
+      navigate("/services");
       toast.success(`Ditemukan ${matchingServices.length} layanan yang sesuai`);
     } else {
       // General search - show help with suggestion
-      toast.info("Tidak ditemukan hasil yang sesuai. Mengalihkan ke halaman bantuan...", {
-        description: "Coba gunakan kata kunci lain atau hubungi customer service"
-      });
+      toast.info(
+        "Tidak ditemukan hasil yang sesuai. Mengalihkan ke halaman bantuan...",
+        {
+          description:
+            "Coba gunakan kata kunci lain atau hubungi customer service",
+        },
+      );
       setTimeout(() => {
-        navigate('/help');
+        navigate("/help");
       }, 2000);
     }
   };
 
   // Handle Enter key press
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleSearch();
     }
   };
@@ -311,9 +318,9 @@ export default function Index() {
           className="absolute inset-0 z-0"
           style={{
             backgroundImage: `url('https://images.pexels.com/photos/19389365/pexels-photo-19389365.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat'
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
           }}
         ></div>
 
@@ -449,7 +456,7 @@ export default function Index() {
                   </div>
                   <Button
                     className="w-full group"
-                    onClick={() => navigate('/apply')}
+                    onClick={() => navigate("/apply")}
                   >
                     Ajukan Sekarang
                     <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />

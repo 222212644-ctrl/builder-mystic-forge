@@ -1,22 +1,34 @@
-import React, { useState } from 'react';
-import { Settings, X, Moon, Sun, Monitor, Type, Eye, Volume2, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useTheme } from './ThemeProvider';
-import { Badge } from '@/components/ui/badge';
-import { Slider } from '@/components/ui/slider';
+import React, { useState } from "react";
+import {
+  Settings,
+  X,
+  Moon,
+  Sun,
+  Monitor,
+  Type,
+  Eye,
+  Volume2,
+  ZoomIn,
+  ZoomOut,
+  RotateCcw,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useTheme } from "./ThemeProvider";
+import { Badge } from "@/components/ui/badge";
+import { Slider } from "@/components/ui/slider";
 
 export function AccessibilityWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [fontSize, setFontSize] = useState(100);
   const [contrast, setContrast] = useState(100);
-  const [announcement, setAnnouncement] = useState('');
+  const [announcement, setAnnouncement] = useState("");
   const { theme, setTheme, actualTheme } = useTheme();
 
   // Announce changes to screen readers
   const announce = (message: string) => {
     setAnnouncement(message);
-    setTimeout(() => setAnnouncement(''), 1000);
+    setTimeout(() => setAnnouncement(""), 1000);
   };
 
   // Apply font size changes
@@ -29,7 +41,8 @@ export function AccessibilityWidget() {
 
   // Apply contrast changes
   React.useEffect(() => {
-    document.documentElement.style.filter = contrast !== 100 ? `contrast(${contrast}%)` : '';
+    document.documentElement.style.filter =
+      contrast !== 100 ? `contrast(${contrast}%)` : "";
     if (contrast !== 100) {
       announce(`Kontras diubah ke ${contrast}%`);
     }
@@ -37,32 +50,34 @@ export function AccessibilityWidget() {
 
   // Announce theme changes
   React.useEffect(() => {
-    announce(`Tema berubah ke mode ${actualTheme === 'dark' ? 'gelap' : 'terang'}`);
+    announce(
+      `Tema berubah ke mode ${actualTheme === "dark" ? "gelap" : "terang"}`,
+    );
   }, [actualTheme]);
 
   const resetSettings = () => {
     setFontSize(100);
     setContrast(100);
-    document.documentElement.style.fontSize = '';
-    document.documentElement.style.filter = '';
+    document.documentElement.style.fontSize = "";
+    document.documentElement.style.filter = "";
   };
 
   // Keyboard shortcuts
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       // Alt + A to toggle accessibility widget
-      if (e.altKey && e.key.toLowerCase() === 'a') {
+      if (e.altKey && e.key.toLowerCase() === "a") {
         e.preventDefault();
         setIsOpen(!isOpen);
       }
       // Escape to close widget
-      if (e.key === 'Escape' && isOpen) {
+      if (e.key === "Escape" && isOpen) {
         setIsOpen(false);
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, [isOpen]);
 
   return (
@@ -82,7 +97,11 @@ export function AccessibilityWidget() {
         <Button
           onClick={() => setIsOpen(!isOpen)}
           className="h-12 w-12 rounded-full shadow-lg bg-primary hover:bg-primary/90 text-primary-foreground"
-          aria-label={isOpen ? "Tutup pengaturan aksesibilitas" : "Buka pengaturan aksesibilitas"}
+          aria-label={
+            isOpen
+              ? "Tutup pengaturan aksesibilitas"
+              : "Buka pengaturan aksesibilitas"
+          }
           aria-expanded={isOpen}
         >
           {isOpen ? (
@@ -112,9 +131,9 @@ export function AccessibilityWidget() {
                 </h4>
                 <div className="grid grid-cols-3 gap-2">
                   <Button
-                    variant={theme === 'light' ? 'default' : 'outline'}
+                    variant={theme === "light" ? "default" : "outline"}
                     size="sm"
-                    onClick={() => setTheme('light')}
+                    onClick={() => setTheme("light")}
                     className="flex flex-col items-center p-3 h-auto"
                     aria-label="Mode terang"
                   >
@@ -122,9 +141,9 @@ export function AccessibilityWidget() {
                     <span className="text-xs">Terang</span>
                   </Button>
                   <Button
-                    variant={theme === 'dark' ? 'default' : 'outline'}
+                    variant={theme === "dark" ? "default" : "outline"}
                     size="sm"
-                    onClick={() => setTheme('dark')}
+                    onClick={() => setTheme("dark")}
                     className="flex flex-col items-center p-3 h-auto"
                     aria-label="Mode gelap"
                   >
@@ -132,9 +151,9 @@ export function AccessibilityWidget() {
                     <span className="text-xs">Gelap</span>
                   </Button>
                   <Button
-                    variant={theme === 'system' ? 'default' : 'outline'}
+                    variant={theme === "system" ? "default" : "outline"}
                     size="sm"
-                    onClick={() => setTheme('system')}
+                    onClick={() => setTheme("system")}
                     className="flex flex-col items-center p-3 h-auto"
                     aria-label="Mengikuti sistem"
                   >
@@ -143,7 +162,7 @@ export function AccessibilityWidget() {
                   </Button>
                 </div>
                 <p className="text-xs text-muted-foreground mt-2">
-                  Aktif: {actualTheme === 'dark' ? 'Gelap' : 'Terang'}
+                  Aktif: {actualTheme === "dark" ? "Gelap" : "Terang"}
                 </p>
               </div>
 
@@ -239,9 +258,12 @@ export function AccessibilityWidget() {
 
               {/* Keyboard Shortcuts */}
               <div className="text-xs text-muted-foreground bg-muted/30 p-3 rounded">
-                <strong>Shortcut:</strong><br />
-                Alt + A = Buka widget ini<br />
-                Tab = Navigasi elemen<br />
+                <strong>Shortcut:</strong>
+                <br />
+                Alt + A = Buka widget ini
+                <br />
+                Tab = Navigasi elemen
+                <br />
                 Esc = Tutup menu
               </div>
             </CardContent>

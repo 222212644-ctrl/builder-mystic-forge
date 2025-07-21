@@ -32,19 +32,19 @@ export default function Layout({ children, showHero = false }: LayoutProps) {
   const handleSkipToContent = (e: React.MouseEvent) => {
     e.preventDefault();
     mainContentRef.current?.focus();
-    mainContentRef.current?.scrollIntoView({ behavior: 'smooth' });
+    mainContentRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   // Close mobile menu on escape key
   useEffect(() => {
     const handleEscapeKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isMenuOpen) {
+      if (e.key === "Escape" && isMenuOpen) {
         setIsMenuOpen(false);
       }
     };
 
-    document.addEventListener('keydown', handleEscapeKey);
-    return () => document.removeEventListener('keydown', handleEscapeKey);
+    document.addEventListener("keydown", handleEscapeKey);
+    return () => document.removeEventListener("keydown", handleEscapeKey);
   }, [isMenuOpen]);
 
   return (
@@ -59,7 +59,10 @@ export default function Layout({ children, showHero = false }: LayoutProps) {
         Langsung ke konten utama
       </a>
       {/* Header/Navigation */}
-      <header className="sticky top-0 z-50 gov-gradient shadow-lg" role="banner">
+      <header
+        className="sticky top-0 z-50 gov-gradient shadow-lg"
+        role="banner"
+      >
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
@@ -78,7 +81,11 @@ export default function Layout({ children, showHero = false }: LayoutProps) {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-6" role="navigation" aria-label="Navigasi utama">
+            <nav
+              className="hidden md:flex items-center space-x-6"
+              role="navigation"
+              aria-label="Navigasi utama"
+            >
               {navItems.map((item) => (
                 <Link
                   key={item.path}
@@ -158,7 +165,10 @@ export default function Layout({ children, showHero = false }: LayoutProps) {
       </main>
 
       {/* Footer */}
-      <footer className="bg-foreground text-background py-12" role="contentinfo">
+      <footer
+        className="bg-foreground text-background py-12"
+        role="contentinfo"
+      >
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
