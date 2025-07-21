@@ -413,7 +413,10 @@ export default function Index() {
                       </div>
                     </div>
                   </div>
-                  <Button className="w-full group">
+                  <Button
+                    className="w-full group"
+                    onClick={() => navigate('/apply')}
+                  >
                     Ajukan Sekarang
                     <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Button>
