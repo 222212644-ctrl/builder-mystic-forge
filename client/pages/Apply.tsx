@@ -41,6 +41,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 export default function Apply() {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedService, setSelectedService] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [formData, setFormData] = useState({
     // Personal Info
     fullName: "",
