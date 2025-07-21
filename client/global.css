@@ -395,4 +395,35 @@
     outline: 2px solid hsl(var(--ring));
     outline-offset: 2px;
   }
+
+  /* Dark mode specific focus improvements */
+  .dark button:focus-visible,
+  .dark input:focus-visible,
+  .dark select:focus-visible,
+  .dark textarea:focus-visible,
+  .dark a:focus-visible {
+    outline: 2px solid hsl(214 65% 65%);
+    outline-offset: 2px;
+  }
+
+  /* Better shadow for dark mode */
+  .dark .gov-card-shadow {
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.4),
+      0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Ensure consistent text colors across all elements */
+  .dark * {
+    border-color: hsl(var(--border));
+  }
+
+  .dark .border-border {
+    border-color: hsl(var(--border)) !important;
+  }
+
+  .dark .bg-background {
+    background-color: hsl(var(--background)) !important;
+    color: hsl(var(--foreground)) !important;
+  }
 }
