@@ -301,7 +301,15 @@ export default function Index() {
       </header>
 
       {/* Hero Section */}
-      <section className="gov-gradient text-white py-16" role="banner" aria-labelledby="hero-title">
+      <section
+        className="relative text-white py-16 overflow-hidden"
+        role="banner"
+        aria-labelledby="hero-title"
+        style={{
+          background: `linear-gradient(135deg, rgba(30, 64, 175, 0.9) 0%, rgba(59, 130, 246, 0.8) 100%),
+                      url('https://images.pexels.com/photos/19389365/pexels-photo-19389365.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop') center/cover`,
+        }}
+      >
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 id="hero-title" className="text-4xl md:text-6xl font-bold mb-6">
