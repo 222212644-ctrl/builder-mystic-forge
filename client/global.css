@@ -74,22 +74,22 @@
     --popover: 222 16% 15%;
     --popover-foreground: 0 0% 95%;
 
-    /* Softer primary blue for dark mode */
-    --primary: 214 65% 65%;
-    --primary-foreground: 222 16% 12%;
+    /* Dark primary blue for dark mode - dark text on light backgrounds */
+    --primary: 214 75% 45%;
+    --primary-foreground: 0 0% 98%;
 
-    /* Warmer secondary colors */
-    --secondary: 222 16% 18%;
-    --secondary-foreground: 0 0% 88%;
+    /* Dark secondary colors - ensure dark text on light backgrounds */
+    --secondary: 0 0% 85%;
+    --secondary-foreground: 222 16% 15%;
 
     --muted: 222 16% 18%;
     --muted-foreground: 215 15% 70%;
 
-    --accent: 222 16% 20%;
-    --accent-foreground: 0 0% 95%;
+    --accent: 0 0% 80%;
+    --accent-foreground: 222 16% 15%;
 
-    /* Warmer destructive color */
-    --destructive: 0 65% 55%;
+    /* Dark destructive color */
+    --destructive: 0 75% 45%;
     --destructive-foreground: 0 0% 98%;
 
     /* Softer borders */
