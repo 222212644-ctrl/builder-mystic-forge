@@ -21,33 +21,35 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster position="top-right" />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/apply" element={<Apply />} />
-          <Route path="/status" element={<Status />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/complaints" element={<Complaints />} />
-          <Route path="/help" element={<Help />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/stats" element={<Statistics />} />
-          <Route
-            path="/services/:type"
-            element={<Placeholder page="Detail Layanan" />}
-          />
-          <Route path="/news" element={<Placeholder page="Berita" />} />
-          <Route
-            path="/regulations"
-            element={<Placeholder page="Peraturan" />}
-          />
-          <Route path="/faq" element={<Placeholder page="FAQ" />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
+    <ThemeProvider>
+      <TooltipProvider>
+        <Toaster position="top-right" />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/apply" element={<Apply />} />
+            <Route path="/status" element={<Status />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/complaints" element={<Complaints />} />
+            <Route path="/help" element={<Help />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/stats" element={<Statistics />} />
+            <Route
+              path="/services/:type"
+              element={<Placeholder page="Detail Layanan" />}
+            />
+            <Route path="/news" element={<Placeholder page="Berita" />} />
+            <Route
+              path="/regulations"
+              element={<Placeholder page="Peraturan" />}
+            />
+            <Route path="/faq" element={<Placeholder page="FAQ" />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
 
