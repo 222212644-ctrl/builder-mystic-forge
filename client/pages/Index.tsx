@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import {
@@ -37,7 +37,9 @@ import { Badge } from "@/components/ui/badge";
 export default function Index() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [scrollY, setScrollY] = useState(0);
   const navigate = useNavigate();
+  const backgroundRef = useRef<HTMLDivElement>(null);
 
   // Mock data for statistics
   const stats = [
@@ -187,6 +189,23 @@ export default function Index() {
     }
   };
 
+  // Parallax scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolled = window.scrollY;
+      setScrollY(scrolled);
+
+      // Apply parallax effect to background
+      if (backgroundRef.current) {
+        const parallaxSpeed = 0.5;
+        backgroundRef.current.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header/Navigation */}
@@ -313,35 +332,36 @@ export default function Index() {
         role="banner"
         aria-labelledby="hero-title"
       >
-        {/* Background Image */}
+        {/* Background Image with Parallax */}
         <div
-          className="absolute inset-0 z-0"
+          ref={backgroundRef}
+          className="absolute inset-0 z-0 scale-110"
           style={{
             backgroundImage: `url('https://images.pexels.com/photos/19389365/pexels-photo-19389365.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop')`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
+            willChange: 'transform'
           }}
         ></div>
 
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 z-10 bg-gradient-to-br from-blue-900/90 via-blue-800/85 to-blue-700/80"></div>
-
-        {/* Decorative Elements */}
-        <div className="absolute inset-0 z-10">
-          <div className="absolute top-10 left-10 w-32 h-32 bg-yellow-400/10 rounded-full blur-xl animate-pulse"></div>
-          <div className="absolute bottom-10 right-10 w-48 h-48 bg-blue-400/10 rounded-full blur-2xl animate-pulse delay-1000"></div>
-          <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-white/5 rounded-full blur-lg animate-pulse delay-500"></div>
-        </div>
+        {/* Subtle overlay for text readability */}
+        <div className="absolute inset-0 z-10 bg-black/20"></div>
 
         {/* Content */}
         <div className="relative z-20 container mx-auto px-4">
+          {/* Text shadow for better readability */}
+          <style jsx>{`
+            .hero-text {
+              text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            }
+          `}</style>
           <div className="max-w-4xl mx-auto text-center">
-            <h1 id="hero-title" className="text-4xl md:text-6xl font-bold mb-6">
+            <h1 id="hero-title" className="text-4xl md:text-6xl font-bold mb-6 hero-text">
               Layanan Perizinan
               <span className="block text-gov-yellow">Terpadu Online</span>
             </h1>
-            <p className="text-xl md:text-2xl mb-8 opacity-90">
+            <p className="text-xl md:text-2xl mb-8 opacity-90 hero-text">
               Sistem Pelayanan Terpadu Satu Pintu Kota Samarinda yang modern,
               cepat, dan transparan
             </p>
