@@ -7,16 +7,20 @@ import {
   FileText,
   Building2,
   ShoppingCart,
-  Factory,
-  Home,
+  Heart,
+  GraduationCap,
   Users,
   Truck,
-  Zap,
+  Megaphone,
+  MapPin,
   ChevronRight,
   Download,
   Info,
   CheckCircle,
   AlertCircle,
+  Star,
+  Building,
+  Store,
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
@@ -45,22 +49,149 @@ export default function Services() {
 
   const serviceCategories = [
     { id: "all", name: "Semua Layanan", icon: FileText },
-    { id: "building", name: "Perizinan Bangunan", icon: Building2 },
-    { id: "business", name: "Perizinan Usaha", icon: ShoppingCart },
-    { id: "industry", name: "Perizinan Industri", icon: Factory },
-    { id: "residential", name: "Perizinan Perumahan", icon: Home },
-    { id: "social", name: "Perizinan Sosial", icon: Users },
-    { id: "transport", name: "Perizinan Transportasi", icon: Truck },
-    { id: "energy", name: "Perizinan Energi", icon: Zap },
+    { id: "perdagangan", name: "Perdagangan", icon: ShoppingCart },
+    { id: "kesehatan", name: "Kesehatan", icon: Heart },
+    { id: "pekerjaan_umum", name: "Pekerjaan Umum & Penataan Ruang", icon: Building2 },
+    { id: "pendidikan", name: "Pendidikan", icon: GraduationCap },
+    { id: "sosial", name: "Sosial", icon: Users },
+    { id: "simbg", name: "Manajemen Bangunan Gedung", icon: Building },
+    { id: "reklame", name: "Izin Reklame", icon: Megaphone },
   ];
 
+  // Updated services based on actual DPMPTSP Samarinda website
   const services = [
+    // Perdagangan
+    {
+      id: "siup",
+      title: "Surat Izin Usaha Perdagangan (SIUP)",
+      description: "Izin untuk menjalankan kegiatan usaha perdagangan barang dan jasa di wilayah Kota Samarinda",
+      category: "perdagangan",
+      duration: "7 hari kerja",
+      fee: "Gratis",
+      difficulty: "Mudah",
+      requirements: [
+        "KTP Penanggung Jawab",
+        "Akta Pendirian Perusahaan",
+        "NPWP Perusahaan",
+        "Domisili Usaha",
+        "Pas Foto 4x6",
+        "Surat Keterangan Modal"
+      ],
+      process: [
+        "Pendaftaran Online SIPO",
+        "Verifikasi Dokumen",
+        "Pemeriksaan Data",
+        "Penerbitan SIUP"
+      ],
+      popular: true,
+    },
+    {
+      id: "tdp",
+      title: "Tanda Daftar Perusahaan (TDP)",
+      description: "Pendaftaran perusahaan untuk legalitas usaha dan pencatatan dalam database resmi",
+      category: "perdagangan",
+      duration: "5 hari kerja",
+      fee: "Berbayar",
+      difficulty: "Mudah",
+      requirements: [
+        "Akta Pendirian Perusahaan",
+        "SK Pengesahan Kemenkumham",
+        "NPWP Perusahaan",
+        "KTP Pengurus",
+        "Domisili Perusahaan",
+        "SIUP (jika ada)"
+      ],
+      process: [
+        "Pendaftaran Online SIPO",
+        "Verifikasi Berkas",
+        "Validasi Data",
+        "Penerbitan TDP"
+      ],
+      popular: true,
+    },
+    {
+      id: "iutm",
+      title: "Izin Usaha Toko Modern (IUTM)",
+      description: "Izin untuk pendirian dan operasional toko modern/minimarket/waralaba retail",
+      category: "perdagangan",
+      duration: "14 hari kerja",
+      fee: "Berbayar",
+      difficulty: "Sedang",
+      requirements: [
+        "SIUP",
+        "TDP",
+        "IMB",
+        "Rekomendasi Perdagangan",
+        "Studi Kelayakan Sosial Ekonomi",
+        "Hasil Sosialisasi Masyarakat"
+      ],
+      process: [
+        "Sosialisasi ke Masyarakat",
+        "Pendaftaran Online SIPO",
+        "Verifikasi Kelayakan",
+        "Survei Dampak Sosial Ekonomi",
+        "Penerbitan Izin"
+      ],
+      popular: false,
+    },
+
+    // Kesehatan
+    {
+      id: "iopk",
+      title: "Izin Operasional Puskesmas Keliling",
+      description: "Izin untuk mengoperasikan fasilitas kesehatan bergerak/puskesmas keliling",
+      category: "kesehatan",
+      duration: "10 hari kerja",
+      fee: "Gratis",
+      difficulty: "Sedang",
+      requirements: [
+        "Permohonan Tertulis",
+        "Akta Pendirian/Izin Yayasan",
+        "NPWP",
+        "Rekomendasi Dinas Kesehatan",
+        "Daftar Peralatan Medis",
+        "Daftar Tenaga Kesehatan"
+      ],
+      process: [
+        "Pendaftaran Online SIPO",
+        "Verifikasi Administrasi",
+        "Survei Lokasi",
+        "Evaluasi Kelayakan",
+        "Penerbitan Izin"
+      ],
+      popular: false,
+    },
+    {
+      id: "ik3",
+      title: "Izin Kerja Tenaga Kesehatan (IK3)",
+      description: "Izin praktik untuk tenaga kesehatan yang bekerja di fasilitas kesehatan",
+      category: "kesehatan",
+      duration: "7 hari kerja",
+      fee: "Gratis",
+      difficulty: "Mudah",
+      requirements: [
+        "KTP",
+        "Ijazah Pendidikan Kesehatan",
+        "STR (Surat Tanda Registrasi)",
+        "Surat Rekomendasi Organisasi Profesi",
+        "Surat Pernyataan Sehat",
+        "Pas Foto 4x6"
+      ],
+      process: [
+        "Pendaftaran Online SIPO",
+        "Verifikasi Dokumen",
+        "Validasi STR",
+        "Penerbitan IK3"
+      ],
+      popular: true,
+    },
+
+    // Pekerjaan Umum & Penataan Ruang
     {
       id: "imb",
       title: "Izin Mendirikan Bangunan (IMB)",
-      description:
-        "Permohonan izin untuk mendirikan bangunan baru atau renovasi bangunan existing",
-      category: "building",
+      description: "Izin untuk mendirikan, mengubah, memperluas, mengurangi dan/atau merawat bangunan gedung",
+      category: "pekerjaan_umum",
       duration: "14 hari kerja",
       fee: "Berbayar",
       difficulty: "Sedang",
@@ -72,224 +203,218 @@ export default function Services() {
         "Gambar Potongan",
         "Gambar Situasi",
         "Perhitungan Struktur",
-        "SPPL (Surat Pernyataan Pengelolaan Lingkungan)",
+        "SPPL (Surat Pernyataan Pengelolaan Lingkungan)"
       ],
       process: [
-        "Pendaftaran Online",
+        "Pendaftaran Online SIPO",
         "Verifikasi Berkas",
         "Survei Lapangan",
         "Pemeriksaan Teknis",
-        "Penerbitan Izin",
+        "Penerbitan IMB"
       ],
       popular: true,
     },
     {
-      id: "siup",
-      title: "Surat Izin Usaha Perdagangan (SIUP)",
-      description:
-        "Izin untuk menjalankan kegiatan usaha perdagangan barang dan jasa",
-      category: "business",
-      duration: "7 hari kerja",
-      fee: "Gratis",
-      difficulty: "Mudah",
-      requirements: [
-        "KTP Penanggung Jawab",
-        "Akta Pendirian Perusahaan",
-        "NPWP Perusahaan",
-        "Domisili Usaha",
-        "Pas Foto 4x6",
-        "Surat Keterangan Modal",
-      ],
-      process: [
-        "Pendaftaran Online",
-        "Verifikasi Dokumen",
-        "Pemeriksaan Data",
-        "Penerbitan SIUP",
-      ],
-      popular: true,
-    },
-    {
-      id: "tdp",
-      title: "Tanda Daftar Perusahaan (TDP)",
-      description:
-        "Pendaftaran perusahaan untuk legalitas usaha dan pencatatan dalam database resmi",
-      category: "business",
-      duration: "5 hari kerja",
-      fee: "Berbayar",
-      difficulty: "Mudah",
-      requirements: [
-        "Akta Pendirian Perusahaan",
-        "SK Pengesahan Kemenkumham",
-        "NPWP Perusahaan",
-        "KTP Pengurus",
-        "Domisili Perusahaan",
-        "SIUP (jika ada)",
-      ],
-      process: [
-        "Pendaftaran Online",
-        "Verifikasi Berkas",
-        "Validasi Data",
-        "Penerbitan TDP",
-      ],
-      popular: false,
-    },
-    {
-      id: "ho",
-      title: "Izin Gangguan (HO)",
-      description:
-        "Izin tempat usaha yang berpotensi menimbulkan gangguan lingkungan",
-      category: "business",
-      duration: "10 hari kerja",
-      fee: "Berbayar",
-      difficulty: "Sedang",
-      requirements: [
-        "KTP Pemohon",
-        "SIUP",
-        "TDP",
-        "Surat Keterangan Domisili",
-        "Denah Lokasi",
-        "Rekomendasi Lingkungan",
-        "AMDAL (jika diperlukan)",
-      ],
-      process: [
-        "Pendaftaran Online",
-        "Verifikasi Berkas",
-        "Survei Lapangan",
-        "Konsultasi Publik",
-        "Penerbitan Izin",
-      ],
-      popular: true,
-    },
-    {
-      id: "iui",
-      title: "Izin Usaha Industri (IUI)",
-      description: "Izin untuk menjalankan kegiatan usaha industri pengolahan",
-      category: "industry",
-      duration: "15 hari kerja",
+      id: "ipb",
+      title: "Izin Pembuangan Air Limbah",
+      description: "Izin untuk membuang air limbah ke lingkungan dengan standar baku mutu yang ditetapkan",
+      category: "pekerjaan_umum",
+      duration: "21 hari kerja",
       fee: "Berbayar",
       difficulty: "Sulit",
       requirements: [
-        "Akta Pendirian Perusahaan",
-        "NPWP Perusahaan",
-        "Rencana Teknis Industri",
+        "Permohonan Tertulis",
         "AMDAL/UKL-UPL",
+        "Rencana Teknis Pengolahan Limbah",
+        "Data Kualitas Air Limbah",
         "Izin Lokasi",
-        "IMB Pabrik",
+        "Rekomendasi Dinas Lingkungan Hidup"
       ],
       process: [
         "Konsultasi Pra-Pendaftaran",
-        "Pendaftaran Online",
+        "Pendaftaran Online SIPO",
         "Verifikasi Teknis",
+        "Uji Lab Air Limbah",
         "Survei Lapangan",
-        "Pemeriksaan AMDAL",
-        "Penerbitan Izin",
-      ],
-      popular: false,
-    },
-    {
-      id: "iul",
-      title: "Izin Usaha Lingkungan (IUL)",
-      description: "Izin untuk kegiatan yang berdampak pada lingkungan",
-      category: "industry",
-      duration: "20 hari kerja",
-      fee: "Berbayar",
-      difficulty: "Sulit",
-      requirements: [
-        "Dokumen AMDAL",
-        "RKL-RPL",
-        "Izin Lokasi",
-        "NPWP",
-        "Akta Perusahaan",
-        "Studi Kelayakan",
-      ],
-      process: [
-        "Penyusunan AMDAL",
-        "Konsultasi Publik",
-        "Review Komisi AMDAL",
-        "Pendaftaran Online",
-        "Evaluasi Teknis",
-        "Penerbitan Izin",
+        "Penerbitan Izin"
       ],
       popular: false,
     },
     {
       id: "ipp",
-      title: "Izin Pemanfaatan Parkir (IPP)",
-      description: "Izin untuk pengelolaan dan pemanfaatan lahan parkir",
-      category: "transport",
-      duration: "7 hari kerja",
-      fee: "Berbayar",
-      difficulty: "Mudah",
-      requirements: [
-        "KTP Pengelola",
-        "Surat Tanah/Sewa",
-        "Denah Parkir",
-        "Rekomendasi Kepolisian",
-        "NPWP",
-      ],
-      process: [
-        "Pendaftaran Online",
-        "Verifikasi Lokasi",
-        "Koordinasi Dinas Terkait",
-        "Penerbitan Izin",
-      ],
-      popular: false,
-    },
-    {
-      id: "iutm",
-      title: "Izin Usaha Toko Modern (IUTM)",
-      description:
-        "Izin untuk pendirian dan operasional toko modern/minimarket",
-      category: "business",
+      title: "Izin Penimbunan BBM",
+      description: "Izin untuk menyimpan dan menimbun bahan bakar minyak dalam jumlah tertentu",
+      category: "pekerjaan_umum",
       duration: "14 hari kerja",
       fee: "Berbayar",
       difficulty: "Sedang",
       requirements: [
-        "SIUP",
+        "KTP Penanggung Jawab",
+        "SIUP Bidang Energi",
         "TDP",
-        "IMB",
-        "Rekomendasi Perdagangan",
-        "Studi Kelayakan",
-        "Sosialisasi Masyarakat",
+        "Izin Lokasi",
+        "Analisis Dampak Lalu Lintas",
+        "Sertifikat Keselamatan Kerja"
       ],
       process: [
-        "Sosialisasi ke Masyarakat",
-        "Pendaftaran Online",
-        "Verifikasi Kelayakan",
-        "Survei Dampak",
-        "Penerbitan Izin",
+        "Pendaftaran Online SIPO",
+        "Verifikasi Administrasi",
+        "Survei Keselamatan",
+        "Inspeksi Teknis",
+        "Penerbitan Izin"
+      ],
+      popular: false,
+    },
+
+    // Pendidikan
+    {
+      id: "itk",
+      title: "Izin Taman Kanak-Kanak (ITK)",
+      description: "Izin pendirian dan operasional lembaga pendidikan anak usia dini/taman kanak-kanak",
+      category: "pendidikan",
+      duration: "14 hari kerja",
+      fee: "Gratis",
+      difficulty: "Sedang",
+      requirements: [
+        "Akta Notaris Yayasan",
+        "NPWP Yayasan",
+        "Sertifikat Tanah/IMB",
+        "Kurikulum Pembelajaran",
+        "Daftar Tenaga Pendidik",
+        "Sarana dan Prasarana"
+      ],
+      process: [
+        "Pendaftaran Online SIPO",
+        "Verifikasi Administrasi",
+        "Survei Kelayakan Lokasi",
+        "Evaluasi Kurikulum",
+        "Penerbitan Izin"
+      ],
+      popular: false,
+    },
+
+    // Sosial
+    {
+      id: "ipanti",
+      title: "Izin Panti Asuhan",
+      description: "Izin pendirian dan operasional panti asuhan/panti sosial untuk anak terlantar",
+      category: "sosial",
+      duration: "21 hari kerja",
+      fee: "Gratis",
+      difficulty: "Sedang",
+      requirements: [
+        "Akta Notaris Yayasan",
+        "NPWP Yayasan",
+        "Sertifikat Tanah/IMB",
+        "Program Kerja Panti",
+        "Daftar Pengurus",
+        "Sumber Pembiayaan"
+      ],
+      process: [
+        "Pendaftaran Online SIPO",
+        "Verifikasi Administrasi",
+        "Survei Kelayakan",
+        "Evaluasi Program",
+        "Penerbitan Izin"
+      ],
+      popular: false,
+    },
+
+    // SIMBG (Sistem Informasi Manajemen Bangunan Gedung)
+    {
+      id: "sbg",
+      title: "Sertifikat Bangunan Gedung (SBG)",
+      description: "Sertifikat yang diterbitkan untuk bangunan gedung yang telah selesai dibangun",
+      category: "simbg",
+      duration: "7 hari kerja",
+      fee: "Berbayar",
+      difficulty: "Mudah",
+      requirements: [
+        "IMB yang Masih Berlaku",
+        "Berita Acara Pemeriksaan Kelaikan Fungsi",
+        "As Built Drawing",
+        "Sertifikat Keselamatan Kebakaran",
+        "APAR dan Sistem Proteksi Kebakaran"
+      ],
+      process: [
+        "Pendaftaran Online SIPO",
+        "Verifikasi Kelengkapan IMB",
+        "Inspeksi Bangunan",
+        "Evaluasi Kelaikan Fungsi",
+        "Penerbitan SBG"
+      ],
+      popular: true,
+    },
+
+    // Reklame
+    {
+      id: "irt",
+      title: "Izin Reklame Tetap (Permanen)",
+      description: "Izin untuk memasang reklame tetap/permanen di tempat strategis dalam kota",
+      category: "reklame",
+      duration: "10 hari kerja",
+      fee: "Berbayar",
+      difficulty: "Sedang",
+      requirements: [
+        "KTP/NPWP Pemohon",
+        "Surat Izin Usaha",
+        "Desain/Gambar Reklame",
+        "Foto Lokasi Pemasangan",
+        "Persetujuan Pemilik Lahan",
+        "Analisis Dampak Lalu Lintas (jika diperlukan)"
+      ],
+      process: [
+        "Pendaftaran Online SIPO",
+        "Verifikasi Desain",
+        "Survei Lokasi",
+        "Evaluasi Dampak",
+        "Penerbitan Izin"
+      ],
+      popular: true,
+    },
+    {
+      id: "irs",
+      title: "Izin Reklame Sementara",
+      description: "Izin untuk memasang reklame sementara untuk keperluan promosi atau event tertentu",
+      category: "reklame",
+      duration: "5 hari kerja",
+      fee: "Berbayar",
+      difficulty: "Mudah",
+      requirements: [
+        "KTP/NPWP Pemohon",
+        "Proposal Kegiatan/Event",
+        "Desain Reklame",
+        "Foto Lokasi",
+        "Jadwal Pemasangan dan Pembongkaran"
+      ],
+      process: [
+        "Pendaftaran Online SIPO",
+        "Verifikasi Proposal",
+        "Persetujuan Lokasi",
+        "Penerbitan Izin"
       ],
       popular: false,
     },
   ];
 
   const filteredServices = services.filter((service) => {
-    const matchesSearch =
-      service.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      service.description.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory =
-      selectedCategory === "all" || service.category === selectedCategory;
-    const matchesDuration =
-      selectedDuration === "all" ||
-      (selectedDuration === "fast" && parseInt(service.duration) <= 7) ||
-      (selectedDuration === "medium" &&
-        parseInt(service.duration) > 7 &&
-        parseInt(service.duration) <= 14) ||
-      (selectedDuration === "slow" && parseInt(service.duration) > 14);
-
+    const matchesSearch = service.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         service.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = selectedCategory === "all" || service.category === selectedCategory;
+    const matchesDuration = selectedDuration === "all" || 
+                           (selectedDuration === "fast" && parseInt(service.duration) <= 7) ||
+                           (selectedDuration === "medium" && parseInt(service.duration) > 7 && parseInt(service.duration) <= 14) ||
+                           (selectedDuration === "slow" && parseInt(service.duration) > 14);
+    
     return matchesSearch && matchesCategory && matchesDuration;
   });
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case "Mudah":
-        return "bg-green-100 text-green-800";
-      case "Sedang":
-        return "bg-yellow-100 text-yellow-800";
-      case "Sulit":
-        return "bg-red-100 text-red-800";
-      default:
-        return "bg-gray-100 text-gray-800";
+      case "Mudah": return "bg-green-100 text-green-800";
+      case "Sedang": return "bg-yellow-100 text-yellow-800";
+      case "Sulit": return "bg-red-100 text-red-800";
+      default: return "bg-gray-100 text-gray-800";
     }
   };
 
@@ -299,13 +424,22 @@ export default function Services() {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl md:text-4xl font-bold mb-4">
-            Layanan Perizinan
+            Layanan Perizinan Online
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Temukan layanan perizinan yang sesuai dengan kebutuhan Anda. Semua
-            proses dapat dilakukan secara online dengan mudah dan transparan.
+            Sistem Informasi Perizinan Online (SIPO) DPMPTSP Kota Samarinda. 
+            Semua proses perizinan dapat dilakukan secara online dengan mudah dan transparan.
           </p>
         </div>
+
+        {/* SIPO Information */}
+        <Alert className="mb-8 bg-primary/5 border-primary/20">
+          <Info className="h-4 w-4" />
+          <AlertDescription>
+            <strong>Sistem Informasi Perizinan Online (SIPO)</strong> - Akses semua layanan perizinan DPMPTSP Kota Samarinda 
+            secara online. Daftar, ajukan, dan pantau status izin Anda dengan mudah melalui platform digital resmi.
+          </AlertDescription>
+        </Alert>
 
         {/* Service Categories */}
         <div className="mb-8">
@@ -336,19 +470,16 @@ export default function Services() {
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                   <Input
-                    placeholder="Cari layanan..."
+                    placeholder="Cari layanan perizinan..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="pl-10"
                   />
                 </div>
               </div>
-
+              
               <div>
-                <Select
-                  value={selectedDuration}
-                  onValueChange={setSelectedDuration}
-                >
+                <Select value={selectedDuration} onValueChange={setSelectedDuration}>
                   <SelectTrigger>
                     <SelectValue placeholder="Durasi Proses" />
                   </SelectTrigger>
@@ -371,23 +502,41 @@ export default function Services() {
           </CardContent>
         </Card>
 
-        {/* Quick Info */}
-        <Alert className="mb-8">
-          <Info className="h-4 w-4" />
-          <AlertDescription>
-            <strong>Tips:</strong> Pastikan Anda menyiapkan semua dokumen yang
-            diperlukan sebelum mengajukan permohonan. Dokumen yang tidak lengkap
-            akan memperlambat proses persetujuan.
-          </AlertDescription>
-        </Alert>
+        {/* Quick Access to SIPO */}
+        <Card className="mb-8 bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-lg font-semibold mb-2">Akses SIPO (Sistem Informasi Perizinan Online)</h3>
+                <p className="text-muted-foreground mb-4">
+                  Platform resmi untuk mengajukan dan memantau seluruh layanan perizinan DPMPTSP Kota Samarinda
+                </p>
+                <div className="flex space-x-3">
+                  <Button asChild>
+                    <Link to="/apply">
+                      <Star className="w-4 h-4 mr-2" />
+                      Mulai Permohonan
+                    </Link>
+                  </Button>
+                  <Button variant="outline" asChild>
+                    <Link to="/status">
+                      <Search className="w-4 h-4 mr-2" />
+                      Cek Status Izin
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+              <div className="hidden md:block">
+                <Building className="w-20 h-20 text-primary/30" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Services Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredServices.map((service) => (
-            <Card
-              key={service.id}
-              className="gov-card-shadow hover:shadow-lg transition-shadow"
-            >
+            <Card key={service.id} className="gov-card-shadow hover:shadow-lg transition-shadow">
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <CardTitle className="text-lg leading-tight">
@@ -395,17 +544,11 @@ export default function Services() {
                   </CardTitle>
                   <div className="flex flex-col space-y-1">
                     {service.popular && (
-                      <Badge
-                        variant="secondary"
-                        className="bg-gov-green text-white text-xs"
-                      >
+                      <Badge variant="secondary" className="bg-gov-green text-white text-xs">
                         Populer
                       </Badge>
                     )}
-                    <Badge
-                      className={getDifficultyColor(service.difficulty)}
-                      variant="secondary"
-                    >
+                    <Badge className={getDifficultyColor(service.difficulty)} variant="secondary">
                       {service.difficulty}
                     </Badge>
                   </div>
@@ -414,7 +557,7 @@ export default function Services() {
                   {service.description}
                 </CardDescription>
               </CardHeader>
-
+              
               <CardContent className="space-y-4">
                 {/* Service Info */}
                 <div className="grid grid-cols-2 gap-4 text-sm">
@@ -424,29 +567,25 @@ export default function Services() {
                   </div>
                   <div className="flex items-center">
                     <CheckCircle className="w-4 h-4 mr-2 text-muted-foreground" />
-                    <span
-                      className={
-                        service.fee === "Gratis"
-                          ? "text-green-600 font-medium"
-                          : ""
-                      }
-                    >
+                    <span className={service.fee === "Gratis" ? "text-green-600 font-medium" : ""}>
                       {service.fee}
                     </span>
                   </div>
                 </div>
 
+                {/* Category Badge */}
+                <div>
+                  <Badge variant="outline" className="text-xs">
+                    {serviceCategories.find(cat => cat.id === service.category)?.name}
+                  </Badge>
+                </div>
+
                 {/* Requirements Preview */}
                 <div>
-                  <h4 className="font-medium text-sm mb-2">
-                    Persyaratan Utama:
-                  </h4>
+                  <h4 className="font-medium text-sm mb-2">Persyaratan Utama:</h4>
                   <div className="space-y-1">
                     {service.requirements.slice(0, 3).map((req, index) => (
-                      <div
-                        key={index}
-                        className="flex items-center text-xs text-muted-foreground"
-                      >
+                      <div key={index} className="flex items-center text-xs text-muted-foreground">
                         <div className="w-1 h-1 bg-primary rounded-full mr-2"></div>
                         {req}
                       </div>
@@ -466,9 +605,7 @@ export default function Services() {
                     {service.process.slice(0, 4).map((step, index) => (
                       <div key={index} className="flex items-center">
                         <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center">
-                          <span className="text-xs font-medium text-primary">
-                            {index + 1}
-                          </span>
+                          <span className="text-xs font-medium text-primary">{index + 1}</span>
                         </div>
                         {index < 3 && index < service.process.length - 1 && (
                           <ChevronRight className="w-3 h-3 text-muted-foreground mx-1" />
@@ -484,10 +621,7 @@ export default function Services() {
                 {/* Action Buttons */}
                 <div className="flex space-x-2 pt-2">
                   <Button asChild className="flex-1">
-                    <Link
-                      to="/apply"
-                      className="flex items-center justify-center"
-                    >
+                    <Link to="/apply" className="flex items-center justify-center">
                       Ajukan Sekarang
                       <ChevronRight className="w-4 h-4 ml-1" />
                     </Link>
@@ -513,8 +647,8 @@ export default function Services() {
                 Tidak ada layanan yang cocok dengan kriteria pencarian Anda.
                 Coba ubah filter atau kata kunci pencarian.
               </p>
-              <Button
-                variant="outline"
+              <Button 
+                variant="outline" 
                 onClick={() => {
                   setSearchQuery("");
                   setSelectedCategory("all");
@@ -535,15 +669,19 @@ export default function Services() {
                 Butuh Bantuan Memilih Layanan?
               </h3>
               <p className="text-muted-foreground mb-6">
-                Tim konsultan kami siap membantu Anda menentukan jenis izin yang
-                tepat sesuai dengan kebutuhan usaha atau proyek Anda.
+                Tim konsultan kami siap membantu Anda menentukan jenis izin yang tepat
+                sesuai dengan kebutuhan usaha atau proyek Anda melalui SIPO.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button asChild>
-                  <Link to="/help">Konsultasi Gratis</Link>
+                  <Link to="/help">
+                    Konsultasi Gratis
+                  </Link>
                 </Button>
                 <Button variant="outline" asChild>
-                  <Link to="/apply">Mulai Permohonan</Link>
+                  <Link to="/apply">
+                    Mulai Permohonan SIPO
+                  </Link>
                 </Button>
               </div>
             </div>
