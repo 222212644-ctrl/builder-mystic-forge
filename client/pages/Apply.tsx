@@ -740,9 +740,22 @@ export default function Apply() {
                       <ChevronRight className="w-4 h-4 ml-2" />
                     </Button>
                   ) : (
-                    <Button className="bg-status-approved hover:bg-status-approved/90">
-                      <Send className="w-4 h-4 mr-2" />
-                      Kirim Permohonan
+                    <Button
+                      className="bg-status-approved hover:bg-status-approved/90"
+                      onClick={handleSubmitApplication}
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <div className="w-4 h-4 mr-2 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
+                          Mengirim...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="w-4 h-4 mr-2" />
+                          Kirim Permohonan
+                        </>
+                      )}
                     </Button>
                   )}
                 </div>
