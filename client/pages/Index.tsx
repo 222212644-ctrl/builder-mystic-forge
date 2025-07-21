@@ -315,6 +315,7 @@ export default function Index() {
                   placeholder="Cari jenis izin, NIK, atau nomor permohonan..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyPress={handleKeyPress}
                   className="w-full pl-12 pr-4 py-4 text-lg bg-white text-foreground border-0 rounded-full shadow-lg"
                 />
                 <Button
