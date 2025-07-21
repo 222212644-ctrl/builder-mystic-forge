@@ -10,6 +10,7 @@ import Index from "./pages/Index";
 import Apply from "./pages/Apply";
 import Status from "./pages/Status";
 import Services from "./pages/Services";
+import Complaints from "./pages/Complaints";
 import Help from "./pages/Help";
 import About from "./pages/About";
 import Statistics from "./pages/Statistics";
@@ -32,15 +33,9 @@ const App = () => (
           <Route path="/help" element={<Help />} />
           <Route path="/about" element={<About />} />
           <Route path="/stats" element={<Statistics />} />
-          <Route
-            path="/services/:type"
-            element={<Placeholder page="Detail Layanan" />}
-          />
+          <Route path="/services/:type" element={<Placeholder page="Detail Layanan" />} />
           <Route path="/news" element={<Placeholder page="Berita" />} />
-          <Route
-            path="/regulations"
-            element={<Placeholder page="Peraturan" />}
-          />
+          <Route path="/regulations" element={<Placeholder page="Peraturan" />} />
           <Route path="/faq" element={<Placeholder page="FAQ" />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
