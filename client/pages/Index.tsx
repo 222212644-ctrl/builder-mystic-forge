@@ -297,7 +297,7 @@ export default function Index() {
       <section className="gov-gradient text-white py-16" role="banner" aria-labelledby="hero-title">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            <h1 id="hero-title" className="text-4xl md:text-6xl font-bold mb-6">
               Layanan Perizinan
               <span className="block text-gov-yellow">Terpadu Online</span>
             </h1>
