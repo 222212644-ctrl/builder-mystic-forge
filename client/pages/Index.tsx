@@ -354,7 +354,7 @@ export default function Index() {
                 />
                 <Button
                   onClick={handleSearch}
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 rounded-full px-6"
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 rounded-full px-6 bg-primary hover:bg-primary/90 text-white shadow-lg focus:ring-2 focus:ring-white focus:ring-offset-2"
                   size="sm"
                 >
                   Cari
