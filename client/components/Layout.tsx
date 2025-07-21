@@ -248,6 +248,9 @@ export default function Layout({ children, showHero = false }: LayoutProps) {
           </div>
         </div>
       </footer>
+
+      {/* Accessibility Widget */}
+      <AccessibilityWidget />
     </div>
   );
 }
