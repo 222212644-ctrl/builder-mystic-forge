@@ -319,6 +319,7 @@ export default function Index() {
                   className="w-full pl-12 pr-4 py-4 text-lg bg-white text-foreground border-0 rounded-full shadow-lg"
                 />
                 <Button
+                  onClick={handleSearch}
                   className="absolute right-2 top-1/2 transform -translate-y-1/2 rounded-full px-6"
                   size="sm"
                 >
