@@ -164,7 +164,7 @@ export default function Complaints() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Simulate API call
     setTimeout(() => {
       setIsSubmitting(false);
@@ -203,25 +203,31 @@ export default function Complaints() {
           <Card className="max-w-2xl mx-auto text-center">
             <CardContent className="p-8">
               <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-6" />
-              <h2 className="text-2xl font-bold mb-4">Pengaduan Berhasil Dikirim</h2>
+              <h2 className="text-2xl font-bold mb-4">
+                Pengaduan Berhasil Dikirim
+              </h2>
               <p className="text-muted-foreground mb-6">
-                Terima kasih atas pengaduan Anda. Nomor tiket pengaduan Anda adalah:
+                Terima kasih atas pengaduan Anda. Nomor tiket pengaduan Anda
+                adalah:
               </p>
               <div className="bg-primary/10 p-4 rounded-lg mb-6">
-                <p className="text-lg font-mono font-bold text-primary">PTSP-2024-{Math.floor(Math.random() * 1000).toString().padStart(3, '0')}</p>
+                <p className="text-lg font-mono font-bold text-primary">
+                  PTSP-2024-
+                  {Math.floor(Math.random() * 1000)
+                    .toString()
+                    .padStart(3, "0")}
+                </p>
               </div>
               <p className="text-sm text-muted-foreground mb-6">
-                Simpan nomor tiket ini untuk melacak status pengaduan Anda. 
-                Kami akan memberikan tanggapan dalam 1-3 hari kerja.
+                Simpan nomor tiket ini untuk melacak status pengaduan Anda. Kami
+                akan memberikan tanggapan dalam 1-3 hari kerja.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button onClick={() => setShowSuccess(false)}>
                   Kirim Pengaduan Lain
                 </Button>
                 <Button variant="outline" asChild>
-                  <Link to="/complaints?tab=track">
-                    Lacak Status Pengaduan
-                  </Link>
+                  <Link to="/complaints?tab=track">Lacak Status Pengaduan</Link>
                 </Button>
               </div>
             </CardContent>
@@ -240,8 +246,9 @@ export default function Complaints() {
             Pengaduan dan Keluhan
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Sampaikan keluhan, saran, atau masukan Anda terkait pelayanan DPMPTSP Kota Samarinda.
-            Kami berkomitmen untuk terus meningkatkan kualitas pelayanan.
+            Sampaikan keluhan, saran, atau masukan Anda terkait pelayanan
+            DPMPTSP Kota Samarinda. Kami berkomitmen untuk terus meningkatkan
+            kualitas pelayanan.
           </p>
         </div>
 
@@ -249,10 +256,17 @@ export default function Complaints() {
         <Alert className="mb-8 bg-blue-50 border-blue-200">
           <Info className="h-4 w-4" />
           <AlertDescription>
-            <strong>LAPOR! (Layanan Aspirasi dan Pengaduan Online Rakyat)</strong> - 
-            Platform resmi pemerintah untuk menyampaikan pengaduan dengan sistem tracking transparan.
+            <strong>
+              LAPOR! (Layanan Aspirasi dan Pengaduan Online Rakyat)
+            </strong>{" "}
+            - Platform resmi pemerintah untuk menyampaikan pengaduan dengan
+            sistem tracking transparan.
             <Button variant="link" className="p-0 ml-2 h-auto" asChild>
-              <a href="https://lapor.go.id" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://lapor.go.id"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Akses LAPOR! <ExternalLink className="w-3 h-3 ml-1" />
               </a>
             </Button>
@@ -269,7 +283,8 @@ export default function Complaints() {
                   Form Pengaduan Online
                 </CardTitle>
                 <CardDescription>
-                  Isi form di bawah ini dengan lengkap dan jelas untuk mempercepat penanganan pengaduan Anda
+                  Isi form di bawah ini dengan lengkap dan jelas untuk
+                  mempercepat penanganan pengaduan Anda
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -282,7 +297,9 @@ export default function Complaints() {
                         id="name"
                         placeholder="Nama sesuai KTP"
                         value={formData.name}
-                        onChange={(e) => setFormData({...formData, name: e.target.value})}
+                        onChange={(e) =>
+                          setFormData({ ...formData, name: e.target.value })
+                        }
                         required
                       />
                     </div>
@@ -293,7 +310,9 @@ export default function Complaints() {
                         type="email"
                         placeholder="email@example.com"
                         value={formData.email}
-                        onChange={(e) => setFormData({...formData, email: e.target.value})}
+                        onChange={(e) =>
+                          setFormData({ ...formData, email: e.target.value })
+                        }
                         required
                       />
                     </div>
@@ -306,15 +325,19 @@ export default function Complaints() {
                         id="phone"
                         placeholder="08xxxxxxxxxx"
                         value={formData.phone}
-                        onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                        onChange={(e) =>
+                          setFormData({ ...formData, phone: e.target.value })
+                        }
                         required
                       />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="category">Kategori Pengaduan *</Label>
-                      <Select 
-                        value={formData.category} 
-                        onValueChange={(value) => setFormData({...formData, category: value})}
+                      <Select
+                        value={formData.category}
+                        onValueChange={(value) =>
+                          setFormData({ ...formData, category: value })
+                        }
                       >
                         <SelectTrigger>
                           <SelectValue placeholder="Pilih kategori" />
@@ -337,7 +360,9 @@ export default function Complaints() {
                       id="subject"
                       placeholder="Ringkas dalam satu kalimat"
                       value={formData.subject}
-                      onChange={(e) => setFormData({...formData, subject: e.target.value})}
+                      onChange={(e) =>
+                        setFormData({ ...formData, subject: e.target.value })
+                      }
                       required
                     />
                   </div>
@@ -349,7 +374,12 @@ export default function Complaints() {
                       placeholder="Jelaskan secara detail kronologi, tempat, waktu, dan pihak yang terlibat..."
                       rows={6}
                       value={formData.description}
-                      onChange={(e) => setFormData({...formData, description: e.target.value})}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          description: e.target.value,
+                        })
+                      }
                       required
                     />
                   </div>
@@ -373,22 +403,32 @@ export default function Complaints() {
 
                   {/* Agreement */}
                   <div className="flex items-start space-x-2">
-                    <Checkbox 
+                    <Checkbox
                       id="agreement"
                       checked={formData.agreement}
-                      onCheckedChange={(checked) => setFormData({...formData, agreement: checked as boolean})}
+                      onCheckedChange={(checked) =>
+                        setFormData({
+                          ...formData,
+                          agreement: checked as boolean,
+                        })
+                      }
                       required
                     />
-                    <Label htmlFor="agreement" className="text-sm leading-relaxed">
-                      Saya menyatakan bahwa informasi yang saya berikan adalah benar dan dapat dipertanggungjawabkan.
-                      Saya memahami bahwa pengaduan palsu dapat dikenakan sanksi sesuai peraturan yang berlaku.
+                    <Label
+                      htmlFor="agreement"
+                      className="text-sm leading-relaxed"
+                    >
+                      Saya menyatakan bahwa informasi yang saya berikan adalah
+                      benar dan dapat dipertanggungjawabkan. Saya memahami bahwa
+                      pengaduan palsu dapat dikenakan sanksi sesuai peraturan
+                      yang berlaku.
                     </Label>
                   </div>
 
                   {/* Submit Button */}
-                  <Button 
-                    type="submit" 
-                    className="w-full" 
+                  <Button
+                    type="submit"
+                    className="w-full"
                     disabled={isSubmitting || !formData.agreement}
                   >
                     {isSubmitting ? (
@@ -449,14 +489,21 @@ export default function Complaints() {
               </CardHeader>
               <CardContent className="space-y-4">
                 {contactChannels.map((channel, index) => (
-                  <div key={index} className="p-3 border rounded-lg hover:bg-muted/50 transition-colors">
+                  <div
+                    key={index}
+                    className="p-3 border rounded-lg hover:bg-muted/50 transition-colors"
+                  >
                     <div className="flex items-start space-x-3">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center ${channel.color}`}>
+                      <div
+                        className={`w-8 h-8 rounded-full flex items-center justify-center ${channel.color}`}
+                      >
                         <channel.icon className="w-4 h-4 text-white" />
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center justify-between mb-1">
-                          <h4 className="font-medium text-sm">{channel.title}</h4>
+                          <h4 className="font-medium text-sm">
+                            {channel.title}
+                          </h4>
                           <Badge variant="outline" className="text-xs">
                             {channel.priority}
                           </Badge>
@@ -465,7 +512,9 @@ export default function Complaints() {
                           {channel.description}
                         </p>
                         <div className="space-y-1">
-                          <p className="text-xs font-medium">{channel.contact}</p>
+                          <p className="text-xs font-medium">
+                            {channel.contact}
+                          </p>
                           <p className="text-xs text-muted-foreground">
                             Respon: {channel.response}
                           </p>
@@ -490,16 +539,24 @@ export default function Complaints() {
               </CardHeader>
               <CardContent className="space-y-4">
                 {recentComplaints.map((complaint) => (
-                  <div key={complaint.id} className="p-3 bg-muted/50 rounded-lg">
+                  <div
+                    key={complaint.id}
+                    className="p-3 bg-muted/50 rounded-lg"
+                  >
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-xs font-mono text-primary">
                         {complaint.id}
                       </span>
-                      <Badge className={getStatusColor(complaint.status)} variant="secondary">
+                      <Badge
+                        className={getStatusColor(complaint.status)}
+                        variant="secondary"
+                      >
                         {complaint.status}
                       </Badge>
                     </div>
-                    <h4 className="font-medium text-sm mb-1">{complaint.subject}</h4>
+                    <h4 className="font-medium text-sm mb-1">
+                      {complaint.subject}
+                    </h4>
                     <p className="text-xs text-muted-foreground mb-2">
                       Kategori: {complaint.category}
                     </p>
@@ -507,7 +564,7 @@ export default function Complaints() {
                       {complaint.response}
                     </p>
                     <p className="text-xs text-muted-foreground mt-1">
-                      {new Date(complaint.date).toLocaleDateString('id-ID')}
+                      {new Date(complaint.date).toLocaleDateString("id-ID")}
                     </p>
                   </div>
                 ))}
@@ -520,7 +577,9 @@ export default function Complaints() {
                 <div className="flex items-start space-x-2">
                   <AlertTriangle className="w-5 h-5 text-yellow-600 mt-0.5" />
                   <div>
-                    <h3 className="font-semibold text-yellow-900 mb-2">Tips Pengaduan Efektif</h3>
+                    <h3 className="font-semibold text-yellow-900 mb-2">
+                      Tips Pengaduan Efektif
+                    </h3>
                     <ul className="text-sm text-yellow-800 space-y-1">
                       <li>• Jelaskan kronologi secara detail</li>
                       <li>• Sertakan bukti pendukung jika ada</li>
@@ -569,7 +628,8 @@ export default function Complaints() {
                   <p>Jl. P. Suryanata No. 1</p>
                   <p>Samarinda, Kalimantan Timur 75123</p>
                   <p className="mt-2">
-                    <strong>Telepon:</strong> (0541) 123-4567<br />
+                    <strong>Telepon:</strong> (0541) 123-4567
+                    <br />
                     <strong>Email:</strong> ptsp.samarinda@gmail.com
                   </p>
                 </div>
