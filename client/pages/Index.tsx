@@ -564,8 +564,8 @@ export default function Index() {
           <div className="grid md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                  <Building2 className="w-6 h-6 text-white" />
+                <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center p-1">
+                  <SamarindaLogo size={36} />
                 </div>
                 <div>
                   <h3 className="font-bold">DPMPTSP</h3>
