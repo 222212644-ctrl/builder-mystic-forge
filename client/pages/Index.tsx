@@ -349,9 +349,9 @@ export default function Index() {
         <div
           className="absolute inset-0 z-10 bg-black/20"
           style={{
-            backgroundImage: "url(https://blog.bookingtogo.com/wp-content/uploads/2023/11/Taman-Tepian-Mahakam_11zon-1.jpg)",
+            backgroundImage: "url(https://www.rukita.co/stories/wp-content/uploads/2023/11/pulau-beras-basah-kalimantan-timur.webp)",
             backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
+            backgroundPosition: "50% 50%",
             backgroundSize: "cover"
           }}
         ></div>
