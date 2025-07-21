@@ -52,7 +52,9 @@ const App = () => (
 
 // Ensure createRoot is only called once
 const container = document.getElementById("root")!;
-if (!container._reactRoot) {
-  container._reactRoot = createRoot(container);
+let root = (window as any).__reactRoot;
+if (!root) {
+  root = createRoot(container);
+  (window as any).__reactRoot = root;
 }
-container._reactRoot.render(<App />);
+root.render(<App />);
