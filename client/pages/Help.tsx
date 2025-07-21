@@ -438,13 +438,17 @@ export default function Help() {
                 masalah dan memberikan panduan personal.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button>
-                  <MessageSquare className="w-4 h-4 mr-2" />
-                  Chat dengan CS
+                <Button asChild>
+                  <a href="https://wa.me/+6282386126309" target="_blank" rel="noopener noreferrer">
+                    <MessageSquare className="w-4 h-4 mr-2" />
+                    Chat WhatsApp
+                  </a>
                 </Button>
-                <Button variant="outline">
-                  <Mail className="w-4 h-4 mr-2" />
-                  Kirim Email
+                <Button variant="outline" asChild>
+                  <a href="mailto:222212644@stis.ac.id">
+                    <Mail className="w-4 h-4 mr-2" />
+                    Kirim Email
+                  </a>
                 </Button>
                 <Button variant="outline" asChild>
                   <Link to="/apply">
