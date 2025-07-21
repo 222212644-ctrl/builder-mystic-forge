@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowLeft,
@@ -42,6 +42,14 @@ export default function Status() {
   const [searchValue, setSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  // Auto-fill NIK from localStorage if available
+  useEffect(() => {
+    const storedNIK = localStorage.getItem('dpmptsp_user_nik');
+    if (storedNIK && searchType === 'nik') {
+      setSearchValue(storedNIK);
+    }
+  }, [searchType]);
 
   // Mock data for demonstration
   const mockApplications = [
@@ -232,8 +240,16 @@ export default function Status() {
                               : "Contoh: 08123456789"
                         }
                         value={searchValue}
-                        onChange={(e) => setSearchValue(e.target.value)}
+                        onChange={(e) => {
+                          let value = e.target.value;
+                          // Format NIK input to only allow numbers and limit to 16 characters
+                          if (searchType === 'nik') {
+                            value = value.replace(/\D/g, '').slice(0, 16);
+                          }
+                          setSearchValue(value);
+                        }}
                         onKeyPress={(e) => e.key === "Enter" && handleSearch()}
+                        className={searchValue && searchType === 'nik' ? "bg-blue-50 border-blue-300" : ""}
                       />
                       <Button
                         onClick={handleSearch}
@@ -253,9 +269,17 @@ export default function Status() {
                 <Alert>
                   <AlertCircle className="h-4 w-4" />
                   <AlertDescription>
-                    <strong>Demo:</strong> Gunakan NIK "3271234567890123" atau
-                    nomor permohonan "IMB2024001234" untuk melihat contoh hasil
-                    pencarian.
+                    {searchValue && searchType === 'nik' ? (
+                      <span>
+                        <strong>Info:</strong> NIK telah diisi otomatis dari permohonan terakhir Anda.
+                        Untuk demo, gunakan NIK "3271234567890123" atau nomor permohonan "IMB2024001234".
+                      </span>
+                    ) : (
+                      <span>
+                        <strong>Demo:</strong> Gunakan NIK "3271234567890123" atau
+                        nomor permohonan "IMB2024001234" untuk melihat contoh hasil pencarian.
+                      </span>
+                    )}
                   </AlertDescription>
                 </Alert>
               </div>
