@@ -1,7 +1,5 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  Search,
   ChevronDown,
   ChevronUp,
   Phone,
@@ -37,17 +35,8 @@ import {
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export default function Help() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("all");
 
-  const helpCategories = [
-    { id: "all", name: "Semua Topik", icon: BookOpen },
-    { id: "registration", name: "Pendaftaran", icon: FileText },
-    { id: "documents", name: "Dokumen", icon: Download },
-    { id: "payment", name: "Pembayaran", icon: CreditCard },
-    { id: "status", name: "Status & Tracking", icon: CheckCircle },
-    { id: "technical", name: "Teknis", icon: AlertCircle },
-  ];
+
 
   const faqs = [
     {
@@ -149,14 +138,8 @@ export default function Help() {
     },
   ];
 
-  const filteredFAQs = faqs.filter((faq) => {
-    const matchesSearch =
-      faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      faq.answer.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory =
-      selectedCategory === "all" || faq.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
+  const popularFAQs = faqs.filter((faq) => faq.popular);
+  const allFAQs = faqs;
 
   const contactMethods = [
     {
@@ -208,48 +191,9 @@ export default function Help() {
           <Headphones className="h-4 w-4" />
           <AlertDescription>
             <strong>Bantuan Cepat:</strong> Hubungi (0541) 123-4567 untuk
-            bantuan langsung atau gunakan fitur pencarian di bawah untuk
-            menemukan jawaban.
+            bantuan langsung atau browse pertanyaan yang sering diajukan di bawah.
           </AlertDescription>
         </Alert>
-
-        {/* Search and Filter */}
-        <Card className="mb-8 max-w-7xl mx-auto">
-          <CardContent className="p-6">
-            <div className="grid md:grid-cols-2 gap-4 mb-6">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                <Input
-                  placeholder="Cari pertanyaan atau kata kunci..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10"
-                />
-              </div>
-
-              <div className="flex space-x-2">
-                {helpCategories.map((category) => (
-                  <Button
-                    key={category.id}
-                    variant={
-                      selectedCategory === category.id ? "default" : "outline"
-                    }
-                    size="sm"
-                    onClick={() => setSelectedCategory(category.id)}
-                    className="flex items-center"
-                  >
-                    <category.icon className="w-4 h-4 mr-1" />
-                    {category.name}
-                  </Button>
-                ))}
-              </div>
-            </div>
-
-            <p className="text-sm text-muted-foreground">
-              {filteredFAQs.length} pertanyaan ditemukan
-            </p>
-          </CardContent>
-        </Card>
 
         <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {/* FAQ Section */}
@@ -265,9 +209,7 @@ export default function Help() {
                 Pertanyaan Populer
               </h3>
               <Accordion type="single" collapsible className="space-y-2">
-                {filteredFAQs
-                  .filter((faq) => faq.popular)
-                  .map((faq) => (
+                {popularFAQs.map((faq) => (
                     <AccordionItem
                       key={faq.id}
                       value={`faq-${faq.id}`}
@@ -276,11 +218,11 @@ export default function Help() {
                       <AccordionTrigger className="text-left">
                         <div className="flex items-center">
                           <Badge variant="secondary" className="mr-3">
-                            {
-                              helpCategories.find(
-                                (cat) => cat.id === faq.category,
-                              )?.name
-                            }
+                            {faq.category === "registration" ? "Pendaftaran" :
+                             faq.category === "documents" ? "Dokumen" :
+                             faq.category === "payment" ? "Pembayaran" :
+                             faq.category === "status" ? "Status & Tracking" :
+                             faq.category === "technical" ? "Teknis" : "Lainnya"}
                           </Badge>
                           {faq.question}
                         </div>
@@ -297,7 +239,7 @@ export default function Help() {
             <div>
               <h3 className="text-lg font-medium mb-4">Semua Pertanyaan</h3>
               <Accordion type="single" collapsible className="space-y-2">
-                {filteredFAQs.map((faq) => (
+                {allFAQs.map((faq) => (
                   <AccordionItem
                     key={faq.id}
                     value={`all-faq-${faq.id}`}
@@ -306,11 +248,11 @@ export default function Help() {
                     <AccordionTrigger className="text-left">
                       <div className="flex items-center">
                         <Badge variant="outline" className="mr-3">
-                          {
-                            helpCategories.find(
-                              (cat) => cat.id === faq.category,
-                            )?.name
-                          }
+                          {faq.category === "registration" ? "Pendaftaran" :
+                           faq.category === "documents" ? "Dokumen" :
+                           faq.category === "payment" ? "Pembayaran" :
+                           faq.category === "status" ? "Status & Tracking" :
+                           faq.category === "technical" ? "Teknis" : "Lainnya"}
                         </Badge>
                         {faq.question}
                       </div>
@@ -323,24 +265,7 @@ export default function Help() {
               </Accordion>
             </div>
 
-            {/* No Results */}
-            {filteredFAQs.length === 0 && (
-              <Card className="text-center py-12">
-                <CardContent>
-                  <AlertCircle className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">
-                    Pertanyaan Tidak Ditemukan
-                  </h3>
-                  <p className="text-muted-foreground mb-4">
-                    Tidak ada pertanyaan yang cocok dengan pencarian Anda. Coba
-                    ubah kata kunci atau hubungi customer service.
-                  </p>
-                  <Button variant="outline" onClick={() => setSearchQuery("")}>
-                    Reset Pencarian
-                  </Button>
-                </CardContent>
-              </Card>
-            )}
+
           </div>
 
           {/* Sidebar */}
