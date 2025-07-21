@@ -235,6 +235,55 @@
     color-scheme: dark;
   }
 
+  /* Ensure dark text on light backgrounds in dark mode */
+  .dark .bg-white,
+  .dark .bg-background[style*="background"],
+  .dark [class*="bg-white"],
+  .dark .text-white {
+    color: hsl(222 16% 15%) !important;
+  }
+
+  /* Override for elements that should stay white text */
+  .dark .text-white.gov-gradient,
+  .dark .gov-gradient .text-white,
+  .dark .bg-primary .text-white,
+  .dark .bg-destructive .text-white,
+  .dark header .text-white,
+  .dark nav .text-white {
+    color: white !important;
+  }
+
+  /* Ensure proper contrast for buttons in dark mode */
+  .dark .bg-white button,
+  .dark button.bg-white,
+  .dark .bg-secondary button,
+  .dark button.bg-secondary {
+    color: hsl(222 16% 15%);
+  }
+
+  /* Fix input fields in dark mode */
+  .dark input,
+  .dark textarea,
+  .dark select {
+    background-color: hsl(var(--input));
+    color: hsl(var(--foreground));
+    border-color: hsl(var(--border));
+  }
+
+  /* Fix card text in dark mode */
+  .dark .bg-card,
+  .dark [class*="bg-card"] {
+    background-color: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+  }
+
+  /* Fix muted text areas */
+  .dark .bg-muted,
+  .dark [class*="bg-muted"] {
+    background-color: hsl(var(--muted));
+    color: hsl(var(--muted-foreground));
+  }
+
   /* Improved focus indicators for better visibility */
   button:focus-visible,
   input:focus-visible,
