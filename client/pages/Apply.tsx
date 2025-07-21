@@ -42,7 +42,7 @@ export default function Apply() {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedService, setSelectedService] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+  const [uploadedFiles, setUploadedFiles] = useState<{[key: string]: File}>({});
   const [formData, setFormData] = useState({
     // Personal Info
     fullName: "",
@@ -172,7 +172,7 @@ export default function Apply() {
       currentStep,
       selectedService,
       formData,
-      uploadedFiles: uploadedFiles.map(f => f.name),
+      uploadedFiles: Object.keys(uploadedFiles),
       savedAt: new Date().toISOString(),
     };
 
@@ -185,46 +185,43 @@ export default function Apply() {
     });
   };
 
-  // File Upload functionality
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (files) {
-      const newFiles = Array.from(files);
-
+  // File Upload functionality for specific document
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>, documentKey: string) => {
+    const file = event.target.files?.[0];
+    if (file) {
       // Validate file size (max 5MB per file)
       const maxSize = 5 * 1024 * 1024; // 5MB
-      const validFiles = newFiles.filter(file => {
-        if (file.size > maxSize) {
-          toast.error(`File ${file.name} terlalu besar (maksimal 5MB)`);
-          return false;
-        }
-        return true;
-      });
+      if (file.size > maxSize) {
+        toast.error(`File terlalu besar (maksimal 5MB)`);
+        return;
+      }
 
       // Validate file types
       const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
-      const validTypeFiles = validFiles.filter(file => {
-        if (!allowedTypes.includes(file.type)) {
-          toast.error(`Format file ${file.name} tidak didukung. Gunakan PDF, JPG, atau PNG`);
-          return false;
-        }
-        return true;
-      });
-
-      setUploadedFiles(prev => [...prev, ...validTypeFiles]);
-
-      if (validTypeFiles.length > 0) {
-        toast.success(`${validTypeFiles.length} file berhasil diupload`, {
-          description: "File dokumen pendukung telah ditambahkan",
-          duration: 3000,
-        });
+      if (!allowedTypes.includes(file.type)) {
+        toast.error(`Format file tidak didukung. Gunakan PDF, JPG, atau PNG`);
+        return;
       }
+
+      setUploadedFiles(prev => ({
+        ...prev,
+        [documentKey]: file
+      }));
+
+      toast.success(`File berhasil diupload`, {
+        description: `Dokumen ${documentKey} telah ditambahkan`,
+        duration: 3000,
+      });
     }
   };
 
   // Remove uploaded file
-  const handleRemoveFile = (index: number) => {
-    setUploadedFiles(prev => prev.filter((_, i) => i !== index));
+  const handleRemoveFile = (documentKey: string) => {
+    setUploadedFiles(prev => {
+      const newFiles = { ...prev };
+      delete newFiles[documentKey];
+      return newFiles;
+    });
     toast.info("File telah dihapus");
   };
 
@@ -257,7 +254,7 @@ export default function Apply() {
           businessAddress: formData.businessAddress,
           businessDescription: formData.businessDescription,
         },
-        documents: uploadedFiles.map(f => f.name),
+        documents: Object.keys(uploadedFiles),
         submittedAt: new Date().toISOString(),
         status: 'submitted',
       };
@@ -285,7 +282,7 @@ export default function Apply() {
         businessDescription: "",
         documents: [],
       });
-      setUploadedFiles([]);
+      setUploadedFiles({});
 
     } catch (error) {
       toast.error("Terjadi kesalahan saat mengirim permohonan. Silakan coba lagi.");
@@ -604,91 +601,93 @@ export default function Apply() {
                   </Alert>
 
                   {selectedService && (
-                    <div className="bg-muted/50 p-4 rounded-lg">
-                      <h3 className="font-semibold mb-3">
-                        Dokumen yang diperlukan untuk{" "}
-                        {getSelectedServiceDetails()?.title}:
-                      </h3>
-                      <div className="grid gap-3">
-                        {getSelectedServiceDetails()?.requirements.map(
-                          (req, index) => (
-                            <div
-                              key={index}
-                              className="flex items-center justify-between p-3 bg-background rounded border"
-                            >
-                              <div className="flex items-center space-x-3">
-                                <FileText className="w-5 h-5 text-primary" />
-                                <span>{req}</span>
-                              </div>
-                              <Button size="sm" variant="outline">
-                                <Upload className="w-4 h-4 mr-2" />
-                                Upload
-                              </Button>
-                            </div>
-                          ),
-                        )}
+                    <div className="space-y-4">
+                      <div className="bg-muted/50 p-4 rounded-lg">
+                        <h3 className="font-semibold mb-3">
+                          Upload dokumen yang diperlukan untuk{" "}
+                          {getSelectedServiceDetails()?.title}:
+                        </h3>
+                        <p className="text-sm text-muted-foreground mb-4">
+                          Upload setiap dokumen secara terpisah. Format: PDF, JPG, PNG. Maksimal 5MB per file.
+                        </p>
                       </div>
-                    </div>
-                  )}
 
-                  <div className="border-2 border-dashed border-border rounded-lg p-8 text-center">
-                    <Upload className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                    <h3 className="font-semibold mb-2">
-                      Drag & Drop File Anda
-                    </h3>
-                    <p className="text-muted-foreground mb-4">
-                      atau klik untuk memilih file
-                    </p>
-                    <input
-                      type="file"
-                      multiple
-                      accept=".pdf,.jpg,.jpeg,.png"
-                      onChange={handleFileUpload}
-                      className="hidden"
-                      id="file-upload"
-                    />
-                    <Button
-                      variant="outline"
-                      asChild
-                      onClick={() => document.getElementById('file-upload')?.click()}
-                    >
-                      <label htmlFor="file-upload" className="cursor-pointer">
-                        Pilih File
-                      </label>
-                    </Button>
-                    <p className="text-xs text-muted-foreground mt-2">
-                      Format: PDF, JPG, PNG. Maksimal 5MB per file.
-                    </p>
-                  </div>
+                      <div className="grid gap-4">
+                        {getSelectedServiceDetails()?.requirements.map(
+                          (req, index) => {
+                            const documentKey = req.toLowerCase().replace(/[^a-z0-9]/g, '_');
+                            const hasFile = uploadedFiles[documentKey];
 
-                  {/* Display uploaded files */}
-                  {uploadedFiles.length > 0 && (
-                    <div className="mt-4">
-                      <h4 className="font-medium mb-3">File yang Diupload:</h4>
-                      <div className="space-y-2">
-                        {uploadedFiles.map((file, index) => (
-                          <div
-                            key={index}
-                            className="flex items-center justify-between p-3 bg-muted/50 rounded-lg"
-                          >
-                            <div className="flex items-center space-x-3">
-                              <FileText className="w-5 h-5 text-primary" />
-                              <div>
-                                <p className="text-sm font-medium">{file.name}</p>
-                                <p className="text-xs text-muted-foreground">
-                                  {(file.size / 1024 / 1024).toFixed(2)} MB
-                                </p>
+                            return (
+                              <div
+                                key={index}
+                                className={`p-4 border rounded-lg ${
+                                  hasFile ? 'border-status-approved bg-status-approved/5' : 'border-border'
+                                }`}
+                              >
+                                <div className="flex items-center justify-between mb-3">
+                                  <div className="flex items-center space-x-3">
+                                    <FileText className={`w-5 h-5 ${
+                                      hasFile ? 'text-status-approved' : 'text-muted-foreground'
+                                    }`} />
+                                    <div>
+                                      <h4 className="font-medium">{req}</h4>
+                                      {hasFile && (
+                                        <p className="text-sm text-status-approved">
+                                          ✓ File telah diupload
+                                        </p>
+                                      )}
+                                    </div>
+                                  </div>
+                                  {hasFile && (
+                                    <Button
+                                      size="sm"
+                                      variant="ghost"
+                                      onClick={() => handleRemoveFile(documentKey)}
+                                      className="text-red-600 hover:text-red-700"
+                                    >
+                                      Hapus
+                                    </Button>
+                                  )}
+                                </div>
+
+                                {hasFile ? (
+                                  <div className="flex items-center space-x-3 p-3 bg-background rounded border">
+                                    <FileText className="w-5 h-5 text-primary" />
+                                    <div className="flex-1">
+                                      <p className="text-sm font-medium">{uploadedFiles[documentKey].name}</p>
+                                      <p className="text-xs text-muted-foreground">
+                                        {(uploadedFiles[documentKey].size / 1024 / 1024).toFixed(2)} MB
+                                      </p>
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <div className="border-2 border-dashed border-border rounded-lg p-4 text-center">
+                                    <Upload className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
+                                    <p className="text-sm text-muted-foreground mb-3">
+                                      Pilih file untuk {req}
+                                    </p>
+                                    <input
+                                      type="file"
+                                      accept=".pdf,.jpg,.jpeg,.png"
+                                      onChange={(e) => handleFileUpload(e, documentKey)}
+                                      className="hidden"
+                                      id={`file-upload-${documentKey}`}
+                                    />
+                                    <Button
+                                      size="sm"
+                                      variant="outline"
+                                      onClick={() => document.getElementById(`file-upload-${documentKey}`)?.click()}
+                                    >
+                                      <Upload className="w-4 h-4 mr-2" />
+                                      Pilih File
+                                    </Button>
+                                  </div>
+                                )}
                               </div>
-                            </div>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => handleRemoveFile(index)}
-                            >
-                              ×
-                            </Button>
-                          </div>
-                        ))}
+                            );
+                          }
+                        )}
                       </div>
                     </div>
                   )}
