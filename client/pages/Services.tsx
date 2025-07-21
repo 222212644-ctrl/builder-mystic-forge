@@ -698,7 +698,11 @@ export default function Services() {
                       <ChevronRight className="w-4 h-4 ml-1" />
                     </Link>
                   </Button>
-                  <Button variant="outline" size="sm">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleDownload(service.title)}
+                  >
                     <Download className="w-4 h-4" />
                   </Button>
                 </div>
