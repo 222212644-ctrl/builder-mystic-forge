@@ -50,4 +50,9 @@ const App = () => (
   </QueryClientProvider>
 );
 
-createRoot(document.getElementById("root")!).render(<App />);
+// Ensure createRoot is only called once
+const container = document.getElementById("root")!;
+if (!container._reactRoot) {
+  container._reactRoot = createRoot(container);
+}
+container._reactRoot.render(<App />);
