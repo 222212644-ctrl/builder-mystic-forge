@@ -349,7 +349,7 @@ export default function Index() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  className="w-full pl-12 pr-4 py-4 text-lg bg-white text-foreground border-0 rounded-full shadow-lg"
+                  className="w-full pl-12 pr-4 py-4 text-lg bg-white/95 backdrop-blur-sm text-foreground border-0 rounded-full shadow-xl"
                   aria-label="Pencarian layanan, NIK, atau nomor permohonan"
                 />
                 <Button
