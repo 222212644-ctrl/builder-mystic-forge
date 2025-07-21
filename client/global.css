@@ -380,23 +380,9 @@
 
   /* Fix specific common elements */
   .dark .badge,
-  .dark [data-state="checked"],
-  .dark .bg-secondary {
+  .dark [data-state="checked"] {
     background-color: hsl(var(--secondary)) !important;
     color: hsl(var(--secondary-foreground)) !important;
-  }
-
-  .dark .badge.bg-primary,
-  .dark .bg-primary {
-    background-color: hsl(var(--primary)) !important;
-    color: white !important;
-  }
-
-  /* Ensure badges have proper contrast */
-  .dark .bg-secondary.text-secondary-foreground,
-  .dark [data-state="checked"] {
-    background-color: hsl(var(--secondary));
-    color: hsl(var(--secondary-foreground));
   }
 
   /* Fix dropdown and popover text */
