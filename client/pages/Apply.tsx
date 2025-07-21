@@ -166,6 +166,134 @@ export default function Apply() {
     return services.find((s) => s.id === selectedService);
   };
 
+  // Save Draft functionality
+  const handleSaveDraft = () => {
+    const draftData = {
+      currentStep,
+      selectedService,
+      formData,
+      uploadedFiles: uploadedFiles.map(f => f.name),
+      savedAt: new Date().toISOString(),
+    };
+
+    // Save to localStorage as a simple solution
+    localStorage.setItem('dpmptsp_draft', JSON.stringify(draftData));
+
+    toast.success("Draft berhasil disimpan!", {
+      description: "Data formulir Anda telah tersimpan di perangkat ini",
+      duration: 3000,
+    });
+  };
+
+  // File Upload functionality
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files) {
+      const newFiles = Array.from(files);
+
+      // Validate file size (max 5MB per file)
+      const maxSize = 5 * 1024 * 1024; // 5MB
+      const validFiles = newFiles.filter(file => {
+        if (file.size > maxSize) {
+          toast.error(`File ${file.name} terlalu besar (maksimal 5MB)`);
+          return false;
+        }
+        return true;
+      });
+
+      // Validate file types
+      const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+      const validTypeFiles = validFiles.filter(file => {
+        if (!allowedTypes.includes(file.type)) {
+          toast.error(`Format file ${file.name} tidak didukung. Gunakan PDF, JPG, atau PNG`);
+          return false;
+        }
+        return true;
+      });
+
+      setUploadedFiles(prev => [...prev, ...validTypeFiles]);
+
+      if (validTypeFiles.length > 0) {
+        toast.success(`${validTypeFiles.length} file berhasil diupload`, {
+          description: "File dokumen pendukung telah ditambahkan",
+          duration: 3000,
+        });
+      }
+    }
+  };
+
+  // Remove uploaded file
+  const handleRemoveFile = (index: number) => {
+    setUploadedFiles(prev => prev.filter((_, i) => i !== index));
+    toast.info("File telah dihapus");
+  };
+
+  // Submit Application functionality
+  const handleSubmitApplication = async () => {
+    if (!selectedService || !formData.fullName || !formData.email) {
+      toast.error("Mohon lengkapi semua data yang diperlukan");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    // Simulate API submission
+    try {
+      await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate network delay
+
+      const applicationData = {
+        applicationId: `PTSP-${new Date().getFullYear()}-${Math.floor(Math.random() * 10000).toString().padStart(4, '0')}`,
+        service: selectedService,
+        personalData: {
+          fullName: formData.fullName,
+          nik: formData.nik,
+          email: formData.email,
+          phone: formData.phone,
+          address: formData.address,
+        },
+        businessData: {
+          businessName: formData.businessName,
+          businessType: formData.businessType,
+          businessAddress: formData.businessAddress,
+          businessDescription: formData.businessDescription,
+        },
+        documents: uploadedFiles.map(f => f.name),
+        submittedAt: new Date().toISOString(),
+        status: 'submitted',
+      };
+
+      // In a real app, this would be sent to your backend API
+      localStorage.setItem('dpmptsp_last_application', JSON.stringify(applicationData));
+
+      toast.success("Permohonan berhasil dikirim!", {
+        description: `Nomor permohonan: ${applicationData.applicationId}`,
+        duration: 5000,
+      });
+
+      // Reset form
+      setCurrentStep(1);
+      setSelectedService("");
+      setFormData({
+        fullName: "",
+        nik: "",
+        email: "",
+        phone: "",
+        address: "",
+        businessName: "",
+        businessType: "",
+        businessAddress: "",
+        businessDescription: "",
+        documents: [],
+      });
+      setUploadedFiles([]);
+
+    } catch (error) {
+      toast.error("Terjadi kesalahan saat mengirim permohonan. Silakan coba lagi.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <Layout>
       <div className="container mx-auto px-4 py-8">
