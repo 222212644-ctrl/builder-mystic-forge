@@ -375,39 +375,6 @@ export default function Help() {
 
           {/* Sidebar */}
           <div className="space-y-6">
-            {/* Quick Guides */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center">
-                  <BookOpen className="w-5 h-5 mr-2" />
-                  Panduan Cepat
-                </CardTitle>
-                <CardDescription>
-                  Video tutorial dan panduan langkah demi langkah
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                {quickGuides.map((guide, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center space-x-3 p-3 bg-muted/50 rounded-lg hover:bg-muted/70 transition-colors cursor-pointer"
-                  >
-                    <guide.icon className="w-8 h-8 text-primary" />
-                    <div className="flex-1">
-                      <h4 className="font-medium text-sm">{guide.title}</h4>
-                      <p className="text-xs text-muted-foreground">
-                        {guide.description}
-                      </p>
-                      <Badge variant="outline" className="text-xs mt-1">
-                        <Clock className="w-3 h-3 mr-1" />
-                        {guide.duration}
-                      </Badge>
-                    </div>
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
-
             {/* Contact Methods */}
             <Card>
               <CardHeader>
