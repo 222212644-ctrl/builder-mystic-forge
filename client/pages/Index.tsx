@@ -302,15 +302,33 @@ export default function Index() {
 
       {/* Hero Section */}
       <section
-        className="relative text-white py-16 overflow-hidden"
+        className="relative text-white py-20 overflow-hidden min-h-[80vh] flex items-center"
         role="banner"
         aria-labelledby="hero-title"
-        style={{
-          background: `linear-gradient(135deg, rgba(30, 64, 175, 0.9) 0%, rgba(59, 130, 246, 0.8) 100%),
-                      url('https://images.pexels.com/photos/19389365/pexels-photo-19389365.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop') center/cover`,
-        }}
       >
-        <div className="container mx-auto px-4">
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage: `url('https://images.pexels.com/photos/19389365/pexels-photo-19389365.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        ></div>
+
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 z-10 bg-gradient-to-br from-blue-900/90 via-blue-800/85 to-blue-700/80"></div>
+
+        {/* Decorative Elements */}
+        <div className="absolute inset-0 z-10">
+          <div className="absolute top-10 left-10 w-32 h-32 bg-yellow-400/10 rounded-full blur-xl animate-pulse"></div>
+          <div className="absolute bottom-10 right-10 w-48 h-48 bg-blue-400/10 rounded-full blur-2xl animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-white/5 rounded-full blur-lg animate-pulse delay-500"></div>
+        </div>
+
+        {/* Content */}
+        <div className="relative z-20 container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 id="hero-title" className="text-4xl md:text-6xl font-bold mb-6">
               Layanan Perizinan
