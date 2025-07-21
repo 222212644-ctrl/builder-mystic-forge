@@ -407,6 +407,16 @@ export default function Apply() {
         duration: 5000,
       });
 
+      // Show success message with option to check status
+      setTimeout(() => {
+        const shouldCheckStatus = window.confirm(
+          "Permohonan berhasil dikirim! Apakah Anda ingin mengecek status permohonan sekarang?"
+        );
+        if (shouldCheckStatus) {
+          window.location.href = "/status";
+        }
+      }, 2000);
+
       // Reset form
       setCurrentStep(1);
       setSelectedService("");
