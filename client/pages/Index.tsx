@@ -188,8 +188,8 @@ export default function Index() {
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
-                <Building2 className="w-6 h-6 text-primary" />
+              <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center p-1">
+                <SamarindaLogo size={36} />
               </div>
               <div className="text-white">
                 <h1 className="font-bold text-lg">DPMPTSP</h1>
