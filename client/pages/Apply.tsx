@@ -5,6 +5,7 @@ import {
   Check,
   FileText,
   User,
+  Building2,
   MapPin,
   Upload,
   Info,
