@@ -251,9 +251,9 @@ export default function Help() {
           </CardContent>
         </Card>
 
-        <div className="grid lg:grid-cols-4 gap-8">
+        <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {/* FAQ Section */}
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-2">
             <h2 className="text-2xl font-semibold mb-6">
               Pertanyaan yang Sering Diajukan
             </h2>
