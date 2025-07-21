@@ -368,7 +368,7 @@ export default function Index() {
                 <Link
                   key={index}
                   to={action.href}
-                  className="bg-white/10 backdrop-blur-sm rounded-lg p-4 hover:bg-white/20 transition-all duration-200 text-center group"
+                  className="bg-white/15 backdrop-blur-md rounded-xl p-5 hover:bg-white/25 focus:bg-white/25 transition-all duration-300 text-center group focus:outline-none focus:ring-2 focus:ring-white/50 border border-white/20 shadow-lg"
                 >
                   <action.icon className="w-8 h-8 mx-auto mb-2 group-hover:scale-110 transition-transform" />
                   <h3 className="font-semibold text-sm">{action.title}</h3>
