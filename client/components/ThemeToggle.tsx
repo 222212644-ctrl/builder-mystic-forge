@@ -61,19 +61,20 @@ export function ThemeToggle() {
 
 // Simple toggle version for mobile/compact spaces
 export function SimpleThemeToggle() {
-  const { toggleTheme, actualTheme } = useTheme();
+  const { toggleTheme, actualTheme, theme } = useTheme();
 
   return (
     <Button
       variant="ghost"
       size="sm"
       onClick={toggleTheme}
-      className="h-9 w-9 px-0 text-white hover:bg-white/20"
-      aria-label={`Current theme: ${actualTheme}. Click to toggle theme`}
+      className="h-9 w-9 px-0 text-white hover:bg-white/20 focus:ring-2 focus:ring-white/50"
+      aria-label={`Mode tema saat ini: ${actualTheme === 'dark' ? 'Gelap' : 'Terang'}${theme === 'system' ? ' (Auto)' : ''}. Klik untuk mengganti tema`}
+      title={`Tema: ${actualTheme === 'dark' ? 'Gelap' : 'Terang'}${theme === 'system' ? ' (Auto)' : ''}`}
     >
       <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
       <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-      <span className="sr-only">Toggle theme</span>
+      <span className="sr-only">Ganti tema</span>
     </Button>
   );
 }
