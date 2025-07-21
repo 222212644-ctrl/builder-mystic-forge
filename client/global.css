@@ -333,8 +333,7 @@
   }
 
   /* Ensure proper contrast for buttons in dark mode */
-  .dark button.bg-secondary,
-  .dark .bg-secondary button {
+  .dark [data-secondary="true"] {
     background-color: hsl(var(--secondary));
     color: hsl(var(--secondary-foreground));
   }
