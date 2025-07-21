@@ -34,6 +34,7 @@ import { Badge } from "@/components/ui/badge";
 export default function Index() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
   // Mock data for statistics
   const stats = [
