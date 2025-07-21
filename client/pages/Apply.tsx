@@ -61,6 +61,8 @@ export default function Apply() {
     documents: [],
   });
 
+  const [validationErrors, setValidationErrors] = useState<{[key: string]: string}>({});
+
   const steps = [
     {
       number: 1,
@@ -151,7 +153,7 @@ export default function Apply() {
   ];
 
   const nextStep = () => {
-    if (currentStep < 4) {
+    if (validateCurrentStep() && currentStep < 4) {
       setCurrentStep(currentStep + 1);
     }
   };
@@ -164,6 +166,141 @@ export default function Apply() {
 
   const getSelectedServiceDetails = () => {
     return services.find((s) => s.id === selectedService);
+  };
+
+  // Validation functions
+  const validateFullName = (name: string): string => {
+    if (!name.trim()) return "Nama lengkap wajib diisi";
+    if (name.trim().length < 3) return "Nama lengkap minimal 3 karakter";
+    if (!/^[a-zA-Z\s.']+$/.test(name)) return "Nama hanya boleh mengandung huruf, spasi, titik, dan apostrof";
+    return "";
+  };
+
+  const validateNIK = (nik: string): string => {
+    if (!nik.trim()) return "NIK wajib diisi";
+    if (!/^\d{16}$/.test(nik)) return "NIK harus 16 digit angka";
+    return "";
+  };
+
+  const validateEmail = (email: string): string => {
+    if (!email.trim()) return "Email wajib diisi";
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) return "Format email tidak valid";
+    return "";
+  };
+
+  const validatePhone = (phone: string): string => {
+    if (!phone.trim()) return "Nomor telepon wajib diisi";
+    // Remove all non-digit characters for validation
+    const cleanPhone = phone.replace(/\D/g, '');
+    if (cleanPhone.length < 10 || cleanPhone.length > 15) {
+      return "Nomor telepon harus 10-15 digit";
+    }
+    if (!cleanPhone.startsWith('08') && !cleanPhone.startsWith('628')) {
+      return "Nomor telepon harus dimulai dengan 08 atau +628";
+    }
+    return "";
+  };
+
+  const validateAddress = (address: string): string => {
+    if (!address.trim()) return "Alamat wajib diisi";
+    if (address.trim().length < 10) return "Alamat minimal 10 karakter";
+    return "";
+  };
+
+  const validateBusinessName = (name: string): string => {
+    if (!name.trim()) return "Nama usaha/proyek wajib diisi";
+    if (name.trim().length < 3) return "Nama usaha/proyek minimal 3 karakter";
+    return "";
+  };
+
+  const validateBusinessType = (type: string): string => {
+    if (!type.trim()) return "Jenis usaha wajib dipilih";
+    return "";
+  };
+
+  const validateBusinessAddress = (address: string): string => {
+    if (!address.trim()) return "Alamat usaha/lokasi proyek wajib diisi";
+    if (address.trim().length < 10) return "Alamat usaha/lokasi proyek minimal 10 karakter";
+    return "";
+  };
+
+  const validateBusinessDescription = (description: string): string => {
+    if (!description.trim()) return "Deskripsi usaha/proyek wajib diisi";
+    if (description.trim().length < 20) return "Deskripsi usaha/proyek minimal 20 karakter";
+    return "";
+  };
+
+  // Real-time validation handler
+  const handleInputChange = (field: string, value: string) => {
+    // Update form data
+    setFormData({ ...formData, [field]: value });
+
+    // Validate field
+    let error = "";
+    switch (field) {
+      case "fullName":
+        error = validateFullName(value);
+        break;
+      case "nik":
+        error = validateNIK(value);
+        break;
+      case "email":
+        error = validateEmail(value);
+        break;
+      case "phone":
+        error = validatePhone(value);
+        break;
+      case "address":
+        error = validateAddress(value);
+        break;
+      case "businessName":
+        error = validateBusinessName(value);
+        break;
+      case "businessType":
+        error = validateBusinessType(value);
+        break;
+      case "businessAddress":
+        error = validateBusinessAddress(value);
+        break;
+      case "businessDescription":
+        error = validateBusinessDescription(value);
+        break;
+    }
+
+    // Update validation errors
+    setValidationErrors(prev => ({
+      ...prev,
+      [field]: error
+    }));
+  };
+
+  // Validate step before proceeding
+  const validateCurrentStep = (): boolean => {
+    if (currentStep === 2) {
+      const errors = {
+        fullName: validateFullName(formData.fullName),
+        nik: validateNIK(formData.nik),
+        email: validateEmail(formData.email),
+        phone: validatePhone(formData.phone),
+        address: validateAddress(formData.address),
+      };
+      setValidationErrors(prev => ({ ...prev, ...errors }));
+      return !Object.values(errors).some(error => error !== "");
+    }
+
+    if (currentStep === 3) {
+      const errors = {
+        businessName: validateBusinessName(formData.businessName),
+        businessType: validateBusinessType(formData.businessType),
+        businessAddress: validateBusinessAddress(formData.businessAddress),
+        businessDescription: validateBusinessDescription(formData.businessDescription),
+      };
+      setValidationErrors(prev => ({ ...prev, ...errors }));
+      return !Object.values(errors).some(error => error !== "");
+    }
+
+    return true;
   };
 
   // Save Draft functionality
@@ -442,22 +579,31 @@ export default function Apply() {
                         id="fullName"
                         placeholder="Sesuai KTP"
                         value={formData.fullName}
-                        onChange={(e) =>
-                          setFormData({ ...formData, fullName: e.target.value })
-                        }
+                        onChange={(e) => handleInputChange("fullName", e.target.value)}
+                        className={validationErrors.fullName ? "border-red-500" : ""}
                       />
+                      {validationErrors.fullName && (
+                        <p className="text-red-500 text-sm mt-1">{validationErrors.fullName}</p>
+                      )}
                     </div>
 
                     <div className="space-y-2">
                       <Label htmlFor="nik">NIK *</Label>
                       <Input
                         id="nik"
-                        placeholder="Nomor Induk Kependudukan"
+                        placeholder="Nomor Induk Kependudukan (16 digit)"
                         value={formData.nik}
-                        onChange={(e) =>
-                          setFormData({ ...formData, nik: e.target.value })
-                        }
+                        onChange={(e) => {
+                          // Only allow numbers and limit to 16 characters
+                          const value = e.target.value.replace(/\D/g, '').slice(0, 16);
+                          handleInputChange("nik", value);
+                        }}
+                        maxLength={16}
+                        className={validationErrors.nik ? "border-red-500" : ""}
                       />
+                      {validationErrors.nik && (
+                        <p className="text-red-500 text-sm mt-1">{validationErrors.nik}</p>
+                      )}
                     </div>
 
                     <div className="space-y-2">
@@ -467,22 +613,30 @@ export default function Apply() {
                         type="email"
                         placeholder="email@example.com"
                         value={formData.email}
-                        onChange={(e) =>
-                          setFormData({ ...formData, email: e.target.value })
-                        }
+                        onChange={(e) => handleInputChange("email", e.target.value)}
+                        className={validationErrors.email ? "border-red-500" : ""}
                       />
+                      {validationErrors.email && (
+                        <p className="text-red-500 text-sm mt-1">{validationErrors.email}</p>
+                      )}
                     </div>
 
                     <div className="space-y-2">
                       <Label htmlFor="phone">Nomor Telepon *</Label>
                       <Input
                         id="phone"
-                        placeholder="08xxxxxxxxxx"
+                        placeholder="08xxxxxxxxxx atau +628xxxxxxxxx"
                         value={formData.phone}
-                        onChange={(e) =>
-                          setFormData({ ...formData, phone: e.target.value })
-                        }
+                        onChange={(e) => {
+                          // Allow numbers, +, and - characters
+                          const value = e.target.value.replace(/[^0-9+\-]/g, '');
+                          handleInputChange("phone", value);
+                        }}
+                        className={validationErrors.phone ? "border-red-500" : ""}
                       />
+                      {validationErrors.phone && (
+                        <p className="text-red-500 text-sm mt-1">{validationErrors.phone}</p>
+                      )}
                     </div>
                   </div>
 
@@ -490,12 +644,14 @@ export default function Apply() {
                     <Label htmlFor="address">Alamat Lengkap *</Label>
                     <Textarea
                       id="address"
-                      placeholder="Alamat sesuai KTP"
+                      placeholder="Alamat lengkap sesuai KTP"
                       value={formData.address}
-                      onChange={(e) =>
-                        setFormData({ ...formData, address: e.target.value })
-                      }
+                      onChange={(e) => handleInputChange("address", e.target.value)}
+                      className={validationErrors.address ? "border-red-500" : ""}
                     />
+                    {validationErrors.address && (
+                      <p className="text-red-500 text-sm mt-1">{validationErrors.address}</p>
+                    )}
                   </div>
                 </div>
               )}
@@ -516,24 +672,21 @@ export default function Apply() {
                       <Label htmlFor="businessName">Nama Usaha/Proyek *</Label>
                       <Input
                         id="businessName"
-                        placeholder="Nama lengkap usaha"
+                        placeholder="Nama lengkap usaha atau proyek"
                         value={formData.businessName}
-                        onChange={(e) =>
-                          setFormData({
-                            ...formData,
-                            businessName: e.target.value,
-                          })
-                        }
+                        onChange={(e) => handleInputChange("businessName", e.target.value)}
+                        className={validationErrors.businessName ? "border-red-500" : ""}
                       />
+                      {validationErrors.businessName && (
+                        <p className="text-red-500 text-sm mt-1">{validationErrors.businessName}</p>
+                      )}
                     </div>
 
                     <div className="space-y-2">
                       <Label htmlFor="businessType">Jenis Usaha *</Label>
                       <Select
                         value={formData.businessType}
-                        onValueChange={(value) =>
-                          setFormData({ ...formData, businessType: value })
-                        }
+                        onValueChange={(value) => handleInputChange("businessType", value)}
                       >
                         <SelectTrigger>
                           <SelectValue placeholder="Pilih jenis usaha" />
@@ -549,6 +702,9 @@ export default function Apply() {
                           <SelectItem value="lainnya">Lainnya</SelectItem>
                         </SelectContent>
                       </Select>
+                      {validationErrors.businessType && (
+                        <p className="text-red-500 text-sm mt-1">{validationErrors.businessType}</p>
+                      )}
                     </div>
                   </div>
 
@@ -560,13 +716,12 @@ export default function Apply() {
                       id="businessAddress"
                       placeholder="Alamat lengkap lokasi usaha/proyek"
                       value={formData.businessAddress}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          businessAddress: e.target.value,
-                        })
-                      }
+                      onChange={(e) => handleInputChange("businessAddress", e.target.value)}
+                      className={validationErrors.businessAddress ? "border-red-500" : ""}
                     />
+                    {validationErrors.businessAddress && (
+                      <p className="text-red-500 text-sm mt-1">{validationErrors.businessAddress}</p>
+                    )}
                   </div>
 
                   <div className="space-y-2">
@@ -575,15 +730,15 @@ export default function Apply() {
                     </Label>
                     <Textarea
                       id="businessDescription"
-                      placeholder="Jelaskan secara detail tentang usaha/proyek yang akan dilakukan"
+                      placeholder="Jelaskan secara detail tentang usaha/proyek yang akan dilakukan (minimal 20 karakter)"
                       value={formData.businessDescription}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          businessDescription: e.target.value,
-                        })
-                      }
+                      onChange={(e) => handleInputChange("businessDescription", e.target.value)}
+                      className={validationErrors.businessDescription ? "border-red-500" : ""}
+                      rows={4}
                     />
+                    {validationErrors.businessDescription && (
+                      <p className="text-red-500 text-sm mt-1">{validationErrors.businessDescription}</p>
+                    )}
                   </div>
                 </div>
               )}
@@ -726,13 +881,25 @@ export default function Apply() {
                       onClick={nextStep}
                       disabled={
                         (currentStep === 1 && !selectedService) ||
-                        (currentStep === 2 &&
-                          (!formData.fullName ||
-                            !formData.nik ||
-                            !formData.email ||
-                            !formData.phone)) ||
-                        (currentStep === 3 &&
-                          (!formData.businessName || !formData.businessType))
+                        (currentStep === 2 && (
+                          !formData.fullName ||
+                          !formData.nik ||
+                          !formData.email ||
+                          !formData.phone ||
+                          !formData.address ||
+                          Object.keys(validationErrors).some(key =>
+                            ['fullName', 'nik', 'email', 'phone', 'address'].includes(key) && validationErrors[key]
+                          )
+                        )) ||
+                        (currentStep === 3 && (
+                          !formData.businessName ||
+                          !formData.businessType ||
+                          !formData.businessAddress ||
+                          !formData.businessDescription ||
+                          Object.keys(validationErrors).some(key =>
+                            ['businessName', 'businessType', 'businessAddress', 'businessDescription'].includes(key) && validationErrors[key]
+                          )
+                        ))
                       }
                     >
                       Selanjutnya
