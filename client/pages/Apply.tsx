@@ -399,8 +399,11 @@ export default function Apply() {
       // In a real app, this would be sent to your backend API
       localStorage.setItem('dpmptsp_last_application', JSON.stringify(applicationData));
 
+      // Store NIK for easy status checking
+      localStorage.setItem('dpmptsp_user_nik', formData.nik);
+
       toast.success("Permohonan berhasil dikirim!", {
-        description: `Nomor permohonan: ${applicationData.applicationId}`,
+        description: `Nomor permohonan: ${applicationData.applicationId}. Anda dapat mengecek status dengan NIK yang sama.`,
         duration: 5000,
       });
 
