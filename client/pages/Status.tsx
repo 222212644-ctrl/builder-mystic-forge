@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 import {
   ArrowLeft,
   Search,
@@ -15,6 +16,9 @@ import {
   Download,
   Eye,
   RefreshCw,
+  X,
+  MapPin,
+  Building,
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
@@ -36,12 +40,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 export default function Status() {
   const [searchType, setSearchType] = useState("nik");
   const [searchValue, setSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedApplication, setSelectedApplication] = useState(null);
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
 
   // Auto-fill NIK from localStorage if available
   useEffect(() => {
@@ -62,6 +76,14 @@ export default function Status() {
       status: "processing",
       currentStep: "Verifikasi Dokumen",
       progress: 60,
+      nik: "3271234567890123",
+      email: "ahmad.wijaya@email.com",
+      phone: "081234567890",
+      address: "Jl. Merdeka No. 123, Samarinda Ulu, Samarinda",
+      businessName: "Toko Maju Jaya",
+      businessType: "Perdagangan",
+      businessAddress: "Jl. Pasar Segiri No. 45, Samarinda Kota",
+      businessDescription: "Toko kelontong yang menjual kebutuhan sehari-hari masyarakat",
       documents: [
         { name: "KTP Pemohon", status: "approved" },
         { name: "Surat Tanah", status: "approved" },
@@ -110,6 +132,14 @@ export default function Status() {
       status: "approved",
       currentStep: "Selesai",
       progress: 100,
+      nik: "3271234567890123",
+      email: "sari.delima@email.com",
+      phone: "085678901234",
+      address: "Jl. Antasari No. 67, Samarinda Utara, Samarinda",
+      businessName: "CV Delima Sari",
+      businessType: "Jasa",
+      businessAddress: "Jl. Ahmad Yani No. 89, Samarinda Tengah",
+      businessDescription: "Jasa konsultasi bisnis dan manajemen perusahaan",
       documents: [
         { name: "KTP Penanggung Jawab", status: "approved" },
         { name: "Akta Pendirian", status: "approved" },
@@ -178,6 +208,20 @@ export default function Status() {
       default:
         return "Tidak Diketahui";
     }
+  };
+
+  // Handle view detail button
+  const handleViewDetail = (application) => {
+    setSelectedApplication(application);
+    setIsDetailModalOpen(true);
+  };
+
+  // Handle download button
+  const handleDownload = (applicationId) => {
+    toast.success("Download berhasil!", {
+      description: `Dokumen izin ${applicationId} telah diunduh ke perangkat Anda.`,
+      duration: 4000,
+    });
   };
 
   return (
@@ -491,12 +535,19 @@ export default function Status() {
 
                       {/* Action Buttons */}
                       <div className="flex flex-wrap gap-3 pt-4 border-t">
-                        <Button variant="outline" size="sm">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleViewDetail(application)}
+                        >
                           <Eye className="w-4 h-4 mr-2" />
                           Lihat Detail
                         </Button>
                         {application.status === "approved" && (
-                          <Button size="sm">
+                          <Button
+                            size="sm"
+                            onClick={() => handleDownload(application.id)}
+                          >
                             <Download className="w-4 h-4 mr-2" />
                             Download Izin
                           </Button>
@@ -512,6 +563,259 @@ export default function Status() {
               )}
             </div>
           )}
+
+          {/* Detail Modal */}
+          <Dialog open={isDetailModalOpen} onOpenChange={setIsDetailModalOpen}>
+            <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle className="flex items-center space-x-2">
+                  <FileText className="w-6 h-6 text-primary" />
+                  <span>Detail Permohonan: {selectedApplication?.id}</span>
+                </DialogTitle>
+                <DialogDescription>
+                  Informasi lengkap mengenai permohonan {selectedApplication?.type}
+                </DialogDescription>
+              </DialogHeader>
+
+              {selectedApplication && (
+                <div className="space-y-6">
+                  {/* Status Overview */}
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center justify-between">
+                        <span>{selectedApplication.type}</span>
+                        <Badge className={getStatusColor(selectedApplication.status)}>
+                          {(() => {
+                            const Icon = getStatusIcon(selectedApplication.status);
+                            return <Icon className="w-3 h-3 mr-1" />;
+                          })()}
+                          {getStatusText(selectedApplication.status)}
+                        </Badge>
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div>
+                          <p className="text-sm text-muted-foreground">Nomor Permohonan</p>
+                          <p className="font-medium">{selectedApplication.id}</p>
+                        </div>
+                        <div>
+                          <p className="text-sm text-muted-foreground">Status Saat Ini</p>
+                          <p className="font-medium">{selectedApplication.currentStep}</p>
+                        </div>
+                        <div>
+                          <p className="text-sm text-muted-foreground">Tanggal Pengajuan</p>
+                          <p className="font-medium">
+                            {new Date(selectedApplication.submitDate).toLocaleDateString("id-ID", {
+                              weekday: 'long',
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric'
+                            })}
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-sm text-muted-foreground">Estimasi Selesai</p>
+                          <p className="font-medium">
+                            {new Date(selectedApplication.estimatedCompletion).toLocaleDateString("id-ID", {
+                              weekday: 'long',
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric'
+                            })}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Progress Bar */}
+                      <div className="mt-4">
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-sm font-medium">Progress Permohonan</span>
+                          <span className="text-sm text-muted-foreground">
+                            {selectedApplication.progress}%
+                          </span>
+                        </div>
+                        <div className="w-full bg-muted rounded-full h-3">
+                          <div
+                            className="bg-primary h-3 rounded-full transition-all duration-300"
+                            style={{ width: `${selectedApplication.progress}%` }}
+                          />
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Personal Information */}
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center">
+                        <User className="w-5 h-5 mr-2" />
+                        Informasi Pemohon
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div>
+                          <p className="text-sm text-muted-foreground">Nama Lengkap</p>
+                          <p className="font-medium">{selectedApplication.applicantName}</p>
+                        </div>
+                        <div>
+                          <p className="text-sm text-muted-foreground">NIK</p>
+                          <p className="font-medium">{selectedApplication.nik}</p>
+                        </div>
+                        <div>
+                          <p className="text-sm text-muted-foreground">Email</p>
+                          <p className="font-medium">{selectedApplication.email}</p>
+                        </div>
+                        <div>
+                          <p className="text-sm text-muted-foreground">Nomor Telepon</p>
+                          <p className="font-medium">{selectedApplication.phone}</p>
+                        </div>
+                        <div className="md:col-span-2">
+                          <p className="text-sm text-muted-foreground">Alamat</p>
+                          <p className="font-medium">{selectedApplication.address}</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Business Information */}
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center">
+                        <Building className="w-5 h-5 mr-2" />
+                        Informasi Usaha/Proyek
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div>
+                          <p className="text-sm text-muted-foreground">Nama Usaha/Proyek</p>
+                          <p className="font-medium">{selectedApplication.businessName}</p>
+                        </div>
+                        <div>
+                          <p className="text-sm text-muted-foreground">Jenis Usaha</p>
+                          <p className="font-medium">{selectedApplication.businessType}</p>
+                        </div>
+                        <div className="md:col-span-2">
+                          <p className="text-sm text-muted-foreground">Alamat Usaha/Lokasi Proyek</p>
+                          <p className="font-medium">{selectedApplication.businessAddress}</p>
+                        </div>
+                        <div className="md:col-span-2">
+                          <p className="text-sm text-muted-foreground">Deskripsi Usaha/Proyek</p>
+                          <p className="font-medium">{selectedApplication.businessDescription}</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Timeline */}
+                  {selectedApplication.timeline && (
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="flex items-center">
+                          <Calendar className="w-5 h-5 mr-2" />
+                          Riwayat Proses
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="space-y-4">
+                          {selectedApplication.timeline.map((step, index) => (
+                            <div key={index} className="flex items-start space-x-3">
+                              <div
+                                className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+                                  step.status === "completed"
+                                    ? "bg-status-approved text-white"
+                                    : step.status === "processing"
+                                      ? "bg-status-processing text-white"
+                                      : "bg-muted text-muted-foreground"
+                                }`}
+                              >
+                                {step.status === "completed" ? (
+                                  <CheckCircle className="w-5 h-5" />
+                                ) : step.status === "processing" ? (
+                                  <RefreshCw className="w-5 h-5" />
+                                ) : (
+                                  <Clock className="w-5 h-5" />
+                                )}
+                              </div>
+                              <div className="flex-1">
+                                <div className="flex items-center justify-between mb-1">
+                                  <h5 className="font-medium">{step.title}</h5>
+                                  <span className="text-sm text-muted-foreground">
+                                    {new Date(step.date).toLocaleDateString("id-ID")}
+                                  </span>
+                                </div>
+                                <p className="text-sm text-muted-foreground">
+                                  {step.description}
+                                </p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )}
+
+                  {/* Documents Status */}
+                  {selectedApplication.documents && (
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="flex items-center">
+                          <FileText className="w-5 h-5 mr-2" />
+                          Status Dokumen
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="grid md:grid-cols-2 gap-3">
+                          {selectedApplication.documents.map((doc, index) => (
+                            <div
+                              key={index}
+                              className="flex items-center justify-between p-4 bg-muted/50 rounded-lg"
+                            >
+                              <div className="flex items-center space-x-3">
+                                <FileText className="w-5 h-5 text-primary" />
+                                <span className="font-medium">{doc.name}</span>
+                              </div>
+                              <Badge
+                                className={getStatusColor(doc.status)}
+                                variant="secondary"
+                              >
+                                {getStatusText(doc.status)}
+                              </Badge>
+                            </div>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )}
+
+                  {/* Action Buttons in Modal */}
+                  <div className="flex flex-wrap gap-3 pt-4 border-t">
+                    {selectedApplication.status === "approved" && (
+                      <Button
+                        onClick={() => handleDownload(selectedApplication.id)}
+                        className="bg-status-approved hover:bg-status-approved/90"
+                      >
+                        <Download className="w-4 h-4 mr-2" />
+                        Download Izin
+                      </Button>
+                    )}
+                    <Button variant="outline">
+                      <Phone className="w-4 h-4 mr-2" />
+                      Hubungi CS
+                    </Button>
+                    <Button variant="outline" asChild>
+                      <Link to="/help">
+                        <AlertCircle className="w-4 h-4 mr-2" />
+                        Bantuan
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </DialogContent>
+          </Dialog>
 
           {/* Help Section */}
           <Card className="mt-8 bg-muted/30">
