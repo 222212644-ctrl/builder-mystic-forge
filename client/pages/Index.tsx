@@ -24,6 +24,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ThemeToggle, SimpleThemeToggle } from "@/components/ThemeToggle";
 import { AccessibilityWidget } from "@/components/AccessibilityWidget";
+import { SamarindaLogo } from "@/components/SamarindaLogo";
 import {
   Card,
   CardContent,
