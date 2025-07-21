@@ -190,36 +190,7 @@ export default function Help() {
     },
   ];
 
-  const quickGuides = [
-    {
-      title: "Panduan Pendaftaran Akun",
-      description: "Langkah-langkah membuat akun baru",
-      duration: "5 menit",
-      icon: PlayCircle,
-      link: "#",
-    },
-    {
-      title: "Cara Mengajukan IMB",
-      description: "Tutorial lengkap pengajuan IMB",
-      duration: "15 menit",
-      icon: PlayCircle,
-      link: "#",
-    },
-    {
-      title: "Tips Upload Dokumen",
-      description: "Panduan upload dokumen yang benar",
-      duration: "3 menit",
-      icon: PlayCircle,
-      link: "#",
-    },
-    {
-      title: "Panduan Pembayaran",
-      description: "Cara melakukan pembayaran online",
-      duration: "8 menit",
-      icon: PlayCircle,
-      link: "#",
-    },
-  ];
+
 
   return (
     <Layout>
