@@ -97,14 +97,27 @@
     --input: 222 16% 18%;
     --ring: 214 65% 65%;
 
-    --sidebar-background: 216 28% 7%;
-    --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 214 84% 56%;
+    /* Government specific dark colors */
+    --gov-red: 0 75% 45%;
+    --gov-blue: 214 75% 45%;
+    --gov-green: 142 60% 35%;
+    --gov-yellow: 45 85% 40%;
+    --gov-gray: 215 15% 60%;
+
+    /* Status colors for dark mode */
+    --status-pending: 45 85% 40%;
+    --status-processing: 214 75% 45%;
+    --status-approved: 142 60% 35%;
+    --status-rejected: 0 75% 45%;
+
+    --sidebar-background: 222 16% 12%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 214 75% 45%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 216 28% 12%;
-    --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 216 28% 12%;
-    --sidebar-ring: 214 84% 56%;
+    --sidebar-accent: 222 16% 18%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 222 16% 22%;
+    --sidebar-ring: 214 65% 65%;
   }
 }
 
