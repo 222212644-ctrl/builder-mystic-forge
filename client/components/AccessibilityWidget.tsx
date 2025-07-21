@@ -29,6 +29,24 @@ export function AccessibilityWidget() {
     document.documentElement.style.filter = '';
   };
 
+  // Keyboard shortcuts
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Alt + A to toggle accessibility widget
+      if (e.altKey && e.key.toLowerCase() === 'a') {
+        e.preventDefault();
+        setIsOpen(!isOpen);
+      }
+      // Escape to close widget
+      if (e.key === 'Escape' && isOpen) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
+
   return (
     <>
       {/* Floating Accessibility Button */}
