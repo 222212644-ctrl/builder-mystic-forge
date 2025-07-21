@@ -639,11 +639,59 @@ export default function Apply() {
                     <p className="text-muted-foreground mb-4">
                       atau klik untuk memilih file
                     </p>
-                    <Button variant="outline">Pilih File</Button>
+                    <input
+                      type="file"
+                      multiple
+                      accept=".pdf,.jpg,.jpeg,.png"
+                      onChange={handleFileUpload}
+                      className="hidden"
+                      id="file-upload"
+                    />
+                    <Button
+                      variant="outline"
+                      asChild
+                      onClick={() => document.getElementById('file-upload')?.click()}
+                    >
+                      <label htmlFor="file-upload" className="cursor-pointer">
+                        Pilih File
+                      </label>
+                    </Button>
                     <p className="text-xs text-muted-foreground mt-2">
                       Format: PDF, JPG, PNG. Maksimal 5MB per file.
                     </p>
                   </div>
+
+                  {/* Display uploaded files */}
+                  {uploadedFiles.length > 0 && (
+                    <div className="mt-4">
+                      <h4 className="font-medium mb-3">File yang Diupload:</h4>
+                      <div className="space-y-2">
+                        {uploadedFiles.map((file, index) => (
+                          <div
+                            key={index}
+                            className="flex items-center justify-between p-3 bg-muted/50 rounded-lg"
+                          >
+                            <div className="flex items-center space-x-3">
+                              <FileText className="w-5 h-5 text-primary" />
+                              <div>
+                                <p className="text-sm font-medium">{file.name}</p>
+                                <p className="text-xs text-muted-foreground">
+                                  {(file.size / 1024 / 1024).toFixed(2)} MB
+                                </p>
+                              </div>
+                            </div>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleRemoveFile(index)}
+                            >
+                              ×
+                            </Button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
                   <div className="flex items-start space-x-2">
                     <Checkbox id="terms" />
