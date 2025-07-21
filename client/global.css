@@ -231,6 +231,33 @@
 }
 
 @layer utilities {
+  /* Dark mode text contrast utilities */
+  .dark-text-auto {
+    @apply dark:text-foreground;
+  }
+
+  .dark-bg-auto {
+    @apply dark:bg-background dark:text-foreground;
+  }
+
+  /* Force dark text on light backgrounds in dark mode */
+  .dark-contrast-text {
+    color: hsl(222 16% 15%);
+  }
+
+  .dark .dark-contrast-text {
+    color: hsl(222 16% 15%) !important;
+  }
+
+  /* Force light text on dark backgrounds */
+  .light-contrast-text {
+    color: hsl(0 0% 95%);
+  }
+
+  .dark .light-contrast-text {
+    color: hsl(0 0% 95%) !important;
+  }
+
   /* Screen reader only content */
   .sr-only {
     position: absolute;
