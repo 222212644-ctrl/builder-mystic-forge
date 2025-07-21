@@ -214,19 +214,23 @@
 
   /* Dark mode specific overrides */
   .dark .gov-button-primary {
-    @apply text-white;
+    color: white;
   }
 
   .dark .gov-button-secondary {
-    @apply bg-secondary text-secondary-foreground;
+    background-color: hsl(var(--secondary));
+    color: hsl(var(--secondary-foreground));
   }
 
   .dark .gov-input {
-    @apply bg-input text-foreground border-border;
+    background-color: hsl(var(--input));
+    color: hsl(var(--foreground));
+    border-color: hsl(var(--border));
   }
 
   .dark .gov-card {
-    @apply bg-card text-card-foreground;
+    background-color: hsl(var(--card));
+    color: hsl(var(--card-foreground));
   }
 }
 
