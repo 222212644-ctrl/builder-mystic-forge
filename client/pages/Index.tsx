@@ -159,6 +159,12 @@ export default function Index() {
                 Cek Status
               </Link>
               <Link
+                to="/complaints"
+                className="text-white hover:text-white/80 transition-colors"
+              >
+                Pengaduan
+              </Link>
+              <Link
                 to="/help"
                 className="text-white hover:text-white/80 transition-colors"
               >
