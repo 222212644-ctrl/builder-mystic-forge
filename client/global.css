@@ -372,11 +372,25 @@
   }
 
   .dark .text-primary {
-    color: hsl(var(--primary)) !important;
+    color: hsl(214 75% 65%) !important;
   }
 
   .dark .text-secondary {
     color: hsl(var(--secondary-foreground)) !important;
+  }
+
+  /* Fix specific common elements */
+  .dark .badge,
+  .dark [data-state="checked"],
+  .dark .bg-secondary {
+    background-color: hsl(var(--secondary)) !important;
+    color: hsl(var(--secondary-foreground)) !important;
+  }
+
+  .dark .badge.bg-primary,
+  .dark .bg-primary {
+    background-color: hsl(var(--primary)) !important;
+    color: white !important;
   }
 
   /* Ensure badges have proper contrast */
