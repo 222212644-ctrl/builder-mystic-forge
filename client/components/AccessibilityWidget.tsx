@@ -22,12 +22,23 @@ export function AccessibilityWidget() {
   // Apply font size changes
   React.useEffect(() => {
     document.documentElement.style.fontSize = `${fontSize}%`;
+    if (fontSize !== 100) {
+      announce(`Ukuran teks diubah ke ${fontSize}%`);
+    }
   }, [fontSize]);
 
   // Apply contrast changes
   React.useEffect(() => {
     document.documentElement.style.filter = contrast !== 100 ? `contrast(${contrast}%)` : '';
+    if (contrast !== 100) {
+      announce(`Kontras diubah ke ${contrast}%`);
+    }
   }, [contrast]);
+
+  // Announce theme changes
+  React.useEffect(() => {
+    announce(`Tema berubah ke mode ${actualTheme === 'dark' ? 'gelap' : 'terang'}`);
+  }, [actualTheme]);
 
   const resetSettings = () => {
     setFontSize(100);
