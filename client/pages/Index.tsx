@@ -346,7 +346,15 @@ export default function Index() {
         ></div>
 
         {/* Subtle overlay for text readability */}
-        <div className="absolute inset-0 z-10 bg-black/20"></div>
+        <div
+          className="absolute inset-0 z-10 bg-black/20"
+          style={{
+            backgroundImage: "url(https://blog.bookingtogo.com/wp-content/uploads/2023/11/Taman-Tepian-Mahakam_11zon-1.jpg)",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+            backgroundSize: "cover"
+          }}
+        ></div>
 
         {/* Content */}
         <div className="relative z-20 container mx-auto px-4">
