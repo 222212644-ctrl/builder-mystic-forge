@@ -234,6 +234,7 @@ export default function Index() {
               >
                 Tentang
               </Link>
+              <ThemeToggle />
             </nav>
 
             {/* Mobile Menu Button */}
