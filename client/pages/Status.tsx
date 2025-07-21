@@ -300,9 +300,14 @@ export default function Status() {
                       Tidak ada permohonan yang ditemukan dengan kriteria
                       pencarian tersebut.
                     </p>
-                    <Button asChild variant="outline">
-                      <Link to="/apply">Ajukan Izin Baru</Link>
-                    </Button>
+                    <div className="flex space-x-3 justify-center">
+                      <Button asChild variant="outline">
+                        <Link to="/apply">Ajukan Izin Baru</Link>
+                      </Button>
+                      <Button asChild>
+                        <Link to="/help">Butuh Bantuan?</Link>
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               ) : (
