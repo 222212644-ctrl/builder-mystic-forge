@@ -10,7 +10,14 @@ export function AccessibilityWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [fontSize, setFontSize] = useState(100);
   const [contrast, setContrast] = useState(100);
+  const [announcement, setAnnouncement] = useState('');
   const { theme, setTheme, actualTheme } = useTheme();
+
+  // Announce changes to screen readers
+  const announce = (message: string) => {
+    setAnnouncement(message);
+    setTimeout(() => setAnnouncement(''), 1000);
+  };
 
   // Apply font size changes
   React.useEffect(() => {
