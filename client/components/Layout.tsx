@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Building2, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -11,6 +12,8 @@ interface LayoutProps {
 export default function Layout({ children, showHero = false }: LayoutProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const skipLinkRef = useRef<HTMLAnchorElement>(null);
+  const mainContentRef = useRef<HTMLElement>(null);
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -23,14 +26,46 @@ export default function Layout({ children, showHero = false }: LayoutProps) {
     { path: "/about", label: "Tentang" },
   ];
 
+  // Handle skip link click
+  const handleSkipToContent = (e: React.MouseEvent) => {
+    e.preventDefault();
+    mainContentRef.current?.focus();
+    mainContentRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  // Close mobile menu on escape key
+  useEffect(() => {
+    const handleEscapeKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isMenuOpen) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleEscapeKey);
+    return () => document.removeEventListener('keydown', handleEscapeKey);
+  }, [isMenuOpen]);
+
   return (
     <div className="min-h-screen bg-background">
+      {/* Skip Link for Accessibility */}
+      <a
+        ref={skipLinkRef}
+        href="#main-content"
+        onClick={handleSkipToContent}
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] bg-primary text-primary-foreground px-4 py-2 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-ring"
+      >
+        Langsung ke konten utama
+      </a>
       {/* Header/Navigation */}
-      <header className="sticky top-0 z-50 gov-gradient shadow-lg">
+      <header className="sticky top-0 z-50 gov-gradient shadow-lg" role="banner">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <Link to="/" className="flex items-center space-x-3">
+            <Link
+              to="/"
+              className="flex items-center space-x-3 focus:outline-none focus:ring-2 focus:ring-white/50 rounded-lg p-1"
+              aria-label="DPMPTSP Kota Samarinda - Kembali ke Beranda"
+            >
               <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
                 <Building2 className="w-6 h-6 text-primary" />
               </div>
@@ -41,49 +76,63 @@ export default function Layout({ children, showHero = false }: LayoutProps) {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-6">
+            <nav className="hidden md:flex items-center space-x-6" role="navigation" aria-label="Navigasi utama">
               {navItems.map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`transition-colors ${
+                  className={`transition-colors focus:outline-none focus:ring-2 focus:ring-white/50 rounded px-2 py-1 ${
                     isActive(item.path)
                       ? "text-gov-yellow font-semibold"
                       : "text-white hover:text-white/80"
                   }`}
+                  aria-current={isActive(item.path) ? "page" : undefined}
                 >
                   {item.label}
                 </Link>
               ))}
+              <ThemeToggle />
             </nav>
 
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden text-white p-2"
-            >
-              {isMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
-            </button>
+            {/* Mobile Controls */}
+            <div className="md:hidden flex items-center space-x-2">
+              <ThemeToggle />
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="text-white p-2 focus:outline-none focus:ring-2 focus:ring-white/50 rounded"
+                aria-expanded={isMenuOpen}
+                aria-controls="mobile-menu"
+                aria-label={isMenuOpen ? "Tutup menu" : "Buka menu"}
+              >
+                {isMenuOpen ? (
+                  <X className="w-6 h-6" aria-hidden="true" />
+                ) : (
+                  <Menu className="w-6 h-6" aria-hidden="true" />
+                )}
+              </button>
+            </div>
           </div>
 
           {/* Mobile Navigation */}
           {isMenuOpen && (
-            <div className="md:hidden bg-white/10 backdrop-blur-sm rounded-lg mb-4 p-4">
+            <div
+              id="mobile-menu"
+              className="md:hidden bg-white/10 backdrop-blur-sm rounded-lg mb-4 p-4"
+              role="navigation"
+              aria-label="Navigasi mobile"
+            >
               <nav className="flex flex-col space-y-3">
                 {navItems.map((item) => (
                   <Link
                     key={item.path}
                     to={item.path}
-                    className={`py-2 transition-colors ${
+                    className={`py-2 transition-colors focus:outline-none focus:ring-2 focus:ring-white/50 rounded px-2 ${
                       isActive(item.path)
                         ? "text-gov-yellow font-semibold"
                         : "text-white hover:text-white/80"
                     }`}
                     onClick={() => setIsMenuOpen(false)}
+                    aria-current={isActive(item.path) ? "page" : undefined}
                   >
                     {item.label}
                   </Link>
@@ -95,10 +144,19 @@ export default function Layout({ children, showHero = false }: LayoutProps) {
       </header>
 
       {/* Main Content */}
-      <main>{children}</main>
+      <main
+        id="main-content"
+        ref={mainContentRef}
+        tabIndex={-1}
+        className="focus:outline-none"
+        role="main"
+        aria-label="Konten utama"
+      >
+        {children}
+      </main>
 
       {/* Footer */}
-      <footer className="bg-foreground text-background py-12">
+      <footer className="bg-foreground text-background py-12" role="contentinfo">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
