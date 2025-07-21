@@ -641,6 +641,9 @@ export default function Index() {
           </div>
         </div>
       </footer>
+
+      {/* Accessibility Widget */}
+      <AccessibilityWidget />
     </div>
   );
 }
