@@ -14,7 +14,6 @@ import {
   AlertCircle,
   CheckCircle,
   Download,
-  PlayCircle,
   BookOpen,
   Headphones,
 } from "lucide-react";
