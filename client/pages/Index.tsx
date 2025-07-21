@@ -294,7 +294,7 @@ export default function Index() {
       </header>
 
       {/* Hero Section */}
-      <section className="gov-gradient text-white py-16">
+      <section className="gov-gradient text-white py-16" role="banner" aria-labelledby="hero-title">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
