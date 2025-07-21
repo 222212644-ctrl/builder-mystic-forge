@@ -239,7 +239,7 @@ export default function Index() {
 
             {/* Mobile Controls */}
             <div className="md:hidden flex items-center space-x-2">
-              <ThemeToggle />
+              <SimpleThemeToggle />
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="text-white p-2"
