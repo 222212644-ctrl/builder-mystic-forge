@@ -34,9 +34,6 @@ import {
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export default function Help() {
-
-
-
   const faqs = [
     {
       id: 1,
@@ -171,8 +168,6 @@ export default function Help() {
     },
   ];
 
-
-
   return (
     <Layout>
       <div className="container mx-auto px-4 py-8">
@@ -190,7 +185,8 @@ export default function Help() {
           <Headphones className="h-4 w-4" />
           <AlertDescription>
             <strong>Bantuan Cepat:</strong> Hubungi (0541) 123-4567 untuk
-            bantuan langsung atau browse pertanyaan yang sering diajukan di bawah.
+            bantuan langsung atau browse pertanyaan yang sering diajukan di
+            bawah.
           </AlertDescription>
         </Alert>
 
@@ -209,28 +205,34 @@ export default function Help() {
               </h3>
               <Accordion type="single" collapsible className="space-y-2">
                 {popularFAQs.map((faq) => (
-                    <AccordionItem
-                      key={faq.id}
-                      value={`faq-${faq.id}`}
-                      className="border rounded-lg px-4"
-                    >
-                      <AccordionTrigger className="text-left">
-                        <div className="flex items-center">
-                          <Badge variant="secondary" className="mr-3">
-                            {faq.category === "registration" ? "Pendaftaran" :
-                             faq.category === "documents" ? "Dokumen" :
-                             faq.category === "payment" ? "Pembayaran" :
-                             faq.category === "status" ? "Status & Tracking" :
-                             faq.category === "technical" ? "Teknis" : "Lainnya"}
-                          </Badge>
-                          {faq.question}
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent className="text-muted-foreground pb-4">
-                        {faq.answer}
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
+                  <AccordionItem
+                    key={faq.id}
+                    value={`faq-${faq.id}`}
+                    className="border rounded-lg px-4"
+                  >
+                    <AccordionTrigger className="text-left">
+                      <div className="flex items-center">
+                        <Badge variant="secondary" className="mr-3">
+                          {faq.category === "registration"
+                            ? "Pendaftaran"
+                            : faq.category === "documents"
+                              ? "Dokumen"
+                              : faq.category === "payment"
+                                ? "Pembayaran"
+                                : faq.category === "status"
+                                  ? "Status & Tracking"
+                                  : faq.category === "technical"
+                                    ? "Teknis"
+                                    : "Lainnya"}
+                        </Badge>
+                        {faq.question}
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground pb-4">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
               </Accordion>
             </div>
 
@@ -247,11 +249,17 @@ export default function Help() {
                     <AccordionTrigger className="text-left">
                       <div className="flex items-center">
                         <Badge variant="outline" className="mr-3">
-                          {faq.category === "registration" ? "Pendaftaran" :
-                           faq.category === "documents" ? "Dokumen" :
-                           faq.category === "payment" ? "Pembayaran" :
-                           faq.category === "status" ? "Status & Tracking" :
-                           faq.category === "technical" ? "Teknis" : "Lainnya"}
+                          {faq.category === "registration"
+                            ? "Pendaftaran"
+                            : faq.category === "documents"
+                              ? "Dokumen"
+                              : faq.category === "payment"
+                                ? "Pembayaran"
+                                : faq.category === "status"
+                                  ? "Status & Tracking"
+                                  : faq.category === "technical"
+                                    ? "Teknis"
+                                    : "Lainnya"}
                         </Badge>
                         {faq.question}
                       </div>
@@ -263,8 +271,6 @@ export default function Help() {
                 ))}
               </Accordion>
             </div>
-
-
           </div>
 
           {/* Sidebar */}
@@ -333,7 +339,11 @@ export default function Help() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button asChild>
-                  <a href="https://wa.me/+6282386126309" target="_blank" rel="noopener noreferrer">
+                  <a
+                    href="https://wa.me/+6282386126309"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <MessageSquare className="w-4 h-4 mr-2" />
                     Chat WhatsApp
                   </a>

@@ -59,8 +59,8 @@ export default function Status() {
 
   // Auto-fill NIK from localStorage if available
   useEffect(() => {
-    const storedNIK = localStorage.getItem('dpmptsp_user_nik');
-    if (storedNIK && searchType === 'nik') {
+    const storedNIK = localStorage.getItem("dpmptsp_user_nik");
+    if (storedNIK && searchType === "nik") {
       setSearchValue(storedNIK);
     }
   }, [searchType]);
@@ -83,7 +83,8 @@ export default function Status() {
       businessName: "Toko Maju Jaya",
       businessType: "Perdagangan",
       businessAddress: "Jl. Pasar Segiri No. 45, Samarinda Kota",
-      businessDescription: "Toko kelontong yang menjual kebutuhan sehari-hari masyarakat",
+      businessDescription:
+        "Toko kelontong yang menjual kebutuhan sehari-hari masyarakat",
       documents: [
         { name: "KTP Pemohon", status: "approved" },
         { name: "Surat Tanah", status: "approved" },
@@ -287,13 +288,17 @@ export default function Status() {
                         onChange={(e) => {
                           let value = e.target.value;
                           // Format NIK input to only allow numbers and limit to 16 characters
-                          if (searchType === 'nik') {
-                            value = value.replace(/\D/g, '').slice(0, 16);
+                          if (searchType === "nik") {
+                            value = value.replace(/\D/g, "").slice(0, 16);
                           }
                           setSearchValue(value);
                         }}
                         onKeyPress={(e) => e.key === "Enter" && handleSearch()}
-                        className={searchValue && searchType === 'nik' ? "bg-blue-50 border-blue-300" : ""}
+                        className={
+                          searchValue && searchType === "nik"
+                            ? "bg-blue-50 border-blue-300"
+                            : ""
+                        }
                       />
                       <Button
                         onClick={handleSearch}
@@ -313,15 +318,18 @@ export default function Status() {
                 <Alert>
                   <AlertCircle className="h-4 w-4" />
                   <AlertDescription>
-                    {searchValue && searchType === 'nik' ? (
+                    {searchValue && searchType === "nik" ? (
                       <span>
-                        <strong>Info:</strong> NIK telah diisi otomatis dari permohonan terakhir Anda.
-                        Untuk demo, gunakan NIK "3271234567890123" atau nomor permohonan "IMB2024001234".
+                        <strong>Info:</strong> NIK telah diisi otomatis dari
+                        permohonan terakhir Anda. Untuk demo, gunakan NIK
+                        "3271234567890123" atau nomor permohonan
+                        "IMB2024001234".
                       </span>
                     ) : (
                       <span>
-                        <strong>Demo:</strong> Gunakan NIK "3271234567890123" atau
-                        nomor permohonan "IMB2024001234" untuk melihat contoh hasil pencarian.
+                        <strong>Demo:</strong> Gunakan NIK "3271234567890123"
+                        atau nomor permohonan "IMB2024001234" untuk melihat
+                        contoh hasil pencarian.
                       </span>
                     )}
                   </AlertDescription>
@@ -573,7 +581,8 @@ export default function Status() {
                   <span>Detail Permohonan: {selectedApplication?.id}</span>
                 </DialogTitle>
                 <DialogDescription>
-                  Informasi lengkap mengenai permohonan {selectedApplication?.type}
+                  Informasi lengkap mengenai permohonan{" "}
+                  {selectedApplication?.type}
                 </DialogDescription>
               </DialogHeader>
 
@@ -584,9 +593,13 @@ export default function Status() {
                     <CardHeader>
                       <CardTitle className="flex items-center justify-between">
                         <span>{selectedApplication.type}</span>
-                        <Badge className={getStatusColor(selectedApplication.status)}>
+                        <Badge
+                          className={getStatusColor(selectedApplication.status)}
+                        >
                           {(() => {
-                            const Icon = getStatusIcon(selectedApplication.status);
+                            const Icon = getStatusIcon(
+                              selectedApplication.status,
+                            );
                             return <Icon className="w-3 h-3 mr-1" />;
                           })()}
                           {getStatusText(selectedApplication.status)}
@@ -596,32 +609,48 @@ export default function Status() {
                     <CardContent>
                       <div className="grid md:grid-cols-2 gap-4">
                         <div>
-                          <p className="text-sm text-muted-foreground">Nomor Permohonan</p>
-                          <p className="font-medium">{selectedApplication.id}</p>
-                        </div>
-                        <div>
-                          <p className="text-sm text-muted-foreground">Status Saat Ini</p>
-                          <p className="font-medium">{selectedApplication.currentStep}</p>
-                        </div>
-                        <div>
-                          <p className="text-sm text-muted-foreground">Tanggal Pengajuan</p>
+                          <p className="text-sm text-muted-foreground">
+                            Nomor Permohonan
+                          </p>
                           <p className="font-medium">
-                            {new Date(selectedApplication.submitDate).toLocaleDateString("id-ID", {
-                              weekday: 'long',
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric'
+                            {selectedApplication.id}
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-sm text-muted-foreground">
+                            Status Saat Ini
+                          </p>
+                          <p className="font-medium">
+                            {selectedApplication.currentStep}
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-sm text-muted-foreground">
+                            Tanggal Pengajuan
+                          </p>
+                          <p className="font-medium">
+                            {new Date(
+                              selectedApplication.submitDate,
+                            ).toLocaleDateString("id-ID", {
+                              weekday: "long",
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
                             })}
                           </p>
                         </div>
                         <div>
-                          <p className="text-sm text-muted-foreground">Estimasi Selesai</p>
+                          <p className="text-sm text-muted-foreground">
+                            Estimasi Selesai
+                          </p>
                           <p className="font-medium">
-                            {new Date(selectedApplication.estimatedCompletion).toLocaleDateString("id-ID", {
-                              weekday: 'long',
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric'
+                            {new Date(
+                              selectedApplication.estimatedCompletion,
+                            ).toLocaleDateString("id-ID", {
+                              weekday: "long",
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
                             })}
                           </p>
                         </div>
@@ -630,7 +659,9 @@ export default function Status() {
                       {/* Progress Bar */}
                       <div className="mt-4">
                         <div className="flex justify-between items-center mb-2">
-                          <span className="text-sm font-medium">Progress Permohonan</span>
+                          <span className="text-sm font-medium">
+                            Progress Permohonan
+                          </span>
                           <span className="text-sm text-muted-foreground">
                             {selectedApplication.progress}%
                           </span>
@@ -638,7 +669,9 @@ export default function Status() {
                         <div className="w-full bg-muted rounded-full h-3">
                           <div
                             className="bg-primary h-3 rounded-full transition-all duration-300"
-                            style={{ width: `${selectedApplication.progress}%` }}
+                            style={{
+                              width: `${selectedApplication.progress}%`,
+                            }}
                           />
                         </div>
                       </div>
@@ -656,24 +689,40 @@ export default function Status() {
                     <CardContent>
                       <div className="grid md:grid-cols-2 gap-4">
                         <div>
-                          <p className="text-sm text-muted-foreground">Nama Lengkap</p>
-                          <p className="font-medium">{selectedApplication.applicantName}</p>
+                          <p className="text-sm text-muted-foreground">
+                            Nama Lengkap
+                          </p>
+                          <p className="font-medium">
+                            {selectedApplication.applicantName}
+                          </p>
                         </div>
                         <div>
                           <p className="text-sm text-muted-foreground">NIK</p>
-                          <p className="font-medium">{selectedApplication.nik}</p>
+                          <p className="font-medium">
+                            {selectedApplication.nik}
+                          </p>
                         </div>
                         <div>
                           <p className="text-sm text-muted-foreground">Email</p>
-                          <p className="font-medium">{selectedApplication.email}</p>
+                          <p className="font-medium">
+                            {selectedApplication.email}
+                          </p>
                         </div>
                         <div>
-                          <p className="text-sm text-muted-foreground">Nomor Telepon</p>
-                          <p className="font-medium">{selectedApplication.phone}</p>
+                          <p className="text-sm text-muted-foreground">
+                            Nomor Telepon
+                          </p>
+                          <p className="font-medium">
+                            {selectedApplication.phone}
+                          </p>
                         </div>
                         <div className="md:col-span-2">
-                          <p className="text-sm text-muted-foreground">Alamat</p>
-                          <p className="font-medium">{selectedApplication.address}</p>
+                          <p className="text-sm text-muted-foreground">
+                            Alamat
+                          </p>
+                          <p className="font-medium">
+                            {selectedApplication.address}
+                          </p>
                         </div>
                       </div>
                     </CardContent>
@@ -690,20 +739,36 @@ export default function Status() {
                     <CardContent>
                       <div className="grid md:grid-cols-2 gap-4">
                         <div>
-                          <p className="text-sm text-muted-foreground">Nama Usaha/Proyek</p>
-                          <p className="font-medium">{selectedApplication.businessName}</p>
+                          <p className="text-sm text-muted-foreground">
+                            Nama Usaha/Proyek
+                          </p>
+                          <p className="font-medium">
+                            {selectedApplication.businessName}
+                          </p>
                         </div>
                         <div>
-                          <p className="text-sm text-muted-foreground">Jenis Usaha</p>
-                          <p className="font-medium">{selectedApplication.businessType}</p>
+                          <p className="text-sm text-muted-foreground">
+                            Jenis Usaha
+                          </p>
+                          <p className="font-medium">
+                            {selectedApplication.businessType}
+                          </p>
                         </div>
                         <div className="md:col-span-2">
-                          <p className="text-sm text-muted-foreground">Alamat Usaha/Lokasi Proyek</p>
-                          <p className="font-medium">{selectedApplication.businessAddress}</p>
+                          <p className="text-sm text-muted-foreground">
+                            Alamat Usaha/Lokasi Proyek
+                          </p>
+                          <p className="font-medium">
+                            {selectedApplication.businessAddress}
+                          </p>
                         </div>
                         <div className="md:col-span-2">
-                          <p className="text-sm text-muted-foreground">Deskripsi Usaha/Proyek</p>
-                          <p className="font-medium">{selectedApplication.businessDescription}</p>
+                          <p className="text-sm text-muted-foreground">
+                            Deskripsi Usaha/Proyek
+                          </p>
+                          <p className="font-medium">
+                            {selectedApplication.businessDescription}
+                          </p>
                         </div>
                       </div>
                     </CardContent>
@@ -721,7 +786,10 @@ export default function Status() {
                       <CardContent>
                         <div className="space-y-4">
                           {selectedApplication.timeline.map((step, index) => (
-                            <div key={index} className="flex items-start space-x-3">
+                            <div
+                              key={index}
+                              className="flex items-start space-x-3"
+                            >
                               <div
                                 className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
                                   step.status === "completed"
@@ -743,7 +811,9 @@ export default function Status() {
                                 <div className="flex items-center justify-between mb-1">
                                   <h5 className="font-medium">{step.title}</h5>
                                   <span className="text-sm text-muted-foreground">
-                                    {new Date(step.date).toLocaleDateString("id-ID")}
+                                    {new Date(step.date).toLocaleDateString(
+                                      "id-ID",
+                                    )}
                                   </span>
                                 </div>
                                 <p className="text-sm text-muted-foreground">

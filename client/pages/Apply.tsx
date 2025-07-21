@@ -42,7 +42,9 @@ export default function Apply() {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedService, setSelectedService] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [uploadedFiles, setUploadedFiles] = useState<{[key: string]: File}>({});
+  const [uploadedFiles, setUploadedFiles] = useState<{ [key: string]: File }>(
+    {},
+  );
   const [formData, setFormData] = useState({
     // Personal Info
     fullName: "",
@@ -61,7 +63,9 @@ export default function Apply() {
     documents: [],
   });
 
-  const [validationErrors, setValidationErrors] = useState<{[key: string]: string}>({});
+  const [validationErrors, setValidationErrors] = useState<{
+    [key: string]: string;
+  }>({});
 
   const steps = [
     {
@@ -172,7 +176,8 @@ export default function Apply() {
   const validateFullName = (name: string): string => {
     if (!name.trim()) return "Nama lengkap wajib diisi";
     if (name.trim().length < 3) return "Nama lengkap minimal 3 karakter";
-    if (!/^[a-zA-Z\s.']+$/.test(name)) return "Nama hanya boleh mengandung huruf, spasi, titik, dan apostrof";
+    if (!/^[a-zA-Z\s.']+$/.test(name))
+      return "Nama hanya boleh mengandung huruf, spasi, titik, dan apostrof";
     return "";
   };
 
@@ -192,11 +197,11 @@ export default function Apply() {
   const validatePhone = (phone: string): string => {
     if (!phone.trim()) return "Nomor telepon wajib diisi";
     // Remove all non-digit characters for validation
-    const cleanPhone = phone.replace(/\D/g, '');
+    const cleanPhone = phone.replace(/\D/g, "");
     if (cleanPhone.length < 10 || cleanPhone.length > 15) {
       return "Nomor telepon harus 10-15 digit";
     }
-    if (!cleanPhone.startsWith('08') && !cleanPhone.startsWith('628')) {
+    if (!cleanPhone.startsWith("08") && !cleanPhone.startsWith("628")) {
       return "Nomor telepon harus dimulai dengan 08 atau +628";
     }
     return "";
@@ -221,13 +226,15 @@ export default function Apply() {
 
   const validateBusinessAddress = (address: string): string => {
     if (!address.trim()) return "Alamat usaha/lokasi proyek wajib diisi";
-    if (address.trim().length < 10) return "Alamat usaha/lokasi proyek minimal 10 karakter";
+    if (address.trim().length < 10)
+      return "Alamat usaha/lokasi proyek minimal 10 karakter";
     return "";
   };
 
   const validateBusinessDescription = (description: string): string => {
     if (!description.trim()) return "Deskripsi usaha/proyek wajib diisi";
-    if (description.trim().length < 20) return "Deskripsi usaha/proyek minimal 20 karakter";
+    if (description.trim().length < 20)
+      return "Deskripsi usaha/proyek minimal 20 karakter";
     return "";
   };
 
@@ -269,9 +276,9 @@ export default function Apply() {
     }
 
     // Update validation errors
-    setValidationErrors(prev => ({
+    setValidationErrors((prev) => ({
       ...prev,
-      [field]: error
+      [field]: error,
     }));
   };
 
@@ -285,8 +292,8 @@ export default function Apply() {
         phone: validatePhone(formData.phone),
         address: validateAddress(formData.address),
       };
-      setValidationErrors(prev => ({ ...prev, ...errors }));
-      return !Object.values(errors).some(error => error !== "");
+      setValidationErrors((prev) => ({ ...prev, ...errors }));
+      return !Object.values(errors).some((error) => error !== "");
     }
 
     if (currentStep === 3) {
@@ -294,10 +301,12 @@ export default function Apply() {
         businessName: validateBusinessName(formData.businessName),
         businessType: validateBusinessType(formData.businessType),
         businessAddress: validateBusinessAddress(formData.businessAddress),
-        businessDescription: validateBusinessDescription(formData.businessDescription),
+        businessDescription: validateBusinessDescription(
+          formData.businessDescription,
+        ),
       };
-      setValidationErrors(prev => ({ ...prev, ...errors }));
-      return !Object.values(errors).some(error => error !== "");
+      setValidationErrors((prev) => ({ ...prev, ...errors }));
+      return !Object.values(errors).some((error) => error !== "");
     }
 
     return true;
@@ -314,7 +323,7 @@ export default function Apply() {
     };
 
     // Save to localStorage as a simple solution
-    localStorage.setItem('dpmptsp_draft', JSON.stringify(draftData));
+    localStorage.setItem("dpmptsp_draft", JSON.stringify(draftData));
 
     toast.success("Draft berhasil disimpan!", {
       description: "Data formulir Anda telah tersimpan di perangkat ini",
@@ -323,7 +332,10 @@ export default function Apply() {
   };
 
   // File Upload functionality for specific document
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>, documentKey: string) => {
+  const handleFileUpload = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    documentKey: string,
+  ) => {
     const file = event.target.files?.[0];
     if (file) {
       // Validate file size (max 5MB per file)
@@ -334,15 +346,20 @@ export default function Apply() {
       }
 
       // Validate file types
-      const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+      const allowedTypes = [
+        "application/pdf",
+        "image/jpeg",
+        "image/jpg",
+        "image/png",
+      ];
       if (!allowedTypes.includes(file.type)) {
         toast.error(`Format file tidak didukung. Gunakan PDF, JPG, atau PNG`);
         return;
       }
 
-      setUploadedFiles(prev => ({
+      setUploadedFiles((prev) => ({
         ...prev,
-        [documentKey]: file
+        [documentKey]: file,
       }));
 
       toast.success(`File berhasil diupload`, {
@@ -354,7 +371,7 @@ export default function Apply() {
 
   // Remove uploaded file
   const handleRemoveFile = (documentKey: string) => {
-    setUploadedFiles(prev => {
+    setUploadedFiles((prev) => {
       const newFiles = { ...prev };
       delete newFiles[documentKey];
       return newFiles;
@@ -373,10 +390,14 @@ export default function Apply() {
 
     // Simulate API submission
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate network delay
+      await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate network delay
 
       const applicationData = {
-        applicationId: `PTSP-${new Date().getFullYear()}-${Math.floor(Math.random() * 10000).toString().padStart(4, '0')}`,
+        applicationId: `PTSP-${new Date().getFullYear()}-${Math.floor(
+          Math.random() * 10000,
+        )
+          .toString()
+          .padStart(4, "0")}`,
         service: selectedService,
         personalData: {
           fullName: formData.fullName,
@@ -393,14 +414,17 @@ export default function Apply() {
         },
         documents: Object.keys(uploadedFiles),
         submittedAt: new Date().toISOString(),
-        status: 'submitted',
+        status: "submitted",
       };
 
       // In a real app, this would be sent to your backend API
-      localStorage.setItem('dpmptsp_last_application', JSON.stringify(applicationData));
+      localStorage.setItem(
+        "dpmptsp_last_application",
+        JSON.stringify(applicationData),
+      );
 
       // Store NIK for easy status checking
-      localStorage.setItem('dpmptsp_user_nik', formData.nik);
+      localStorage.setItem("dpmptsp_user_nik", formData.nik);
 
       toast.success("Permohonan berhasil dikirim!", {
         description: `Nomor permohonan: ${applicationData.applicationId}. Anda dapat mengecek status dengan NIK yang sama.`,
@@ -410,7 +434,7 @@ export default function Apply() {
       // Show success message with option to check status
       setTimeout(() => {
         const shouldCheckStatus = window.confirm(
-          "Permohonan berhasil dikirim! Apakah Anda ingin mengecek status permohonan sekarang?"
+          "Permohonan berhasil dikirim! Apakah Anda ingin mengecek status permohonan sekarang?",
         );
         if (shouldCheckStatus) {
           window.location.href = "/status";
@@ -433,9 +457,10 @@ export default function Apply() {
         documents: [],
       });
       setUploadedFiles({});
-
     } catch (error) {
-      toast.error("Terjadi kesalahan saat mengirim permohonan. Silakan coba lagi.");
+      toast.error(
+        "Terjadi kesalahan saat mengirim permohonan. Silakan coba lagi.",
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -592,11 +617,17 @@ export default function Apply() {
                         id="fullName"
                         placeholder="Sesuai KTP"
                         value={formData.fullName}
-                        onChange={(e) => handleInputChange("fullName", e.target.value)}
-                        className={validationErrors.fullName ? "border-red-500" : ""}
+                        onChange={(e) =>
+                          handleInputChange("fullName", e.target.value)
+                        }
+                        className={
+                          validationErrors.fullName ? "border-red-500" : ""
+                        }
                       />
                       {validationErrors.fullName && (
-                        <p className="text-red-500 text-sm mt-1">{validationErrors.fullName}</p>
+                        <p className="text-red-500 text-sm mt-1">
+                          {validationErrors.fullName}
+                        </p>
                       )}
                     </div>
 
@@ -608,14 +639,18 @@ export default function Apply() {
                         value={formData.nik}
                         onChange={(e) => {
                           // Only allow numbers and limit to 16 characters
-                          const value = e.target.value.replace(/\D/g, '').slice(0, 16);
+                          const value = e.target.value
+                            .replace(/\D/g, "")
+                            .slice(0, 16);
                           handleInputChange("nik", value);
                         }}
                         maxLength={16}
                         className={validationErrors.nik ? "border-red-500" : ""}
                       />
                       {validationErrors.nik && (
-                        <p className="text-red-500 text-sm mt-1">{validationErrors.nik}</p>
+                        <p className="text-red-500 text-sm mt-1">
+                          {validationErrors.nik}
+                        </p>
                       )}
                     </div>
 
@@ -626,11 +661,17 @@ export default function Apply() {
                         type="email"
                         placeholder="email@example.com"
                         value={formData.email}
-                        onChange={(e) => handleInputChange("email", e.target.value)}
-                        className={validationErrors.email ? "border-red-500" : ""}
+                        onChange={(e) =>
+                          handleInputChange("email", e.target.value)
+                        }
+                        className={
+                          validationErrors.email ? "border-red-500" : ""
+                        }
                       />
                       {validationErrors.email && (
-                        <p className="text-red-500 text-sm mt-1">{validationErrors.email}</p>
+                        <p className="text-red-500 text-sm mt-1">
+                          {validationErrors.email}
+                        </p>
                       )}
                     </div>
 
@@ -642,13 +683,20 @@ export default function Apply() {
                         value={formData.phone}
                         onChange={(e) => {
                           // Allow numbers, +, and - characters
-                          const value = e.target.value.replace(/[^0-9+\-]/g, '');
+                          const value = e.target.value.replace(
+                            /[^0-9+\-]/g,
+                            "",
+                          );
                           handleInputChange("phone", value);
                         }}
-                        className={validationErrors.phone ? "border-red-500" : ""}
+                        className={
+                          validationErrors.phone ? "border-red-500" : ""
+                        }
                       />
                       {validationErrors.phone && (
-                        <p className="text-red-500 text-sm mt-1">{validationErrors.phone}</p>
+                        <p className="text-red-500 text-sm mt-1">
+                          {validationErrors.phone}
+                        </p>
                       )}
                     </div>
                   </div>
@@ -659,11 +707,17 @@ export default function Apply() {
                       id="address"
                       placeholder="Alamat lengkap sesuai KTP"
                       value={formData.address}
-                      onChange={(e) => handleInputChange("address", e.target.value)}
-                      className={validationErrors.address ? "border-red-500" : ""}
+                      onChange={(e) =>
+                        handleInputChange("address", e.target.value)
+                      }
+                      className={
+                        validationErrors.address ? "border-red-500" : ""
+                      }
                     />
                     {validationErrors.address && (
-                      <p className="text-red-500 text-sm mt-1">{validationErrors.address}</p>
+                      <p className="text-red-500 text-sm mt-1">
+                        {validationErrors.address}
+                      </p>
                     )}
                   </div>
                 </div>
@@ -687,11 +741,17 @@ export default function Apply() {
                         id="businessName"
                         placeholder="Nama lengkap usaha atau proyek"
                         value={formData.businessName}
-                        onChange={(e) => handleInputChange("businessName", e.target.value)}
-                        className={validationErrors.businessName ? "border-red-500" : ""}
+                        onChange={(e) =>
+                          handleInputChange("businessName", e.target.value)
+                        }
+                        className={
+                          validationErrors.businessName ? "border-red-500" : ""
+                        }
                       />
                       {validationErrors.businessName && (
-                        <p className="text-red-500 text-sm mt-1">{validationErrors.businessName}</p>
+                        <p className="text-red-500 text-sm mt-1">
+                          {validationErrors.businessName}
+                        </p>
                       )}
                     </div>
 
@@ -699,7 +759,9 @@ export default function Apply() {
                       <Label htmlFor="businessType">Jenis Usaha *</Label>
                       <Select
                         value={formData.businessType}
-                        onValueChange={(value) => handleInputChange("businessType", value)}
+                        onValueChange={(value) =>
+                          handleInputChange("businessType", value)
+                        }
                       >
                         <SelectTrigger>
                           <SelectValue placeholder="Pilih jenis usaha" />
@@ -716,7 +778,9 @@ export default function Apply() {
                         </SelectContent>
                       </Select>
                       {validationErrors.businessType && (
-                        <p className="text-red-500 text-sm mt-1">{validationErrors.businessType}</p>
+                        <p className="text-red-500 text-sm mt-1">
+                          {validationErrors.businessType}
+                        </p>
                       )}
                     </div>
                   </div>
@@ -729,11 +793,17 @@ export default function Apply() {
                       id="businessAddress"
                       placeholder="Alamat lengkap lokasi usaha/proyek"
                       value={formData.businessAddress}
-                      onChange={(e) => handleInputChange("businessAddress", e.target.value)}
-                      className={validationErrors.businessAddress ? "border-red-500" : ""}
+                      onChange={(e) =>
+                        handleInputChange("businessAddress", e.target.value)
+                      }
+                      className={
+                        validationErrors.businessAddress ? "border-red-500" : ""
+                      }
                     />
                     {validationErrors.businessAddress && (
-                      <p className="text-red-500 text-sm mt-1">{validationErrors.businessAddress}</p>
+                      <p className="text-red-500 text-sm mt-1">
+                        {validationErrors.businessAddress}
+                      </p>
                     )}
                   </div>
 
@@ -745,12 +815,20 @@ export default function Apply() {
                       id="businessDescription"
                       placeholder="Jelaskan secara detail tentang usaha/proyek yang akan dilakukan (minimal 20 karakter)"
                       value={formData.businessDescription}
-                      onChange={(e) => handleInputChange("businessDescription", e.target.value)}
-                      className={validationErrors.businessDescription ? "border-red-500" : ""}
+                      onChange={(e) =>
+                        handleInputChange("businessDescription", e.target.value)
+                      }
+                      className={
+                        validationErrors.businessDescription
+                          ? "border-red-500"
+                          : ""
+                      }
                       rows={4}
                     />
                     {validationErrors.businessDescription && (
-                      <p className="text-red-500 text-sm mt-1">{validationErrors.businessDescription}</p>
+                      <p className="text-red-500 text-sm mt-1">
+                        {validationErrors.businessDescription}
+                      </p>
                     )}
                   </div>
                 </div>
@@ -776,28 +854,37 @@ export default function Apply() {
                           {getSelectedServiceDetails()?.title}:
                         </h3>
                         <p className="text-sm text-muted-foreground mb-4">
-                          Upload setiap dokumen secara terpisah. Format: PDF, JPG, PNG. Maksimal 5MB per file.
+                          Upload setiap dokumen secara terpisah. Format: PDF,
+                          JPG, PNG. Maksimal 5MB per file.
                         </p>
                       </div>
 
                       <div className="grid gap-4">
                         {getSelectedServiceDetails()?.requirements.map(
                           (req, index) => {
-                            const documentKey = req.toLowerCase().replace(/[^a-z0-9]/g, '_');
+                            const documentKey = req
+                              .toLowerCase()
+                              .replace(/[^a-z0-9]/g, "_");
                             const hasFile = uploadedFiles[documentKey];
 
                             return (
                               <div
                                 key={index}
                                 className={`p-4 border rounded-lg ${
-                                  hasFile ? 'border-status-approved bg-status-approved/5' : 'border-border'
+                                  hasFile
+                                    ? "border-status-approved bg-status-approved/5"
+                                    : "border-border"
                                 }`}
                               >
                                 <div className="flex items-center justify-between mb-3">
                                   <div className="flex items-center space-x-3">
-                                    <FileText className={`w-5 h-5 ${
-                                      hasFile ? 'text-status-approved' : 'text-muted-foreground'
-                                    }`} />
+                                    <FileText
+                                      className={`w-5 h-5 ${
+                                        hasFile
+                                          ? "text-status-approved"
+                                          : "text-muted-foreground"
+                                      }`}
+                                    />
                                     <div>
                                       <h4 className="font-medium">{req}</h4>
                                       {hasFile && (
@@ -811,7 +898,9 @@ export default function Apply() {
                                     <Button
                                       size="sm"
                                       variant="ghost"
-                                      onClick={() => handleRemoveFile(documentKey)}
+                                      onClick={() =>
+                                        handleRemoveFile(documentKey)
+                                      }
                                       className="text-red-600 hover:text-red-700"
                                     >
                                       Hapus
@@ -823,9 +912,16 @@ export default function Apply() {
                                   <div className="flex items-center space-x-3 p-3 bg-background rounded border">
                                     <FileText className="w-5 h-5 text-primary" />
                                     <div className="flex-1">
-                                      <p className="text-sm font-medium">{uploadedFiles[documentKey].name}</p>
+                                      <p className="text-sm font-medium">
+                                        {uploadedFiles[documentKey].name}
+                                      </p>
                                       <p className="text-xs text-muted-foreground">
-                                        {(uploadedFiles[documentKey].size / 1024 / 1024).toFixed(2)} MB
+                                        {(
+                                          uploadedFiles[documentKey].size /
+                                          1024 /
+                                          1024
+                                        ).toFixed(2)}{" "}
+                                        MB
                                       </p>
                                     </div>
                                   </div>
@@ -838,14 +934,22 @@ export default function Apply() {
                                     <input
                                       type="file"
                                       accept=".pdf,.jpg,.jpeg,.png"
-                                      onChange={(e) => handleFileUpload(e, documentKey)}
+                                      onChange={(e) =>
+                                        handleFileUpload(e, documentKey)
+                                      }
                                       className="hidden"
                                       id={`file-upload-${documentKey}`}
                                     />
                                     <Button
                                       size="sm"
                                       variant="outline"
-                                      onClick={() => document.getElementById(`file-upload-${documentKey}`)?.click()}
+                                      onClick={() =>
+                                        document
+                                          .getElementById(
+                                            `file-upload-${documentKey}`,
+                                          )
+                                          ?.click()
+                                      }
                                     >
                                       <Upload className="w-4 h-4 mr-2" />
                                       Pilih File
@@ -854,7 +958,7 @@ export default function Apply() {
                                 )}
                               </div>
                             );
-                          }
+                          },
                         )}
                       </div>
                     </div>
@@ -894,25 +998,36 @@ export default function Apply() {
                       onClick={nextStep}
                       disabled={
                         (currentStep === 1 && !selectedService) ||
-                        (currentStep === 2 && (
-                          !formData.fullName ||
-                          !formData.nik ||
-                          !formData.email ||
-                          !formData.phone ||
-                          !formData.address ||
-                          Object.keys(validationErrors).some(key =>
-                            ['fullName', 'nik', 'email', 'phone', 'address'].includes(key) && validationErrors[key]
-                          )
-                        )) ||
-                        (currentStep === 3 && (
-                          !formData.businessName ||
-                          !formData.businessType ||
-                          !formData.businessAddress ||
-                          !formData.businessDescription ||
-                          Object.keys(validationErrors).some(key =>
-                            ['businessName', 'businessType', 'businessAddress', 'businessDescription'].includes(key) && validationErrors[key]
-                          )
-                        ))
+                        (currentStep === 2 &&
+                          (!formData.fullName ||
+                            !formData.nik ||
+                            !formData.email ||
+                            !formData.phone ||
+                            !formData.address ||
+                            Object.keys(validationErrors).some(
+                              (key) =>
+                                [
+                                  "fullName",
+                                  "nik",
+                                  "email",
+                                  "phone",
+                                  "address",
+                                ].includes(key) && validationErrors[key],
+                            ))) ||
+                        (currentStep === 3 &&
+                          (!formData.businessName ||
+                            !formData.businessType ||
+                            !formData.businessAddress ||
+                            !formData.businessDescription ||
+                            Object.keys(validationErrors).some(
+                              (key) =>
+                                [
+                                  "businessName",
+                                  "businessType",
+                                  "businessAddress",
+                                  "businessDescription",
+                                ].includes(key) && validationErrors[key],
+                            )))
                       }
                     >
                       Selanjutnya

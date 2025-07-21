@@ -447,7 +447,8 @@ export default function Services() {
 
   const handleDownload = (serviceName: string) => {
     toast.success(`Dokumen persyaratan ${serviceName} berhasil diunduh!`, {
-      description: "File formulir dan panduan telah tersimpan di perangkat Anda",
+      description:
+        "File formulir dan panduan telah tersimpan di perangkat Anda",
       duration: 3000,
     });
   };
