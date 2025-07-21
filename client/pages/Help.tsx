@@ -214,7 +214,7 @@ export default function Help() {
         </Alert>
 
         {/* Search and Filter */}
-        <Card className="mb-8">
+        <Card className="mb-8 max-w-7xl mx-auto">
           <CardContent className="p-6">
             <div className="grid md:grid-cols-2 gap-4 mb-6">
               <div className="relative">
