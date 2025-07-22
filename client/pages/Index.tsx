@@ -352,14 +352,16 @@ export default function Index() {
           }}
         ></div>
 
-        {/* Subtle overlay for text readability */}
+        {/* Overlay with Samarinda background image and parallax effect */}
         <div
-          className="absolute inset-0 z-10 bg-black/20"
+          ref={overlayRef}
+          className="absolute inset-0 z-10 bg-black/70"
           style={{
-            backgroundImage: "url(https://www.rukita.co/stories/wp-content/uploads/2023/11/pulau-beras-basah-kalimantan-timur.webp)",
+            backgroundImage: "url(https://kaltimfaktual.co/wp-content/uploads/2024/05/cover-smr.jpg)",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "50% 50%",
-            backgroundSize: "cover"
+            backgroundSize: "cover",
+            willChange: 'transform'
           }}
         ></div>
 
