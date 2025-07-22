@@ -40,7 +40,6 @@ export default function Index() {
   const [scrollY, setScrollY] = useState(0);
   const navigate = useNavigate();
   const backgroundRef = useRef<HTMLDivElement>(null);
-  const overlayRef = useRef<HTMLDivElement>(null);
 
   // Mock data for statistics
   const stats = [
