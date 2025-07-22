@@ -201,6 +201,12 @@ export default function Index() {
         const parallaxSpeed = 0.5;
         backgroundRef.current.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
       }
+
+      // Apply parallax effect to overlay image (moves up when scrolling down)
+      if (overlayRef.current) {
+        const overlayParallaxSpeed = -0.3; // Negative for opposite direction
+        overlayRef.current.style.transform = `translateY(${scrolled * overlayParallaxSpeed}px)`;
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
