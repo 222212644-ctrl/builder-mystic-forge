@@ -48,8 +48,19 @@ export default function Layout({ children, showHero = false }: LayoutProps) {
   }, [isMenuOpen]);
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Skip Link for Accessibility */}
+    <div
+      className="min-h-screen bg-background"
+      style={{
+        backgroundImage: "url(https://kaltimfaktual.co/wp-content/uploads/2024/05/cover-smr.jpg)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed"
+      }}
+    >
+      {/* Background overlay for content readability */}
+      <div className="min-h-screen bg-background/90">
+        {/* Skip Link for Accessibility */}
       <a
         ref={skipLinkRef}
         href="#main-content"
@@ -260,8 +271,9 @@ export default function Layout({ children, showHero = false }: LayoutProps) {
         </div>
       </footer>
 
-      {/* Accessibility Widget */}
-      <AccessibilityWidget />
+        {/* Accessibility Widget */}
+        <AccessibilityWidget />
+      </div>
     </div>
   );
 }
