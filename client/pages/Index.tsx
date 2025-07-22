@@ -344,7 +344,7 @@ export default function Index() {
           ref={backgroundRef}
           className="absolute inset-0 z-0 scale-110"
           style={{
-            backgroundImage: `url('https://images.pexels.com/photos/19389365/pexels-photo-19389365.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop')`,
+            backgroundImage: "url(https://kaltimfaktual.co/wp-content/uploads/2024/05/cover-smr.jpg)",
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
@@ -352,18 +352,8 @@ export default function Index() {
           }}
         ></div>
 
-        {/* Overlay with Samarinda background image and parallax effect */}
-        <div
-          ref={overlayRef}
-          className="absolute inset-0 z-10 bg-black/70"
-          style={{
-            backgroundImage: "url(https://kaltimfaktual.co/wp-content/uploads/2024/05/cover-smr.jpg)",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "50% 50%",
-            backgroundSize: "cover",
-            willChange: 'transform'
-          }}
-        ></div>
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 z-10 bg-black/70"></div>
 
         {/* Content */}
         <div className="relative z-20 container mx-auto px-4">
