@@ -446,9 +446,9 @@ export default function About() {
                     <span className="font-medium">Jumat</span>
                     <span className="text-sm">08:00 - 16:30 WIB</span>
                   </div>
-                  <div className="flex items-center justify-between p-3 bg-red-50 rounded">
-                    <span className="font-medium">Sabtu - Minggu</span>
-                    <span className="text-sm text-red-600">Tutup</span>
+                  <div className="flex items-center justify-between p-3 bg-red-50 rounded dark:bg-red-900/20">
+                    <span className="font-medium text-muted-foreground">Sabtu - Minggu</span>
+                    <span className="text-sm text-red-600 dark:text-red-400">Tutup</span>
                   </div>
                   <div className="mt-4 p-3 bg-primary/5 rounded">
                     <div className="flex items-center">
@@ -479,7 +479,11 @@ export default function About() {
                 kemudahan layanan perizinan online kami.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild variant="secondary">
+                <Button 
+                  asChild 
+                  variant="secondary"
+                  className="text-primary dark:text-white hover:bg-primary/80"
+                  >
                   <Link to="/apply">Ajukan Izin Sekarang</Link>
                 </Button>
                 <Button
