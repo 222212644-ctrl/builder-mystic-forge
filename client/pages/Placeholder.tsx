@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { NavLink } from "react-router-dom";
 import { ArrowLeft, Building2, Construction } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -26,26 +25,39 @@ export default function Placeholder({ page }: PlaceholderProps) {
             </Link>
 
             <nav className="hidden md:flex items-center space-x-6">
-              {[
-                { to: "/", label: "Beranda" },
-                { to: "/services", label: "Layanan" },
-                { to: "/status", label: "Cek Status" },
-                { to: "/help", label: "Bantuan" },
-                { to: "/about", label: "Tentang" },
-              ].map(({ to, label }) => (
-                <NavLink
-                  key={to}
-                  to={to}
-                  className={({ isActive }) =>
-                    isActive
-                      ? "text-white font-semibold underline" // aktif
-                      : "text-white hover:text-white/80 transition-colors"
-                  }
-                >
-                  {label}
-                </NavLink>
-              ))}
-            </nav>
+              <Link
+                to="/"
+                className={`hover:text-white/80 transition-colors ${
+                  pathname === "/" ? "text-white font-semibold" : "text-white/70"
+                }`}
+              >
+                Beranda
+              </Link>
+              <Link
+                to="/services"
+                className="text-white hover:text-white/80 transition-colors"
+              >
+                Layanan
+              </Link>
+              <Link
+                to="/status"
+                className="text-white hover:text-white/80 transition-colors"
+              >
+                Cek Status
+              </Link>
+              <Link
+                to="/help"
+                className="text-white hover:text-white/80 transition-colors"
+              >
+                Bantuan
+              </Link>
+              <Link
+                to="/about"
+                className="text-white hover:text-white/80 transition-colors"
+              >
+                Tentang
+              </Link>
+            </nav>
           </div>
         </div>
       </header>
