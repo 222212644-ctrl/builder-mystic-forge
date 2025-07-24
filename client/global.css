@@ -415,6 +415,27 @@
     border-color: hsl(var(--border)) !important;
   }
 
+  /* Force all input elements in contact form to have consistent styling */
+  .dark input,
+  .dark textarea,
+  .dark input[type="email"],
+  .dark input[type="text"],
+  .dark input[type="tel"] {
+    background-color: hsl(var(--input)) !important;
+    color: hsl(var(--foreground)) !important;
+    border-color: hsl(var(--border)) !important;
+  }
+
+  /* Specific override for any conflicting classes */
+  .dark .bg-background {
+    background-color: hsl(var(--input)) !important;
+  }
+
+  .dark input.bg-background,
+  .dark textarea.bg-background {
+    background-color: hsl(var(--input)) !important;
+  }
+
   .dark input[type="text"]::placeholder,
   .dark input[type="email"]::placeholder,
   .dark input[type="tel"]::placeholder,
