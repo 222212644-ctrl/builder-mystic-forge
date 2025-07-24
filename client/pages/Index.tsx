@@ -226,7 +226,7 @@ export default function Index() {
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-6">
               <Link
-                to="/index"
+                to="/home"
                 className="text-white hover:text-white/80 transition-colors"
               >
                 Beranda
