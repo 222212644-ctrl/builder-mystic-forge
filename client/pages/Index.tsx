@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, NavLink } from "react-router-dom";
 import { toast } from "sonner";
 import {
   Search,
@@ -225,42 +225,67 @@ export default function Index() {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-6">
-              <Link
-                to="/home"
-                className="text-white hover:text-white/80 transition-colors"
+              <NavLink
+                to="/"
+                end
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-white font-semibold border-b-2 border-white transition-colors"
+                    : "text-white hover:text-white/80 transition-colors"
+                }
               >
                 Beranda
-              </Link>
-              <Link
+              </NavLink>
+              <NavLink
                 to="/services"
-                className="text-white hover:text-white/80 transition-colors"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-white font-semibold border-b-2 border-white transition-colors"
+                    : "text-white hover:text-white/80 transition-colors"
+                }
               >
                 Layanan
-              </Link>
-              <Link
+              </NavLink>
+              <NavLink
                 to="/status"
-                className="text-white hover:text-white/80 transition-colors"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-white font-semibold border-b-2 border-white transition-colors"
+                    : "text-white hover:text-white/80 transition-colors"
+                }
               >
                 Cek Status
-              </Link>
-              <Link
+              </NavLink>
+              <NavLink
                 to="/complaints"
-                className="text-white hover:text-white/80 transition-colors"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-white font-semibold border-b-2 border-white transition-colors"
+                    : "text-white hover:text-white/80 transition-colors"
+                }
               >
                 Pengaduan
-              </Link>
-              <Link
+              </NavLink>
+              <NavLink
                 to="/help"
-                className="text-white hover:text-white/80 transition-colors"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-white font-semibold border-b-2 border-white transition-colors"
+                    : "text-white hover:text-white/80 transition-colors"
+                }
               >
                 Bantuan
-              </Link>
-              <Link
+              </NavLink>
+              <NavLink
                 to="/about"
-                className="text-white hover:text-white/80 transition-colors"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-white font-semibold border-b-2 border-white transition-colors"
+                    : "text-white hover:text-white/80 transition-colors"
+                }
               >
                 Tentang
-              </Link>
+              </NavLink>
               <ThemeToggle />
             </nav>
 
