@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ArrowLeft, Building2, Construction } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,9 +8,6 @@ interface PlaceholderProps {
 }
 
 export default function Placeholder({ page }: PlaceholderProps) {
-  const location = useLocation();
-  const pathname = location.pathname;
-
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -27,45 +24,34 @@ export default function Placeholder({ page }: PlaceholderProps) {
               </div>
             </Link>
 
-            {/* Navigation */}
             <nav className="hidden md:flex items-center space-x-6">
               <Link
-                to="/"
-                className={`hover:text-white/80 transition-colors ${
-                  pathname === "/" ? "text-white font-semibold" : "text-white/70"
-                }`}
+                to="/index"
+                className="text-white hover:text-white/80 transition-colors"
               >
                 Beranda
               </Link>
               <Link
                 to="/services"
-                className={`hover:text-white/80 transition-colors ${
-                  pathname === "/services" ? "text-white font-semibold" : "text-white/70"
-                }`}
+                className="text-white hover:text-white/80 transition-colors"
               >
                 Layanan
               </Link>
               <Link
                 to="/status"
-                className={`hover:text-white/80 transition-colors ${
-                  pathname === "/status" ? "text-white font-semibold" : "text-white/70"
-                }`}
+                className="text-white hover:text-white/80 transition-colors"
               >
                 Cek Status
               </Link>
               <Link
                 to="/help"
-                className={`hover:text-white/80 transition-colors ${
-                  pathname === "/help" ? "text-white font-semibold" : "text-white/70"
-                }`}
+                className="text-white hover:text-white/80 transition-colors"
               >
                 Bantuan
               </Link>
               <Link
                 to="/about"
-                className={`hover:text-white/80 transition-colors ${
-                  pathname === "/about" ? "text-white font-semibold" : "text-white/70"
-                }`}
+                className="text-white hover:text-white/80 transition-colors"
               >
                 Tentang
               </Link>
