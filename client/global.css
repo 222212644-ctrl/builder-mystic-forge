@@ -82,11 +82,11 @@
     --secondary: 0 0% 85%;
     --secondary-foreground: 222 16% 15%;
 
-    --muted: 222 16% 18%;
+    --muted: 220 13% 14%;
     --muted-foreground: 215 15% 70%;
 
     --accent: 0 0% 80%;
-    --accent-foreground: 222 16% 15%;
+    --accent-foreground: 220 13% 14%;
 
     /* Dark destructive color */
     --destructive: 0 75% 45%;
