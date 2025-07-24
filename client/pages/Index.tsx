@@ -227,62 +227,37 @@ export default function Index() {
             <nav className="hidden md:flex items-center space-x-6">
               <NavLink
                 to="/"
-                end
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-white font-semibold border-b-2 border-white transition-colors"
-                    : "text-white hover:text-white/80 transition-colors"
-                }
+                className="text-white hover:text-white/80 transition-colors"
               >
                 Beranda
               </NavLink>
               <NavLink
                 to="/services"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-white font-semibold border-b-2 border-white transition-colors"
-                    : "text-white hover:text-white/80 transition-colors"
-                }
+                className="text-white hover:text-white/80 transition-colors"
               >
                 Layanan
               </NavLink>
               <NavLink
                 to="/status"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-white font-semibold border-b-2 border-white transition-colors"
-                    : "text-white hover:text-white/80 transition-colors"
-                }
+                className="text-white hover:text-white/80 transition-colors"
               >
                 Cek Status
               </NavLink>
               <NavLink
                 to="/complaints"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-white font-semibold border-b-2 border-white transition-colors"
-                    : "text-white hover:text-white/80 transition-colors"
-                }
+                className="text-white hover:text-white/80 transition-colors"
               >
                 Pengaduan
               </NavLink>
               <NavLink
                 to="/help"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-white font-semibold border-b-2 border-white transition-colors"
-                    : "text-white hover:text-white/80 transition-colors"
-                }
+                className="text-white hover:text-white/80 transition-colors"
               >
                 Bantuan
               </NavLink>
               <NavLink
                 to="/about"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-white font-semibold border-b-2 border-white transition-colors"
-                    : "text-white hover:text-white/80 transition-colors"
-                }
+                className="text-white hover:text-white/80 transition-colors"
               >
                 Tentang
               </NavLink>
