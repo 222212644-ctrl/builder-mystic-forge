@@ -485,7 +485,7 @@ export default function About() {
                 <Button
                   asChild
                   variant="outline"
-                  className="border-white text-white hover:bg-white hover:text-primary"
+                  className="border-white text-primary hover:bg-white hover:text-primary"
                 >
                   <Link to="/services">Lihat Semua Layanan</Link>
                 </Button>
