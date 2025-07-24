@@ -591,7 +591,7 @@ export default function Index() {
                   <textarea
                     placeholder="Pesan Anda"
                     rows={4}
-                    className="w-full px-3 py-2 border border-input bg-background text-foreground rounded-md focus:outline-none focus:ring-2 focus:ring-ring resize-none"
+                    className="gov-input resize-none"
                   />
                 </div>
                 <Button className="w-full gov-button-primary">
