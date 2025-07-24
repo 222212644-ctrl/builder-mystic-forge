@@ -426,11 +426,7 @@
     border-color: hsl(var(--border)) !important;
   }
 
-  /* Specific override for any conflicting classes */
-  .dark .bg-background {
-    background-color: hsl(var(--input)) !important;
-  }
-
+  /* Specific override for input elements with bg-background class */
   .dark input.bg-background,
   .dark textarea.bg-background {
     background-color: hsl(var(--input)) !important;
