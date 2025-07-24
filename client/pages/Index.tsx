@@ -628,7 +628,7 @@ export default function Index() {
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4">Layanan</h4>
+              <h4 className="font-semibold mb-4">Tautan Lainnya</h4>
               <ul className="space-y-2 text-sm opacity-80">
                 <li>
                   <a href="https://samarindakota.go.id/" target="_blank" className="hover:opacity-100">
@@ -636,19 +636,14 @@ export default function Index() {
                   </a>
                 </li>
                 <li>
-                  <Link to="/apply" className="hover:opacity-100">
-                    Surat Izin Usaha
-                  </Link>
+                  <a href="https://disdukcapil.samarindakota.go.id/pelayanan_online" target="_blank" className="hover:opacity-100">
+                    Dukcapil Samarinda
+                  </a>
                 </li>
                 <li>
-                  <Link to="/apply" className="hover:opacity-100">
-                    Tanda Daftar Perusahaan
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/apply" className="hover:opacity-100">
-                    Izin Gangguan
-                  </Link>
+                  <a href="https://data.samarindakota.go.id/" target="_blank" className="hover:opacity-100">
+                    Open Data
+                  </a>
                 </li>
               </ul>
             </div>
