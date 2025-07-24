@@ -27,8 +27,8 @@ export default function Placeholder({ page }: PlaceholderProps) {
             <nav className="hidden md:flex items-center space-x-6">
               <Link
                 to="/"
-                className={`hover:text-white/80 transition-colors ${
-                  pathname === "/" ? "text-white font-semibold" : "text-white/70"
+                className={`text-white hover:text-white/80 transition-colors ${
+                  pathname === "/" ? "font-bold" : "opacity-70"
                 }`}
               >
                 Beranda
