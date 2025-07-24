@@ -202,22 +202,22 @@ export default function Layout({ children, showHero = false }: LayoutProps) {
               <h4 className="font-semibold mb-4">Layanan</h4>
               <ul className="space-y-2 text-sm opacity-80">
                 <li>
-                  <Link to="/services/imb" className="hover:opacity-100">
+                  <Link to="/services/apply" className="hover:opacity-100">
                     Izin Mendirikan Bangunan
                   </Link>
                 </li>
                 <li>
-                  <Link to="/services/siup" className="hover:opacity-100">
+                  <Link to="/services/apply" className="hover:opacity-100">
                     Surat Izin Usaha
                   </Link>
                 </li>
                 <li>
-                  <Link to="/services/tdp" className="hover:opacity-100">
+                  <Link to="/services/apply" className="hover:opacity-100">
                     Tanda Daftar Perusahaan
                   </Link>
                 </li>
                 <li>
-                  <Link to="/services/ho" className="hover:opacity-100">
+                  <Link to="/services/apply" className="hover:opacity-100">
                     Izin Gangguan
                   </Link>
                 </li>
@@ -243,7 +243,7 @@ export default function Layout({ children, showHero = false }: LayoutProps) {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/faq" className="hover:opacity-100">
+                  <Link to="/help" className="hover:opacity-100">
                     FAQ
                   </Link>
                 </li>
