@@ -631,9 +631,9 @@ export default function Index() {
               <h4 className="font-semibold mb-4">Layanan</h4>
               <ul className="space-y-2 text-sm opacity-80">
                 <li>
-                  <Link to="/apply" className="hover:opacity-100">
-                    Izin Mendirikan Bangunan
-                  </Link>
+                  <a href="https://samarindakota.go.id/" target="_blank" className="hover:opacity-100">
+                    Kota Samarinda
+                  </a>
                 </li>
                 <li>
                   <Link to="/apply" className="hover:opacity-100">
