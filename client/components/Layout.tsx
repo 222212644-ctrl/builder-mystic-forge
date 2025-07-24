@@ -202,24 +202,19 @@ export default function Layout({ children, showHero = false }: LayoutProps) {
               <h4 className="font-semibold mb-4">Layanan</h4>
               <ul className="space-y-2 text-sm opacity-80">
                 <li>
-                  <Link to="/apply" className="hover:opacity-100">
-                    Izin Mendirikan Bangunan
-                  </Link>
+                  <a href="https://samarindakota.go.id/" target="_blank" className="hover:opacity-100">
+                    Kota Samarinda
+                  </a>
                 </li>
                 <li>
-                  <Link to="/apply" className="hover:opacity-100">
-                    Surat Izin Usaha
-                  </Link>
+                  <a href="https://disdukcapil.samarindakota.go.id/pelayanan_online" target="_blank" className="hover:opacity-100">
+                    Dukcapil Samarinda
+                  </a>
                 </li>
                 <li>
-                  <Link to="/apply" className="hover:opacity-100">
-                    Tanda Daftar Perusahaan
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/apply" className="hover:opacity-100">
-                    Izin Gangguan
-                  </Link>
+                  <a href="https://data.samarindakota.go.id/" target="_blank" className="hover:opacity-100">
+                    Open Data
+                  </a>
                 </li>
               </ul>
             </div>
