@@ -408,6 +408,13 @@
     border-color: hsl(var(--border)) !important;
   }
 
+  /* Ensure gov-input class has consistent styling in dark mode */
+  .dark .gov-input {
+    background-color: hsl(var(--input)) !important;
+    color: hsl(var(--foreground)) !important;
+    border-color: hsl(var(--border)) !important;
+  }
+
   .dark input[type="text"]::placeholder,
   .dark input[type="email"]::placeholder,
   .dark input[type="tel"]::placeholder,
