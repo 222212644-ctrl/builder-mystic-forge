@@ -202,8 +202,8 @@ export default function Index() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
@@ -337,11 +337,12 @@ export default function Index() {
           ref={backgroundRef}
           className="absolute inset-0 z-0 scale-110"
           style={{
-            backgroundImage: "url(https://kaltimfaktual.co/wp-content/uploads/2024/05/cover-smr.jpg)",
+            backgroundImage:
+              "url(https://kaltimfaktual.co/wp-content/uploads/2024/05/cover-smr.jpg)",
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
-            willChange: 'transform'
+            willChange: "transform",
           }}
         ></div>
 
@@ -357,7 +358,10 @@ export default function Index() {
             }
           `}</style>
           <div className="max-w-4xl mx-auto text-center">
-            <h1 id="hero-title" className="text-4xl md:text-6xl font-bold mb-6 hero-text">
+            <h1
+              id="hero-title"
+              className="text-4xl md:text-6xl font-bold mb-6 hero-text"
+            >
               Layanan Perizinan
               <span className="block text-gov-yellow">Terpadu Online</span>
             </h1>
